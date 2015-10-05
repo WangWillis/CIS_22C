@@ -3,6 +3,7 @@
 // Assume when people pass in enum and money they pass in the right money type for the enum so no pass in (DOLLAR, Pounds object) will return false
 // Assume all money object gets memory from the heap
 // if sub more than have will become 0 w 0 p but have to remove that with option 3 since like to show it has been handled 
+//YAY
 
 #include <iostream>
 #include <cstdlib>
