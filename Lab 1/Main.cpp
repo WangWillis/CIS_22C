@@ -103,12 +103,13 @@ int main(){
 			wallie.addCurrency(getType(c2), temp);
 		}else if(c1 == 2 && c2 >= 1 && c2 <= 10){
 			Currency* temp = getMoney(c2);
-			if(wallie.subCurrency(getType(c2), temp)){
-				cout << "Removing ";
-				temp->toString();
-				cout << " to Wallie" << endl;
-			} else {
+			cout << "Attempting to remove ";
+			temp->toString();
+			cout << "from Wallie" << endl;
+			if(!wallie.subCurrency(getType(c2), temp)){
 				cout << "There is no money of type that type cannot subtract!" << endl;
+			} else {
+				cout << "Succesfully Removed" << endl;
 			}
 		}
 		else if(c1 == 3 && c2 >= 1 && c2 <= 10){
