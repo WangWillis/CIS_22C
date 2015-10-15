@@ -1,16 +1,18 @@
 #ifndef LIST_H
 #define LIST_H
-
-template <class T>
-struct Data{
-	T data;
-	Data* next;
-};
+#include <iostream> 
+#include <stddef.h>
+using namespace std;ß
 
 template <class T>
 class List{
 	private:
-		Data<T>* head;
+		template <class T>
+		struct Data{
+			T info;
+			struct Data* next;
+		};
+		Data* head;
 	public:
 		List();
 		List(T data);
@@ -19,4 +21,5 @@ class List{
 		void addFront(T data);
 		void delFront();
 };
+
 #endif
