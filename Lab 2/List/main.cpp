@@ -11,7 +11,7 @@
 
 int main() {
     
-    List<int> list;
+    List<int> list(1);
     list.addFront(1);
     list.addFront(23);
     list.displayList();

@@ -5,20 +5,20 @@
 #include <stddef.h>
 using namespace std;
 
-
-
-
 template <class T>
 class List{
-	private:
-
-		
+	private:	
 		struct Data{
 			T info;
-            struct Data* next;
-
+            Data* next;
 		};
 		Data* head;
+		Data* newNode(T data){
+			Data* temp = new Data;
+			temp->info = data;
+			temp->next = NULL;
+			return temp;
+		}
 	public:
 		List();
 		List(T data);
@@ -26,7 +26,8 @@ class List{
 		T getHeadData();
 		void addFront(T data);
 		void delFront();
+		void clearList();
         void displayList() const;
 };
-
+#include "ListStack.cpp"
 #endif

@@ -1,6 +1,46 @@
-
 #include "ListStack.h"
-
+template <class T> 
+List<T>::List(){
+	head = NULL;
+}
+template <class T>
+List<T>::List(T data){
+	head = newNode(data);
+}
+template<class T>
+List<T>::~List(){
+	clearList();
+}
+template <class T>
+T List<T>:: getHeadData(){
+	return head->info;
+}
+template <class T>
+void List<T>::addFront(T data){
+	// incase of empty list
+	if(head == NULL){
+      	head = newNode(data);
+    }else{
+	    Data* temp = newNode(data);
+		temp -> next = head;
+		head = temp;
+    }
+}
+template<class T>
+void List<T>::delFront(){
+	Data* temp = head;
+	head = head->next;
+	delete temp;
+}
+template<class T>
+void List<T>::clearList(){
+	while(head){
+		Data* temp = head;
+		head = head->next;
+		delete temp;
+	}
+	head = NULL;
+}
 template <class T>
 void List<T>::displayList() const
 {
@@ -11,58 +51,4 @@ void List<T>::displayList() const
         nodeptr = nodeptr->next;
     }
     return;
-}
-
-template <class T>
-T List<T>:: getHeadData()
-{
-
-	return head->info;
-
-}
-template <class T>
-void List<T>::addFront(T data)
-{
-
-	if (head == NULL) // case of empty list
-    {
-      	head = new Data();
-        head -> info = data ;
-		head -> next = NULL;
-    }
-    else {
-
-	    Data* newnode = new Data();
-		newnode -> info = data ;
-		newnode -> next = head;
-		head = newnode;
-    }
-
-}
-
-template <class T> 
-List<T>::List(){
-	head = NULL;
-	head->next = NULL;
-}
-template <class T>
-List<T>::List(T data){
-	head = new Data();
-	head->info = data;
-	head->next = NULL;
-}
-template<class T>
-List<T>::~List(){
-	while(head){
-		List temp = head;
-		head = head->next;
-		delete temp;
-	}
-}
-template<class T>
-void List<T>::delFront(){
-	Data* temp = head;
-	head = head->next;
-	delete temp;
-
 }
