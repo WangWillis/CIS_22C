@@ -1,16 +1,22 @@
 #ifndef LIST_H
 #define LIST_H
+
 #include <iostream> 
 #include <stddef.h>
-using namespace std;ß
+using namespace std;
+
+
+
 
 template <class T>
 class List{
 	private:
-		template <class T>
+
+		
 		struct Data{
 			T info;
-			struct Data* next;
+            struct Data* next;
+
 		};
 		Data* head;
 	public:
@@ -20,6 +26,7 @@ class List{
 		T getHeadData();
 		void addFront(T data);
 		void delFront();
+        void displayList() const;
 };
 
 #endif
