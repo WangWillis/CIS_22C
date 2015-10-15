@@ -1,19 +1,24 @@
 #ifndef STACK_H_INCLUDED_
 #define STACK_H_INCLUDED_
 
+#include <string>
+
+using namespace std;
+
 class Stack;
 
 class Stack{
 	private:
-		int end, *stack, size;
-		int *upSize();
-		int *downSize();
+		int end, size;
+		string *stack;
+		string *upSize();
+		string *downSize();
 	public:
 		Stack();
 		~Stack();
-		int pop();
+		string pop();
+		string get();
 		bool isEmpty();
-		void push(int num);
-		void display();
+		void push(string num);
 };
 #endif

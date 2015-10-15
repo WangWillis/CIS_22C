@@ -1,20 +1,24 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <string>
+
+using namespace std;
+
 class Queue;
 
 class Queue{
 	private:
 		int start, end, arrSize;
-		int* queue;
-		int* upSize();
-		int* downSize();
+		string* queue;
+		string* upSize();
+		string* downSize();
 	public:
 		Queue();
 		~Queue();
-		int pop();
-		int get();
+		string pop();
+		string get();
 		bool isEmpty();
-		void add(int num);
+		void add(string num);
 };
 #endif
