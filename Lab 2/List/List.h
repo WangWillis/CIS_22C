@@ -23,11 +23,14 @@ class List{
 		List();
 		List(T data);
 		~List();
+		int countNodes();
 		T getHeadData();
 		void addFront(T data);
+		void addInfoOrder(T data);
 		void delFront();
+		void delInfo(T data);
 		void clearList();
         void displayList() const;
 };
-#include "ListStack.cpp"
+#include "List.cpp"
 #endif
