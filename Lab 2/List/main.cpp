@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "ListStack.h"
+#include "List.h"
 
 int main() {
     
