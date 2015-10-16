@@ -61,7 +61,11 @@ void List<T>::delInfo(T data){
 		temp = temp->next;
 	}
 	if(temp != NULL){
-		bef->next = temp->next;
+		if(bef != NULL){
+			bef->next = temp->next;
+		} else {
+			head = NULL;
+		}
 		delete temp;
 	}
 }
@@ -80,7 +84,7 @@ void List<T>::displayList() const
     Data* nodeptr;
     nodeptr = head;
     while (nodeptr){
-        cout << nodeptr->info;
+        cout << nodeptr->info << endl;
         nodeptr = nodeptr->next;
     }
     return;

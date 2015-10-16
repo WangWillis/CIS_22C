@@ -11,14 +11,19 @@
 
 int main() {
     
-    List<int> list(1);
-    list.addFront(1);
-    list.addFront(23);
-    list.displayList();
+    // List<int> list(1);
+    // list.addFront(1);
+    // list.addFront(23);
+    // list.displayList();
     
     List <string> list2;
     list2.addFront("Randy");
+    list2.delInfo("Randy");
+    list2.displayList();
     list2.addFront("willis");
+    list2.addFront("Randy");
+    list2.addInfoOrder("willis");
+    list2.addInfoOrder("Randy");
     list2.displayList();
     
     
