@@ -9,7 +9,6 @@ class Stack{
 	private:
 		List<T> stack;
 	public:
-		Stack();
 		T pop();
 		T get();
 		int stackCount();

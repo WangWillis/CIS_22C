@@ -19,7 +19,11 @@ int List<T>::countNodes(){
 }
 template <class T>
 T List<T>:: getHeadData(){
-	return head->info;
+	if(head != NULL){
+		return head->info;		
+	}else{
+		throw "List is empty";
+	}
 }
 template <class T>
 void List<T>::addFront(T data){
