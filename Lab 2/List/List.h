@@ -30,6 +30,8 @@ class List{
 		void addInfoOrder(T data);
 		void delFront();
 		void delInfo(T data);
+		//pos starts at 0
+		void delPos(int pos);
 		void clearList();
         void displayList() const;
 };

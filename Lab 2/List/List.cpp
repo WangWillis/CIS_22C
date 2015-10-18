@@ -72,6 +72,27 @@ void List<T>::delInfo(T data){
 		delete temp;
 	}
 }
+//pos starts at 0
+template <class T>
+void List<T>::delPos(int pos){
+	if(pos >= 0 && pos < ele){
+		if(pos == 0){
+			delFront();
+		}else{
+			Data* temp = head;
+			Data* bef = NULL;
+			for(int i = 0; i < pos; i++){
+				bef = temp;
+				temp = temp->next;
+			}
+			bef->next = temp->next;
+			delete temp;
+		}
+		ele--;
+	}else{
+		throw "Not a Valid Position";
+	}
+}
 template <class T>
 void List<T>::clearList(){
 	while(head){
