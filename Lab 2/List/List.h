@@ -34,6 +34,9 @@ class List{
 		void delPos(int pos);
 		void clearList();
         void displayList() const;
+        void addAnywhere(T data, int position );
+        //void delAnywhere();
+        //void getAnywhere();
 };
 #include "List.cpp"
 #endif

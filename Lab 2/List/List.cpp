@@ -15,7 +15,7 @@ List<T>::~List(){
 }
 template <class T>
 int List<T>::countNodes(){
-	return ele;
+	return ele ;
 }
 template <class T>
 T List<T>:: getHeadData(){
@@ -113,4 +113,41 @@ void List<T>::displayList() const
         nodeptr = nodeptr->next;
     }
     return;
+}
+
+template <class T> 
+void List<T>::addAnywhere(T data, int position)
+{
+	if (position >= 0 && position <= ele){
+		
+		Data* nodeptr = head; 
+		Data* newnode = newNode(data); 
+		Data* prevnode = NULL; 
+	
+		 if (head == NULL) // case of empty list
+ 	   {
+    	    head = newnode;
+    	    head -> next = NULL;
+       	 return;
+    	}
+    
+    	if(position == 0 ) // it is the next head
+    	{
+
+        	addFront(data);
+    	}
+    	
+    	else  // middle or end of list
+    	{
+    		for( int i = 1; i < position; i++)
+			{
+				nodeptr = nodeptr-> next; 
+    		}
+    		newnode->next = nodeptr-> next;
+    		nodeptr -> next = newnode ;
+    	}
+    
+}
+
+	return;
 }
