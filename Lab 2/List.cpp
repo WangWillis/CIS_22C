@@ -22,7 +22,7 @@ T List<T>:: getHeadData(){
 	if(head != NULL){
 		return head->info;		
 	}else{
-		throw "List is empty";
+		throw "List is Empty";
 	}
 }
 template <class T>
@@ -55,6 +55,8 @@ void List<T>::delFront(){
 		Data* temp = head;
 		head = head->next;
 		delete temp;
+	}else{
+		throw "List is Empty";
 	}
 
 }
