@@ -24,6 +24,8 @@ int main() {
     list2.addFront("Randy");
     list2.addInfoOrder("willis");
     list2.addInfoOrder("Randy");
+    
+    list2.addAnywhere("Luis", 0);
     list2.displayList();
     
     
