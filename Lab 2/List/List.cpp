@@ -119,24 +119,20 @@ template <class T>
 void List<T>::addAnywhere(T data, int position)
 {
 	if (position >= 0 && position <= ele){
-		
 		Data* nodeptr = head; 
 		Data* newnode = newNode(data); 
 		Data* prevnode = NULL; 
-	
-		 if (head == NULL) // case of empty list
- 	   {
+		if (head == NULL) // case of empty list
+ 		{
     	    head = newnode;
     	    head -> next = NULL;
        	 return;
     	}
-    
     	if(position == 0 ) // it is the next head
     	{
 
         	addFront(data);
     	}
-    	
     	else  // middle or end of list
     	{
     		for( int i = 1; i < position; i++)
@@ -146,8 +142,6 @@ void List<T>::addAnywhere(T data, int position)
     		newnode->next = nodeptr-> next;
     		nodeptr -> next = newnode ;
     	}
-    
-}
-
+	}
 	return;
 }
