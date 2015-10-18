@@ -1,10 +1,12 @@
 #include "List.h"
 template <class T> 
 List<T>::List(){
+	ele = 0;
 	head = NULL;
 }
 template <class T>
 List<T>::List(T data){
+	ele = 0;
 	head = newNode(data);
 }
 template <class T>
@@ -13,13 +15,7 @@ List<T>::~List(){
 }
 template <class T>
 int List<T>::countNodes(){
-	int count = 0;
-	Data* temp = head;
-	while(temp != NULL){
-		temp = temp->next;
-		count++;
-	}
-	return count;
+	return ele;
 }
 template <class T>
 T List<T>:: getHeadData(){
@@ -27,6 +23,7 @@ T List<T>:: getHeadData(){
 }
 template <class T>
 void List<T>::addFront(T data){
+	ele++;
 	// incase of empty list
 	if(head == NULL){
       	head = newNode(data);
@@ -38,6 +35,7 @@ void List<T>::addFront(T data){
 }
 template <class T>
 void List<T>::addInfoOrder(T data){
+	ele++;
 	Data* temp = head;
 	Data* node = newNode(data);
 	while(temp->info != data && temp->next != NULL){
@@ -48,9 +46,13 @@ void List<T>::addInfoOrder(T data){
 }
 template <class T>
 void List<T>::delFront(){
-	Data* temp = head;
-	head = head->next;
-	delete temp;
+	if(head != NULL){
+		ele--;
+		Data* temp = head;
+		head = head->next;
+		delete temp;
+	}
+
 }
 template <class T>
 void List<T>::delInfo(T data){
@@ -66,6 +68,7 @@ void List<T>::delInfo(T data){
 		} else {
 			head = NULL;
 		}
+		ele--;
 		delete temp;
 	}
 }
@@ -76,6 +79,7 @@ void List<T>::clearList(){
 		head = head->next;
 		delete temp;
 	}
+	ele = 0;
 	head = NULL;
 }
 template <class T>
