@@ -13,6 +13,7 @@ class List{
             Data* next;
 		};
 		Data* head;
+		int ele;
 		Data* newNode(T data){
 			Data* temp = new Data;
 			temp->info = data;
