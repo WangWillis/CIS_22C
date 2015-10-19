@@ -26,6 +26,7 @@ class List{
 		~List();
 		int countNodes();
 		T getHeadData();
+		T getDataPos(int pos);
 		void addFront(T data);
 		void addInfoOrder(T data);
 		void delFront();
@@ -55,19 +56,27 @@ template <class T>
 int List<T>::countNodes(){
 	return ele ;
 }
-
 template <class T>
 T List<T>:: getHeadData(){
-
-
 	if(head != NULL){
 		return head->info;		
 	}else{
 		throw "List is Empty";
 	}
-
 }
-
+template <class T>
+T List<T>::getDataPos(int pos){
+	//if list was empty ele would be 0
+	if(pos >= 0 && pos < ele){
+		Data* temp = head;
+		for(int i = 0; i < pos; i++){
+			temp = temp->next;
+		}
+		return temp->info;
+	}else{
+		throw "Not a Valid Position";
+	}
+}
 template <class T>
 void List<T>::addFront(T data){
 	ele++;
