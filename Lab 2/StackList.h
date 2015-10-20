@@ -27,7 +27,7 @@ T Stack<T>::pop(){
 		stack.delFront();
 		return temp;
 	} catch (const char* exc ) {
-		cout << exc << endl;
+		std::cout << exc << std::endl;
 	}
 }
 
@@ -36,7 +36,7 @@ T Stack<T>::get(){
 	try{
 		return stack.getHeadData();
 	} catch(const char* exc) {
-		cout << exc << endl;
+		std::cout << exc << std::endl;
 	}
 }
 

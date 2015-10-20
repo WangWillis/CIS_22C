@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "StackList.h"
-#include "Currency.h"
 #include "Money.h"
 
 using namespace std;
