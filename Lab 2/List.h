@@ -1,6 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <iostream>
 #include "Node.h"
 
 //List class with a head pointer
@@ -16,7 +17,7 @@ class List{
 		//list with no initial data
 		List();
 		//list with first node that has data
-		List(T data);
+		List(const T data);
 		~List();
 		//counts the nodes
 		int countNodes();
@@ -24,51 +25,60 @@ class List{
 		T getHeadData();
 		//get data from any position
 		//pos starts at 0
-		T getDataPos(int pos);
+		T getDataPos(const int pos);
 		//adds node to front
-		void addFront(T data);
+		void addFront(const T data);
 		//adds node next to node of same data
-		void addInfoOrder(T data);
+		// void addInfoOrder(T data);
 		//deletes node from front
 		void delFront();
 		//deletes one instance of a certain data
-		void delInfo(T data);
+		void delInfo(const T data);
 		//deletes data in any position
 		//pos starts at 0
-		void delPos(int pos);
+		void delPos(const int pos);
 		//clears the list
 		void clearList();
-        void addAnywhere(T data, int position);
+		//add a node in the beginning, middle, or end of the list given by a choice of the user
+		void addAnywhere(const T data, const int position);
 };
-
+//constructor
 template <class T> 
 List<T>::List(){
 	ele = 0;
 	head = NULL;
 }
+//constructor which creates a list with a default node
 template <class T>
-List<T>::List(T data){
+List<T>::List(const T data){
 	ele = 0;
 	head = new Node<T>(data);
 }
+//destructor
 template <class T>
 List<T>::~List(){
+	//fucntion clears the list set head to NULL
 	clearList();
 }
+//returns the count of the number of nodes in the list
 template <class T>
 int List<T>::countNodes(){
-	return ele ;
+	return ele;
 }
+//returns the data in the head
 template <class T>
 T List<T>::getHeadData(){
+	//check if the list is empty
 	if(head != NULL){
 		return head->getData();		
 	}else{
 		throw "List is Empty";
 	}
 }
+//gets data in any position in the list
 template <class T>
-T List<T>::getDataPos(int pos){
+T List<T>::getDataPos(const int pos){
+	//checks if the pos is a valid pos in the list
 	//if list was empty ele would be 0
 	if(pos >= 0 && pos < ele){
 		Node<T>* temp = head;
@@ -80,8 +90,9 @@ T List<T>::getDataPos(int pos){
 		throw "Not a Valid Position";
 	}
 }
+//inserts a node to the front of the list
 template <class T>
-void List<T>::addFront(T data){
+void List<T>::addFront(const T data){
 	ele++;
 	// incase of empty list
 	if(head == NULL){
@@ -97,14 +108,17 @@ void List<T>::addFront(T data){
 // 	ele++;
 // 	Node<T>* temp = head;
 // 	Node<T>* node = new Node(data);
-// 	while(temp->info != data && temp->next != NULL){
+// 	while(temp->getData() != data && temp->next != NULL){
 // 		temp = temp->getNext();
 // 	}
 // 	node->setNext(temp->getNext());
 // 	temp->setNext(node);
 // }
+
+//deletes a node from the front of the list
 template <class T>
 void List<T>::delFront(){
+	//makes sure the list isnt empty
 	if(head != NULL){
 		ele--;
 		Node<T>* temp = head;
@@ -113,17 +127,20 @@ void List<T>::delFront(){
 	}else{
 		throw "List is Empty";
 	}
-
 }
+//removes one node which contains certain data
 template <class T>
-void List<T>::delInfo(T data){
+void List<T>::delInfo(const T data){
 	Node<T>* temp = head;
 	Node<T>* bef = NULL;
-	while(temp->info != data && temp != NULL){
+	//moves to the right position in the list
+	while(temp->getData() != data && temp != NULL){
 		bef = temp;
 		temp = temp->getNext();
 	}
+	//checks if the list is empty and if the data is in the list
 	if(temp != NULL){
+		//if it is not the head node
 		if(bef != NULL){
 			bef->setNext(temp->getNext());
 		} else {
@@ -135,17 +152,21 @@ void List<T>::delInfo(T data){
 }
 //pos starts at 0
 template <class T>
-void List<T>::delPos(int pos){
+void List<T>::delPos(const int pos){
+	//checks if the pos is a valid position
 	if(pos >= 0 && pos < ele){
+		//position in front is delete the front
 		if(pos == 0){
 			delFront();
 		}else{
 			Node<T>* temp = head;
 			Node<T>* bef = NULL;
+			//iterates till the right spot
 			for(int i = 0; i < pos; i++){
 				bef = temp;
 				temp = temp->getNext();
 			}
+			//unlinking node
 			bef->setNext(temp->getNext());
 			delete temp;
 		}
@@ -154,41 +175,39 @@ void List<T>::delPos(int pos){
 		throw "Not a Valid Position";
 	}
 }
+//clears the list
 template <class T>
 void List<T>::clearList(){
+	//deletes node in the list
 	while(head){
 		Node<T>* temp = head;
 		head = head->getNext();
 		delete temp;
 	}
+	//resets the instance variables
 	ele = 0;
 	head = NULL;
 }
+//add anywhere in the list
 template <class T> 
-void List<T>::addAnywhere(T data, int position)
+void List<T>::addAnywhere(const T data, const int position)
 {
+	//checks for a valid position
 	if (position >= 0 && position <= ele){
-		
-		if (head == NULL) // case of empty list
- 		{
-    	    head = new Node<T>(data);
-    	}
-    	else if(position == 0) // it is the next head
-    	{
+		//if the position is the head
+    	if(position == 0){
         	addFront(data);
-    	}
-    	else  // middle or end of list
-    	{
+    	} else {
     		Node<T>* nodeptr = head; 
 			Node<T>* newnode = new Node<T>(data); 
-    		for( int i = 1; i < position; i++)
-			{
+			//iterates through the list
+    		for( int i = 1; i < position; i++){
 				nodeptr = nodeptr->getNext(); 
     		}
+    		//adding the node
     		newnode->setNext(nodeptr->getNext());
     		nodeptr->setNext(newnode);
     	}
 	}
 }
-
 #endif
