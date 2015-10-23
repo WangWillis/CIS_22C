@@ -1,3 +1,9 @@
+/* 
+Randy Manzanares
+Willis Wang
+Lab 2
+*/
+
 #include <iostream>
 #include <string>
 #include "StackList.h"
