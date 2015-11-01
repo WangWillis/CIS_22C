@@ -4,6 +4,8 @@ Willis Wang
 Lab 3
 */
 
+//Does not work with Negative numbers can give negative answer but does not know what (-n) is
+
 #include <iostream>
 #include <string>
 #include <locale>
