@@ -14,7 +14,7 @@ using namespace std;
 
 int main(){
 	string eqn;
-	Stack <char> s1;
+	Stack <char> operandStack;
 	Queue <char> postFixStream;
 	//for checking to see if equation has invalid characters
 	bool isGood = true;
@@ -30,83 +30,106 @@ int main(){
 			break;
 		}
 	}
+	//checking if first char in the eqn is good
 	if(isGood && (isdigit(eqn[0]) || eqn[0] == '(')){
+		//creating the post fix eqn
 		for(int i = 0; i < eqn.size(); i++){
+			//what to do for (
 			if(eqn[i] == '('){
 				char temp = eqn[i];
-				s1.push(eqn[i]);
-			} else if(!s1.isEmpty() && eqn[i] == ')') {
-				while(s1.get() != '('){
-					postFixStream.add(s1.pop());
-					if(s1.isEmpty()){
+				operandStack.push(eqn[i]);
+			} else if(!operandStack.isEmpty() && eqn[i] == ')') { //need to make sure stack is not empty or else it is an invalid eqn
+				//poping up till the (
+				while(operandStack.get() != '('){
+					//adds to queue
+					postFixStream.add(operandStack.pop());
+					//if there is no ( for this ) it is an invalid eqn
+					if(operandStack.isEmpty()){
 						isGood = false;
 						break;
 					}
 				}
 				if(isGood){
 					//gets rid of the (
-					s1.pop();
+					operandStack.pop();
 				} else {
-					isGood = false;
+					//doesnt need to create postfix anymore since invalid
 					break;
 				}
-			} else if(eqn[i] == '+' || eqn[i] == '-' ) {
-				while(!s1.isEmpty() && s1.get() != '('){
-					postFixStream.add(s1.pop());
+			} else if(eqn[i] == '+' || eqn[i] == '-' ) { //checks for + and -
+				//pops basically everything up till ( or is empty
+				while(!operandStack.isEmpty() && operandStack.get() != '('){
+					//adds to queue
+					postFixStream.add(operandStack.pop());
 				}
-				s1.push(eqn[i]);
-			} else if(eqn[i] == '*' || eqn[i] == '/') {
-				while(!s1.isEmpty() && s1.get() != '+' && s1.get() != '-' && s1.get() != '('){
-					postFixStream.add(s1.pop());
+				//puts the operator on the stack
+				operandStack.push(eqn[i]);
+			} else if(eqn[i] == '*' || eqn[i] == '/') { //checks for * and /
+				//pops up till stack is empty a + a - or a (
+				while(!operandStack.isEmpty() && operandStack.get() != '+' && operandStack.get() != '-' && operandStack.get() != '('){
+					//adds the operators to the queue
+					postFixStream.add(operandStack.pop());
 				}
-				s1.push(eqn[i]);
-			} else if(isdigit(eqn[i])) {
+				//puts the operator on the stack
+				operandStack.push(eqn[i]);
+			} else if(isdigit(eqn[i])) { //if it is a number
+				//dont have special conditions
 				postFixStream.add(eqn[i]);
-			} else {
+			} else { //extra check just in case otherwise will never hit this point
 				isGood = false;
 				break;
 			}
 		}
 	} else {
+		//invalid since first input wrong
 		isGood = false;
 	}
-	while(isGood && !s1.isEmpty()){
-		if(s1.get() == '('){
+	//empty out the rest of the stack onto the queue
+	while(isGood && !operandStack.isEmpty()){
+		if(operandStack.get() == '('){
 			isGood = false;
 		}
-		postFixStream.add(s1.pop());
+		postFixStream.add(operandStack.pop());
 	}
-	Stack <int> s2;
+	Stack <int> intStack;
+	//evaluating the postfix eqn
 	while(!postFixStream.isEmpty() && isGood){
-		int temp;
 		if(!isdigit(postFixStream.get())){
-			if(s2.isEmpty()){
+			//for getting the first number
+			int temp;
+			//need to check if it is not only and operand
+			if(intStack.isEmpty()){
 				isGood = false;
-			} else {
-				temp = s2.pop();
+			} else { //gets the first number
+				temp = intStack.pop();
 			}
-			if(!s2.isEmpty()){
+			//if it is not empty can perform operations
+			if(!intStack.isEmpty()){
 				char opHolder = postFixStream.pop();
 				if(opHolder == '*'){
-					s2.push(s2.pop() * temp);
+					intStack.push(intStack.pop() * temp);
 				} else if(opHolder == '/') {
-					s2.push(s2.pop() / temp);
+					intStack.push(intStack.pop() / temp);
 				} else if(opHolder == '+') {
-					s2.push(s2.pop() + temp);
+					intStack.push(intStack.pop() + temp);
 				} else if(opHolder == '-') {
-					s2.push(s2.pop() - temp);
+					intStack.push(intStack.pop() - temp);
 				}
-			} else {
+			} else { //if it is empty then it is an invalid equation
 				isGood = false;
 			}
-		} else {
+		} else { //it is a number 
+			//convert char to int
 			int temp = postFixStream.pop() - '0';
-			s2.push(temp);
+			//add the interger to the stack
+			intStack.push(temp);
 		}
 	}
+	//if everything works out this will display the equation
 	if(isGood){
-		int temp = s2.pop();
-		if(s2.isEmpty()){
+		int temp = intStack.pop();
+		//to check if there are too many numbers
+		if(intStack.isEmpty()){
 			cout << "= " << temp << endl;
 		} else {
 			cout << "Invalid Equation" << endl;
