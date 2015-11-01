@@ -71,22 +71,31 @@ void Queue<T>::add(const T num){
 //gets starting element of queue
 template <class T>
 T Queue<T>::get(){
-	return queue[start%arrSize];
+	if(!isEmpty()){
+		return queue[start%arrSize];		
+	} else {
+		throw "Queue is Empty";
+	}
+
 }
 //gets and remeoves first element of queue
 template <class T>
 T Queue<T>::pop(){
-	if((end - start + 1) <= (0.1 * arrSize)){
-		queue = downSize();
-	}
-	int temp = start;
-	if(((end%arrSize) == (start%arrSize))){
-		start = 0;
-		end = -1;
-		return queue[temp%arrSize];
-	} else if(end != -1) {
-		start++;
-		return queue[(temp%arrSize)];
+	if(!isEmpty()){
+		if((end - start + 1) <= (0.1 * arrSize)){
+				queue = downSize();
+		}
+		int temp = start;
+		if(((end%arrSize) == (start%arrSize))){
+			start = 0;
+			end = -1;
+			return queue[temp%arrSize];
+		} else if(end != -1) {
+			start++;
+			return queue[(temp%arrSize)];
+		}
+	} else {
+		throw "Queue is Empty";
 	}
 	//return void;
 }
