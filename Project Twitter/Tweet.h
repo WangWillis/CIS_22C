@@ -16,13 +16,14 @@ class Tweet{
 	private:
 		//no point in using default constructor
 		Tweet();
+	protected:
 		string text, id;
 		int likes, reTweets;
 		time_t postTime;
 	public:
 		Tweet(const string, const string);
-		void like();
-		void unLike();
+		virtual void like();
+		virtual void unLike();
 		void changeMsg(string);
 		void toString();
 		void reTweet();
@@ -30,8 +31,8 @@ class Tweet{
 		time_t getTime() const;
 		string getPost() const;
 		string getId() const;
-		int getLikes() const;
-		int getReTweets() const;
+		virtual int getLikes() const;
+		virtual int getReTweets() const;
 		friend bool operator<(const Tweet& lhs, const Tweet rhs){
 			return lhs.getTime() < rhs.getTime();
 		}
@@ -39,7 +40,7 @@ class Tweet{
 
 class MyReTweet : Tweet{
 	private:
-		string myMsg, myId;
+		Tweet* rePost;
 	public:
 };
 
