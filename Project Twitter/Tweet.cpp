@@ -42,34 +42,38 @@ int Tweet::getReTweets() const{
 	return reTweets;
 }
 
-UserTweet::UserTweet(){
-	liked = false;
-	reTweet = false;
-	post = NULL;
+MyReTweet::MyReTweet(Tweet* post, const string user, const string msg) : Tweet(user, msg){
+	orgPost = post;
 }
 
-UserTweet::UserTweet(Tweet* twt) : liked(false), reTweet(false){
-	post = twt;
-}
+// UserTweet::UserTweet(){
+// 	liked = false;
+// 	reTweet = false;
+// 	post = NULL;
+// }
 
-bool UserTweet::isLiked() const{
-	return liked;
-}
+// UserTweet::UserTweet(Tweet* twt) : liked(false), reTweet(false){
+// 	post = twt;
+// }
 
-bool UserTweet::isReTweet() const{
-	return reTweet;
-}
+// bool UserTweet::isLiked() const{
+// 	return liked;
+// }
 
-Tweet* UserTweet::getTweet() const{
-	return post;
-}
+// bool UserTweet::isReTweet() const{
+// 	return reTweet;
+// }
 
-void UserTweet::changeLiked(){
-	if(liked){
-		post->unLike();
-		liked = false;
-	}else{
-		post->like();
-		liked = true;
-	}
-}
+// Tweet* UserTweet::getTweet() const{
+// 	return post;
+// }
+
+// void UserTweet::changeLiked(){
+// 	if(liked){
+// 		post->unLike();
+// 		liked = false;
+// 	}else{
+// 		post->like();
+// 		liked = true;
+// 	}
+// }

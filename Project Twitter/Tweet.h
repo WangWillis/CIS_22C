@@ -25,14 +25,14 @@ class Tweet{
 		virtual void like();
 		virtual void unLike();
 		void changeMsg(string);
-		void toString();
+		virtual void toString();
 		void reTweet();
 		void unReTweet();
 		time_t getTime() const;
 		string getPost() const;
 		string getId() const;
-		virtual int getLikes() const;
-		virtual int getReTweets() const;
+		int getLikes() const;
+		int getReTweets() const;
 		friend bool operator<(const Tweet& lhs, const Tweet rhs){
 			return lhs.getTime() < rhs.getTime();
 		}
@@ -40,38 +40,41 @@ class Tweet{
 
 class MyReTweet : Tweet{
 	private:
-		Tweet* rePost;
+		MyReTweet();
+		Tweet* orgPost;
 	public:
+		MyReTweet(Tweet*, const string, const string);
+		void toString();
 };
 
-class UserTweet{
-	private:
-		bool liked, reTweet;
-	protected:
-		Tweet* post;
-	public:
-		UserTweet();
-		UserTweet(const Tweet*);
-		bool isLiked() const;
-		bool isReTweet() const;
-		Tweet* getTweet() const;
-		void changeLiked();
-		void changeReTweet();
+// class UserTweet{
+// 	private:
+// 		bool liked, reTweet;
+// 	protected:
+// 		Tweet* post;
+// 	public:
+// 		UserTweet();
+// 		UserTweet(const Tweet*);
+// 		bool isLiked() const;
+// 		bool isReTweet() const;
+// 		Tweet* getTweet() const;
+// 		void changeLiked();
+// 		void changeReTweet();
 
-};
-//whenever a new MyTweet update all followers
-class MyTweet : public UserTweetCont{
-	public:
-		MyTweet();
-		~MyTweet();
-		virtual void edit(const string);
-		void deletePost();
-};
-//to contain retweets
-class MyReTweet : public MyTweet{
-	private:
+// };
+// //whenever a new MyTweet update all followers
+// class MyTweet : public UserTweetCont{
+// 	public:
+// 		MyTweet();
+// 		~MyTweet();
+// 		virtual void edit(const string);
+// 		void deletePost();
+// };
+// //to contain retweets
+// class MyReTweet : public MyTweet{
+// 	private:
 		
-	public:
+// 	public:
 
-};
+// };
 #endif
