@@ -1,9 +1,10 @@
 #include "Tweet.h"
 
-Tweet::Tweet(const string user, const string msg) : likes(0), reTweets(0){
-	id = user;
+Tweet::Tweet(string user, const string msg) : likes(0), reTweets(0){
+	userId = user;
 	text = msg;
 	time(&postTime);
+	id = user.append(ctime(&postTime));
 }
 
 void Tweet::like(){
@@ -22,12 +23,26 @@ void Tweet::unReTweet(){
 	reTweets--;
 }
 
+void Tweet::toString(){
+	cout << "User: " << userId << endl;
+	cout << "Time Posted: " << ctime(&postTime);
+	cout << "Likes: " << likes << "\t ReTweets: " << reTweets << endl << endl;
+	cout << "Tweet: " << endl << text << endl << endl;
+}
+
 time_t Tweet::getTime() const{
 	return postTime;
 }
 
-string Tweet::getPost() const{
-	return text;
+bool Tweet::matchId(const string postId){
+	if(id == postId){
+		return true;
+	}
+	return false;
+}
+
+string Tweet::getUserId() const{
+	return userId;
 }
 
 string Tweet::getId() const{
@@ -42,38 +57,35 @@ int Tweet::getReTweets() const{
 	return reTweets;
 }
 
-MyReTweet::MyReTweet(Tweet* post, const string user, const string msg) : Tweet(user, msg){
+ReTweet::ReTweet(Tweet* post, const string user, const string msg) : Tweet(user, msg){
 	orgPost = post;
 }
 
-// UserTweet::UserTweet(){
-// 	liked = false;
-// 	reTweet = false;
-// 	post = NULL;
-// }
+void ReTweet::like(){
+	likes++;
+	orgPost->like();
+}
 
-// UserTweet::UserTweet(Tweet* twt) : liked(false), reTweet(false){
-// 	post = twt;
-// }
+void ReTweet::unLike(){
+	likes--;
+	orgPost->unLike();
+}
 
-// bool UserTweet::isLiked() const{
-// 	return liked;
-// }
+void ReTweet::reTweet(){
+	reTweets++;
+	orgPost->reTweet();
+}
 
-// bool UserTweet::isReTweet() const{
-// 	return reTweet;
-// }
+void ReTweet::unReTweet(){
+	reTweets--;
+	orgPost->unReTweet();
+}
 
-// Tweet* UserTweet::getTweet() const{
-// 	return post;
-// }
-
-// void UserTweet::changeLiked(){
-// 	if(liked){
-// 		post->unLike();
-// 		liked = false;
-// 	}else{
-// 		post->like();
-// 		liked = true;
-// 	}
-// }
+void ReTweet::toString(){
+	cout << "User: " << userId << endl;
+	cout << "Time Posted: " << ctime(&postTime);
+	cout << "Likes: " << likes << "\t ReTweets: " << reTweets << endl << endl;
+	cout << "Tweet: " << endl << text << endl << endl;
+	cout << "ReTweet:" << endl;
+	orgPost->toString();
+}
