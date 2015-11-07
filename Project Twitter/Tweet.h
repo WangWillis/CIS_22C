@@ -15,7 +15,7 @@ class Tweet{
 		//no point in using default constructor
 		Tweet();
 	protected:
-		string text, userId, id;
+		string text, userId;
 		int likes, reTweets;
 		time_t postTime;
 	public:
@@ -25,10 +25,8 @@ class Tweet{
 		virtual void reTweet();
 		virtual void unReTweet();
 		virtual void toString();
-		void changeMsg(string);
+		virtual Tweet* getPost();
 		time_t getTime() const;
-		bool matchId(const string);
-		string getId() const;
 		string getUserId() const;
 		int getLikes() const;
 		int getReTweets() const;
@@ -48,6 +46,7 @@ class ReTweet : public Tweet{
 		void unLike();
 		void reTweet();
 		void unReTweet();
+		Tweet* getPost();
 };
 
 #endif

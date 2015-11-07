@@ -5,36 +5,29 @@
 
 class UserTweet;
 class MyTweet;
-class MyReTweet;
 
 class UserTweet{
-	private:
-		UserTweet();
 	protected:
 		Tweet* post;
 		bool liked, reTweet;
 	public:
+		UserTweet();
 		UserTweet(Tweet*);
+		~UserTweet();
 		bool isLiked() const;
 		bool isReTweet() const;
 		Tweet* getTweet() const;
+		void setPost(Tweet*);
 		void changeLiked();
 		void changeReTweet();
-
+		void toString();
+		bool operator==(const UserTweet& lhs);
 };
 //whenever a new MyTweet update all followers
 class MyTweet : public UserTweet{
 	public:
 		MyTweet(Tweet*);
 		~MyTweet();
-		virtual void edit(const string);
-};
-//to contain retweets
-class MyReTweet : public MyTweet{
-	public:
-		MyReTweet(Tweet*);
-		~MyReTweet();
-		void edit(const string);
 };
 
 #endif

@@ -10,6 +10,8 @@ UserTweet::UserTweet(Tweet* twt) : liked(false), reTweet(false){
 	post = twt;
 }
 
+UserTweet::~UserTweet(){}
+
 bool UserTweet::isLiked() const{
 	return liked;
 }
@@ -19,7 +21,11 @@ bool UserTweet::isReTweet() const{
 }
 
 Tweet* UserTweet::getTweet() const{
-	return post;
+	return post->getPost();
+}
+
+void UserTweet::setPost(Tweet* tweet){
+	post = tweet;
 }
 
 void UserTweet::changeLiked(){
@@ -42,10 +48,17 @@ void UserTweet::changeReTweet(){
 	}
 }
 
+void UserTweet::toString(){
+	post->toString();
+}
+
+bool UserTweet::operator==(const UserTweet& lhs){
+	if(post == lhs.getTweet()){
+		return true;
+	}
+	return false;
+}
+
 MyTweet::MyTweet(Tweet* post) : UserTweet(post){}
 
 MyTweet::~MyTweet(){delete post;}
-
-MyReTweet::MyReTweet(Tweet* post) : MyTweet(post){reTweet = false;}
-
-MyReTweet::~MyReTweet(){delete post;}

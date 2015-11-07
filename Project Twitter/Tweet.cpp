@@ -4,7 +4,6 @@ Tweet::Tweet(string user, const string msg) : likes(0), reTweets(0){
 	userId = user;
 	text = msg;
 	time(&postTime);
-	id = user.append(ctime(&postTime));
 }
 
 void Tweet::like(){
@@ -30,23 +29,16 @@ void Tweet::toString(){
 	cout << "Tweet: " << endl << text << endl << endl;
 }
 
+Tweet* Tweet::getPost(){
+	return this;
+}
+
 time_t Tweet::getTime() const{
 	return postTime;
 }
 
-bool Tweet::matchId(const string postId){
-	if(id == postId){
-		return true;
-	}
-	return false;
-}
-
 string Tweet::getUserId() const{
 	return userId;
-}
-
-string Tweet::getId() const{
-	return id;
 }
 
 int Tweet::getLikes() const{
@@ -88,4 +80,8 @@ void ReTweet::toString(){
 	cout << "Tweet: " << endl << text << endl << endl;
 	cout << "ReTweet:" << endl;
 	orgPost->toString();
+}
+
+Tweet* ReTweet::getPost(){
+	return orgPost->getPost();
 }
