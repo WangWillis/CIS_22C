@@ -81,7 +81,3 @@ void ReTweet::toString(){
 	cout << "ReTweet:" << endl;
 	orgPost->toString();
 }
-
-Tweet* ReTweet::getPost(){
-	return orgPost->getPost();
-}

@@ -4,9 +4,11 @@ UserTweet::UserTweet(){
 	liked = false;
 	reTweet = false;
 	post = NULL;
+	rePost = NULL;
 }
 
 UserTweet::UserTweet(Tweet* twt) : liked(false), reTweet(false){
+	rePost = NULL;
 	post = twt;
 }
 
@@ -29,23 +31,34 @@ void UserTweet::setPost(Tweet* tweet){
 }
 
 void UserTweet::changeLiked(){
-	if(liked){
-		post->unLike();
-		liked = false;
-	}else{
-		post->like();
-		liked = true;
+	if(post){
+		if(liked){
+			post->unLike();
+			liked = false;
+		}else{
+			post->like();
+			liked = true;
+		}
 	}
 }
 
-void UserTweet::changeReTweet(){
-	if(reTweet){
-		post->unReTweet();
-		reTweet = false;
-	}else{
-		post->reTweet();
-		reTweet = true;
+Tweet* UserTweet::changeReTweet(const string user, const string tweet){
+	if(post){
+		if(reTweet){
+			post->unReTweet();
+			reTweet = false;
+			return NULL;
+		}else{
+			post->reTweet();
+			reTweet = true;
+			rePost = new ReTweet(post, user, tweet);
+			return rePost;
+		}
 	}
+}
+
+Tweet* UserTweet::getRePost(){
+	return rePost;
 }
 
 void UserTweet::toString(){

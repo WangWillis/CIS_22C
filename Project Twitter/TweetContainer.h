@@ -9,6 +9,7 @@ class MyTweet;
 class UserTweet{
 	protected:
 		Tweet* post;
+		Tweet* rePost;
 		bool liked, reTweet;
 	public:
 		UserTweet();
@@ -19,9 +20,10 @@ class UserTweet{
 		Tweet* getTweet() const;
 		void setPost(Tweet*);
 		void changeLiked();
-		void changeReTweet();
+		Tweet* changeReTweet(const string, const string);
+		Tweet* getRePost();
 		void toString();
-		bool operator==(const UserTweet& lhs);
+		bool operator==(const UserTweet&);
 };
 //whenever a new MyTweet update all followers
 class MyTweet : public UserTweet{

@@ -25,7 +25,7 @@ class Tweet{
 		virtual void reTweet();
 		virtual void unReTweet();
 		virtual void toString();
-		virtual Tweet* getPost();
+		Tweet* getPost();
 		time_t getTime() const;
 		string getUserId() const;
 		int getLikes() const;
@@ -46,7 +46,6 @@ class ReTweet : public Tweet{
 		void unLike();
 		void reTweet();
 		void unReTweet();
-		Tweet* getPost();
 };
 
 #endif
