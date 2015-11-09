@@ -30,7 +30,7 @@ class Tweet{
 		string getUserId() const;
 		int getLikes() const;
 		int getReTweets() const;
-		friend bool operator<(const Tweet& lhs, const Tweet rhs){
+		friend bool operator<(const Tweet& lhs, const Tweet& rhs){
 			return lhs.getTime() < rhs.getTime();
 		}
 };

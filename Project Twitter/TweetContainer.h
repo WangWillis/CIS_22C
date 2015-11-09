@@ -24,10 +24,14 @@ class UserTweet{
 		Tweet* getRePost();
 		void toString();
 		bool operator==(const UserTweet&);
+		friend bool operator<(const UserTweet& lhs, const UserTweet& rhs){
+			return lhs.getTweet() < rhs.getTweet();
+		}
 };
 //whenever a new MyTweet update all followers
 class MyTweet : public UserTweet{
 	public:
+		MyTweet();
 		MyTweet(Tweet*);
 		~MyTweet();
 };
