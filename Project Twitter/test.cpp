@@ -16,5 +16,5 @@ int main(){
 	} else if (curtime < before){
 		cout << "before: " << ctime(&before) << endl;
 	}
-	return 0;	
+		
 }
