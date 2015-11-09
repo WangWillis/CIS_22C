@@ -47,6 +47,7 @@ Tweet* UserTweet::changeReTweet(const string user, const string tweet){
 		if(reTweet){
 			post->unReTweet();
 			reTweet = false;
+			rePost = NULL;
 			return NULL;
 		}else{
 			post->reTweet();
@@ -71,6 +72,8 @@ bool UserTweet::operator==(const UserTweet& lhs){
 	}
 	return false;
 }
+
+MyTweet::MyTweet() : UserTweet(){}
 
 MyTweet::MyTweet(Tweet* post) : UserTweet(post){}
 
