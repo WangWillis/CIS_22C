@@ -1,7 +1,7 @@
 #include "Tweet.h"
 
-Tweet::Tweet(const string user, const string msg) : likes(0), reTweets(0){
-	id = user;
+Tweet::Tweet(string user, const string msg) : likes(0), reTweets(0){
+	userId = user;
 	text = msg;
 	time(&postTime);
 }
@@ -22,16 +22,23 @@ void Tweet::unReTweet(){
 	reTweets--;
 }
 
+void Tweet::toString(){
+	cout << "User: " << userId << endl;
+	cout << "Time Posted: " << ctime(&postTime);
+	cout << "Likes: " << likes << "\t ReTweets: " << reTweets << endl << endl;
+	cout << "Tweet: " << endl << text << endl << endl;
+}
+
+Tweet* Tweet::getPost(){
+	return this;
+}
+
 time_t Tweet::getTime() const{
 	return postTime;
 }
 
-string Tweet::getPost() const{
-	return text;
-}
-
-string Tweet::getId() const{
-	return id;
+string Tweet::getUserId() const{
+	return userId;
 }
 
 int Tweet::getLikes() const{
@@ -42,34 +49,35 @@ int Tweet::getReTweets() const{
 	return reTweets;
 }
 
-UserTweet::UserTweet(){
-	liked = false;
-	reTweet = false;
-	post = NULL;
+ReTweet::ReTweet(Tweet* post, const string user, const string msg) : Tweet(user, msg){
+	orgPost = post;
 }
 
-UserTweet::UserTweet(Tweet* twt) : liked(false), reTweet(false){
-	post = twt;
+void ReTweet::like(){
+	likes++;
+	orgPost->like();
 }
 
-bool UserTweet::isLiked() const{
-	return liked;
+void ReTweet::unLike(){
+	likes--;
+	orgPost->unLike();
 }
 
-bool UserTweet::isReTweet() const{
-	return reTweet;
+void ReTweet::reTweet(){
+	reTweets++;
+	orgPost->reTweet();
 }
 
-Tweet* UserTweet::getTweet() const{
-	return post;
+void ReTweet::unReTweet(){
+	reTweets--;
+	orgPost->unReTweet();
 }
 
-void UserTweet::changeLiked(){
-	if(liked){
-		post->unLike();
-		liked = false;
-	}else{
-		post->like();
-		liked = true;
-	}
+void ReTweet::toString(){
+	cout << "User: " << userId << endl;
+	cout << "Time Posted: " << ctime(&postTime);
+	cout << "Likes: " << likes << "\t ReTweets: " << reTweets << endl << endl;
+	cout << "Tweet: " << endl << text << endl << endl;
+	cout << "ReTweet:" << endl;
+	orgPost->toString();
 }
