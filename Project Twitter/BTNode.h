@@ -19,14 +19,15 @@ class BTNode{
 		void del(T* const &);
 		int height(BTNode*);
 		int max(const int, const int);
+		T getMax(BTNode*);
 	public:
 		BTNode(const T);
 		T getData();
-    T minValue(BTNode*);
 		BTNode<T>* getLeft();
 		BTNode<T>* getRight();
-		bool isBalanced(BTNode*);
-        BTNode<T>* remove(BTNode*,T);
+		int balance(BTNode*);
+        BTNode<T>* remove(const T, BTNode*);
+        void setData(const T);
 		void setLeft(BTNode*);
 		void setRight(BTNode*);
 		void add(const T, BTNode*);
@@ -62,15 +63,27 @@ int BTNode<T>::height(BTNode<T>* node){
 }
 
 template <class T>
-bool BTNode<T>::isBalanced(BTNode<T>* node){
+int BTNode<T>::balance(BTNode<T>* node){
 	if(node == NULL){
-		return true;
+		return 0;
 	}else{
 		int lh = height(node->getLeft());
 		int rh = height(node->getRight());
-		if(abs(lh - rh) <= 1 && isBalanced(node->getLeft()) && isBalanced(node->getRight()))
-			return true;
-		return false;
+		if(abs(lh - rh) <= 1 && balance(node->getLeft()) == 0 && balance(node->getRight()) == 0)
+			return 0;
+		if((lh - rh) < 0)
+			return -1;
+		else
+			return 1;
+	}
+}
+
+template <class T>
+T BTNode<T>::getMax(BTNode<T>* node){
+	if(node->getRight() == NULL){
+		return node->getData();
+	}else{
+		return getMax(node->getRight());
 	}
 }
 
@@ -85,20 +98,23 @@ BTNode<T>* BTNode<T>::getLeft(){
 }
 
 template <class T>
+void BTNode<T>::setData(const T info){
+	data = info;
+}
+
+template <class T>
 BTNode<T>* BTNode<T>::getRight(){
 	return right;
 }
 
 template <class T>
 void BTNode<T>::setLeft(BTNode<T>* temp){
-	if(left == NULL)
-		left = temp;
+	left = temp;
 }
 
 template <class T>
 void BTNode<T>::setRight(BTNode<T>* temp){
-	if(right == NULL)
-		right = temp;
+	right = temp;
 }
 
 template <class T>
@@ -150,36 +166,57 @@ void BTNode<T>::toString(BTNode<T>* node){
 }
 
 template <class T>
-BTNode<T>* BTNode<T>::remove(BTNode<T>* node,T keytodelete)
- {
-    if (keytodelete < node->getData()) {
-        if (node->getLeft() != NULL)
-            return node->getLeft()->remove(node->getLeft(), keytodelete);
-        else
-            return NULL;
-    } else if (keytodelete > node->getData()) {
-        if (node->getRight != NULL)
-            return node->getRight()->remove(node->getRight(), keytodelete);
-        else
-            return NULL;
-    } else {
-        if (node->getLeft() != NULL && node->getRight() != NULL) {
-            this->keytodelete = minValue(node->getRight());
-            return node->getRight()->remove(this->keytodelete, this);
-        } else if (parent->left == this) {
-            parent->left = (left != NULL) ? left : right;
-            return this;
-        } else if (parent->right == this) {
-            parent->right = (left != NULL) ? left : right;
-            return this;
-        }
-    }
+BTNode<T>* BTNode<T>::remove(const T data, BTNode<T>* node){
+	if(node != NULL){
+		if(node->getData() == data){
+			return node;
+		}else if(node->getData() < data){
+			BTNode<T>* right = node->getRight();
+			if(right != NULL){
+				if(right->getData() == data){
+					if(right->getLeft() != NULL && right->getRight() != NULL){
+						T temp = getMax(right->getLeft());
+						right->setData(temp);
+						return remove(temp, right->getLeft());
+					}else if(right->getLeft() != NULL){
+						node->setRight(right->getLeft());
+						return right;
+					}else if(right->getRight() != NULL){
+						node->setRight(right->getRight());
+						return right;
+					}else{
+						node->setRight(NULL);
+						return right;
+					}
+				}
+				return remove(data, right);
+			}
+			return NULL;
+		}else{
+			BTNode<T>* left = node->getRight();
+			if(left != NULL){
+				if(left->getData() == data){
+					if(left->getLeft() != NULL && left->getRight() != NULL){
+						T temp = getMax(left->getLeft());
+						left->setData(temp);
+						return remove(temp, left->getLeft());
+					}else if(left->getLeft() != NULL){
+						node->setLeft(left->getLeft());
+						return left;
+					}else if(left->getRight() != NULL){
+						node->setLeft(left->getRight());
+						return left;
+					}else{
+						node->setLeft(NULL);
+						return left;
+					}
+				}
+				return remove(data, left);
+			}
+			return NULL;
+		}
+	}
+	return NULL;
 }
-template <class T>
-T BTNode<T>::minValue(BTNode* node) {
-    if (node->getLeft() == NULL)
-        return node->getData();
-    else
-        return node->minValue(node->getLeft());
-}
+
 #endif
