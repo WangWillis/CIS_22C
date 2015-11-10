@@ -24,6 +24,15 @@ class BinarySearchTree{
 		void displayDown();
 };
 
+
+template <class T>
+bool BinarySearchTree<T>::find(T data) {
+    if (head == NULL)
+        return false;
+    else
+        return head->search(data);
+}
+
 template <class T>
 BinarySearchTree<T>::BinarySearchTree(){
 	head = NULL;
