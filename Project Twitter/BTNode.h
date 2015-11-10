@@ -219,4 +219,23 @@ BTNode<T>* BTNode<T>::remove(const T data, BTNode<T>* node){
 	return NULL;
 }
 
+template <class T>
+bool BTNode<T>::find(int data) {
+    if (data == this->data)
+        return true;
+    else if (data < this->data) {
+        if (left == NULL)
+            return false;
+        else
+            return left->find(data);
+    } else if (data > this->data) {
+        if (right == NULL)
+            return false;
+        else
+            return right->find(data);
+    }
+    return false;
+}
+
+
 #endif
