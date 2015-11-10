@@ -164,7 +164,7 @@ void BTNode<T>::toString(BTNode<T>* node){
 		}
 	}
 }
-
+//need to handle removing the head in BST class
 template <class T>
 BTNode<T>* BTNode<T>::remove(const T data, BTNode<T>* node){
 	if(node != NULL){
