@@ -30,7 +30,7 @@ bool BinarySearchTree<T>::find(T data) {
     if (head == NULL)
         return false;
     else
-        return head->search(data);
+        return head->find(data);
 }
 
 template <class T>
