@@ -2,6 +2,7 @@
 #define BTNODE_H
 
 #include <iostream>
+#include <stdlib.h>
 
 template <class T>
 class BTNode;
@@ -14,14 +15,16 @@ class BTNode{
 		T data;
 		BTNode* left;
 		BTNode* right;
-		int balance;
 		void del(T const &);
 		void del(T* const &);
+		int height(BTNode*);
+		int max(const int, const int);
 	public:
 		BTNode(const T);
 		T getData();
 		BTNode<T>* getLeft();
 		BTNode<T>* getRight();
+		bool isBalanced(BTNode*);
 		void setLeft(BTNode*);
 		void setRight(BTNode*);
 		void add(const T, BTNode*);
@@ -31,9 +34,6 @@ class BTNode{
 
 template <class T>
 BTNode<T>::BTNode(const T info) : left(NULL), right(NULL){
-	leftCount = 0;
-	rightCount = 0;
-	balance = 0;
 	data = info;
 }
 
@@ -42,6 +42,35 @@ void BTNode<T>::del(T const &) {}
 
 template <class T>
 void BTNode<T>::del(T* const & p) {delete p;}
+
+template<class T>
+int BTNode<T>::max(const int a, const int b){
+	if(a > b)
+		return a;
+	return b;
+}
+
+template <class T>
+int BTNode<T>::height(BTNode<T>* node){
+	if(node == NULL){
+		return 0;
+	}else{
+		return 1 + max(height(node->getLeft()), height(node->getRight()));
+	}
+}
+
+template <class T>
+bool BTNode<T>::isBalanced(BTNode<T>* node){
+	if(node == NULL){
+		return true;
+	}else{
+		int lh = height(node->getLeft());
+		int rh = height(node->getRight());
+		if(abs(lh - rh) <= 1 && isBalanced(node->getLeft()) && isBalanced(node->getRight()))
+			return true;
+		return false;
+	}
+}
 
 template <class T>
 T BTNode<T>::getData(){
