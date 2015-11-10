@@ -33,6 +33,7 @@ class BTNode{
 		void add(const T, BTNode*);
 		void clearList(BTNode*);
 		void toString(BTNode*);
+		bool find(T);
 };
 
 template <class T>
@@ -220,7 +221,7 @@ BTNode<T>* BTNode<T>::remove(const T data, BTNode<T>* node){
 }
 
 template <class T>
-bool BTNode<T>::find(int data) {
+bool BTNode<T>::find(T data) {
     if (data == this->data)
         return true;
     else if (data < this->data) {
