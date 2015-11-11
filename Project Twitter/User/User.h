@@ -1,4 +1,5 @@
 #include "BST.h"
+#include "Queue.h"
 #include "List.h"
 #include "TweetContainer.h"
 #include "Tweet.h"
@@ -28,7 +29,7 @@ public:
 	void setFollowing(int);
 
 	string getUsername();
-	string getPassword();
+	bool matchPassword(string);
 	int getFollowers();
 	int getFollowing();
 
@@ -40,5 +41,5 @@ public:
 	void displayFollowers();
 	void displayFollowing();
 	void displayNewsFeed();
-	void toQueue();
+	Queue toQueue();
 };
