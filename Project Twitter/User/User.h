@@ -14,9 +14,9 @@ private:
 	string userName, password;
 	int followers, following;
 	List <MyTweet> myTweets;
-	BinarySearchTree <UserTweet> NewsFeed;
-	BinarySearchTree <string> Followers;
-	BinarySearchTree <string> Following;
+//	BinarySearchTree <UserTweet> NewsFeed;
+//	BinarySearchTree <string> Followers;
+//	BinarySearchTree <string> Following;
 
 public:
 	User();
