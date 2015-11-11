@@ -41,7 +41,8 @@ void UserTweet::changeLiked(){
 		}
 	}
 }
-
+//if you want to repost gives a new repost
+//
 Tweet* UserTweet::changeReTweet(const string user, const string tweet){
 	if(post){
 		if(reTweet){
@@ -56,6 +57,7 @@ Tweet* UserTweet::changeReTweet(const string user, const string tweet){
 			return rePost;
 		}
 	}
+	return NULL;
 }
 
 Tweet* UserTweet::getRePost(){

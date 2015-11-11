@@ -11,8 +11,6 @@ template <class T>
 class BinarySearchTree{
 	private:
 		BTNode* head;
-		BTNode* rotateLeft(BTNode*);
-		BTNode* rotateRight(BTNode*);
 	public:
 		BinarySearchTree();
 		BinarySearchTree(T);
