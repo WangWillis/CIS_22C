@@ -33,7 +33,7 @@ public:
 	int getFollowers();
 	int getFollowing();
 
-
+	//Looks like the hash table needs to be completed for this :)
 	void addTweet(Tweet*); //Needs to be completed
 	void deleteTweet(MyTweet); //Delete by tweet also need to delete from followers newsfeed but prob not in main
 
