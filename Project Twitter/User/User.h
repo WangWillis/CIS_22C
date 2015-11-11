@@ -35,7 +35,7 @@ public:
 
 
 	void addTweet(Tweet*); //Needs to be completed
-	void deleteTweet(MyTweet); //Delete by position or tweet?
+	void deleteTweet(MyTweet); //Delete by tweet also need to delete from followers newsfeed but prob not in main
 
 	//BinarySearchTree needs to be completed
 	void displayFollowers();
