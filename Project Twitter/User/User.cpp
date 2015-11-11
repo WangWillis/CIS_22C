@@ -53,6 +53,8 @@ void User::addTweet(Tweet* pst)
 	MyTweet Tweeting;
 	Tweeting.setPost(pst);
 	myTweets.addFront(Tweeting);
+	
+	//Needs to be added in followers newsfeed
 }
 
 void User::deleteTweet (MyTweet pst)
