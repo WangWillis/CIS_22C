@@ -22,11 +22,8 @@ class BTNode{
 		int highDiff(BTNode*);
 		int max(const int, const int);
 		T getMax(BTNode*);
-		// int balance(BTNode*);
 		BTNode* rotateLeft(BTNode*);
 		BTNode* rotateRight(BTNode*);
-		BTNode* doubleRotateLeft(BTNode*);
-		BTNode* doubleRotateRight(BTNode*);
 	public:
 		BTNode(const T);
 		T getData();
@@ -88,30 +85,6 @@ int BTNode<T>::highDiff(BTNode<T>* node){
 	return high(node->getLeft()) - high(node->getRight());
 }
 
-// template <class T>
-// int BTNode<T>::height(BTNode<T>* node){
-// 	if(node == NULL){
-// 		return 0;
-// 	}else{
-// 		return 1 + max(height(node->getLeft()), height(node->getRight()));
-// 	}
-// }
-
-// template <class T>
-// int BTNode<T>::balance(BTNode<T>* node){
-// 	if(node == NULL){
-// 		return 0;
-// 	}else{
-// 		int lh = height(node->getLeft());
-// 		int rh = height(node->getRight());
-// 		if(abs(lh - rh) <= 1 && balance(node->getLeft()) == 0 && balance(node->getRight()) == 0)
-// 			return 0;
-// 		if((lh - rh) < 0)
-// 			return -1;
-// 		else
-// 			return 1;
-// 	}
-// }
 //returns an address to something that holds an address 
 //wont break chain since pointer before Holds location of node not whats inside
 //for when unbalanced on the right side
@@ -120,6 +93,8 @@ BTNode<T>* BTNode<T>::rotateLeft(BTNode<T>* node){
 	BTNode<T>* temp = node->getRight();
 	node->setRight(temp->getLeft());
 	temp->setLeft(node);
+	node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
+	temp->setHeight(max(high(temp->getLeft()), high(temp->getRight())) + 1);
 	return temp;
 }
 //for when unbalanced on left side
@@ -128,21 +103,9 @@ BTNode<T>* BTNode<T>::rotateRight(BTNode<T>* node){
 	BTNode<T>* temp = node->getLeft();
 	node->setLeft(temp->getRight());
 	temp->setRight(node);
+	node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
+	temp->setHeight(max(high(temp->getLeft()), high(temp->getRight())) + 1);
 	return temp;
-}
-
-template <class T>
-BTNode<T>* BTNode<T>::doubleRotateLeft(BTNode<T>* node){
-	node->setRight(rotateRight(node->getRight()));
-	node = rotateLeft(node);
-	return node;
-}
-
-template <class T>
-BTNode<T>* BTNode<T>::doubleRotateRight(BTNode<T>* node){
-	node->setLeft(rotateLeft(node->getLeft()));
-	node = rotateRight(node);
-	return node;
 }
 
 template <class T>
@@ -188,28 +151,31 @@ template <class T>
 BTNode<T>* BTNode<T>::add(const T info, BTNode<T>* node){
 	if(node == NULL){
 		return new BTNode<T>(info);
-	}else if(info < node->getData()){
-		node->setLeft(add(info, node->getLeft()));
 	}else{
-		node->setRight(add(info, node->getRight()));
-	}
-	node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
-	int diff = highDiff(node);
-	if(diff > 1){
-		if(highDiff(node->getLeft()) > 0){
-			return rotateRight(node);
+		if(info < node->getData()){
+			node->setLeft(add(info, node->getLeft()));
 		}else{
-			return doubleRotateRight(node);
+			node->setRight(add(info, node->getRight()));
 		}
-	}else if(diff < -1){
-		if(highDiff(node->getRight()) < 0){
-			return rotateLeft(node);
-		}else{
-			return doubleRotateLeft(node);
+		node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
+		int diff = highDiff(node);
+		if(diff > 1){
+			if(highDiff(node->getLeft()) > 0){
+				return rotateRight(node);
+			}else{
+				node->setLeft(rotateLeft(node->getLeft()));
+				return rotateRight(node);
+			}
+		}else if(diff < -1){
+			if(highDiff(node->getRight()) < 0){
+				return rotateLeft(node);
+			}else{
+				node->setRight(rotateRight(node->getRight()));
+				return rotateLeft(node);
+			}
 		}
-	}else{
-		return node;
 	}
+	return node;
 }
 
 template <class T>
