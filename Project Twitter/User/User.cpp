@@ -57,6 +57,6 @@ void User::addTweet(Tweet* pst)
 
 void User::deleteTweet (MyTweet pst)
 {
-	myTweets.delInfo(pst);
+//	myTweets.delInfo(pst);  This will not work :)
 }
 
