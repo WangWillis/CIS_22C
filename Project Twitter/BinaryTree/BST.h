@@ -3,18 +3,20 @@
 
 #include <iostream>
 #include "BTNode.h"
+#include "C:\Users\acer main\Desktop\Need To Stuff\Programs\CIS_22C\Project Twitter\List&Queue\Queue.h"
 
 template <class T>
-class BinarySearchTree;
+class AVLTree;
 
 template <class T>
-class BinarySearchTree{
+class AVLTree{
 	private:
 		BTNode<T>* head;
 		BTNode<T>* rotateLeft(BTNode<T>*);
 		BTNode<T>* rotateRight(BTNode<T>*);
 		BTNode<T>* add(const T, BTNode<T>*);
 		BTNode<T>* remove(const T, BTNode<T>*);
+		Queue<T>* toQueue(Queue<T>*,BTNode<T>*);
 		T getMax(BTNode<T>*);
 		bool find(const T, BTNode<T>*);
 		int high(BTNode<T>*);
@@ -23,9 +25,10 @@ class BinarySearchTree{
 		void clearList(BTNode<T>*);
 		void toString(BTNode<T>*);
 	public:
-		BinarySearchTree();
-		BinarySearchTree(T);
-		~BinarySearchTree();
+		AVLTree();
+		AVLTree(T);
+		~AVLTree();
+		Queue<T> toQueue();
 		bool find(const T);
 		void add(const T);
 		void remove(const T);
@@ -33,22 +36,22 @@ class BinarySearchTree{
 };
 
 template <class T>
-BinarySearchTree<T>::BinarySearchTree(){
+AVLTree<T>::AVLTree(){
 	head = NULL;
 }
 
 template <class T>
-BinarySearchTree<T>::BinarySearchTree(T data){
+AVLTree<T>::AVLTree(T data){
 	head = new BTNode<T>(data);
 }
 
 template <class T>
-BinarySearchTree<T>::~BinarySearchTree(){
+AVLTree<T>::~AVLTree(){
 	clearList(head);
 }
 
 template <class T>
-void BinarySearchTree<T>::clearList(BTNode<T>* node){
+void AVLTree<T>::clearList(BTNode<T>* node){
 	if(node != NULL){
 		if(node->getLeft() != NULL){
 			clearList(node->getLeft());
@@ -63,14 +66,14 @@ void BinarySearchTree<T>::clearList(BTNode<T>* node){
 }
 
 template<class T>
-int BinarySearchTree<T>::max(const int a, const int b){
+int AVLTree<T>::max(const int a, const int b){
 	if(a > b)
 		return a;
 	return b;
 }
 
 template <class T>
-int BinarySearchTree<T>::high(BTNode<T>* node){
+int AVLTree<T>::high(BTNode<T>* node){
 	if(node == NULL){
 		return 0;
 	}
@@ -78,7 +81,7 @@ int BinarySearchTree<T>::high(BTNode<T>* node){
 }
 
 template <class T>
-int BinarySearchTree<T>::highDiff(BTNode<T>* node){
+int AVLTree<T>::highDiff(BTNode<T>* node){
 	if(node == NULL){
 		return 0;
 	}
@@ -89,7 +92,7 @@ int BinarySearchTree<T>::highDiff(BTNode<T>* node){
 //wont break chain since pointer before Holds location of node not whats inside
 //for when unbalanced on the right side
 template <class T>
-BTNode<T>* BinarySearchTree<T>::rotateLeft(BTNode<T>* node){
+BTNode<T>* AVLTree<T>::rotateLeft(BTNode<T>* node){
 	BTNode<T>* temp = node->getRight();
 	node->setRight(temp->getLeft());
 	temp->setLeft(node);
@@ -99,7 +102,7 @@ BTNode<T>* BinarySearchTree<T>::rotateLeft(BTNode<T>* node){
 }
 //for when unbalanced on left side
 template <class T>
-BTNode<T>* BinarySearchTree<T>::rotateRight(BTNode<T>* node){
+BTNode<T>* AVLTree<T>::rotateRight(BTNode<T>* node){
 	BTNode<T>* temp = node->getLeft();
 	node->setLeft(temp->getRight());
 	temp->setRight(node);
@@ -109,7 +112,7 @@ BTNode<T>* BinarySearchTree<T>::rotateRight(BTNode<T>* node){
 }
 
 template <class T>
-T BinarySearchTree<T>::getMax(BTNode<T>* node){
+T AVLTree<T>::getMax(BTNode<T>* node){
 	if(node->getRight() == NULL){
 		return node->getData();
 	}else{
@@ -118,7 +121,7 @@ T BinarySearchTree<T>::getMax(BTNode<T>* node){
 }
 
 template <class T>
-BTNode<T>* BinarySearchTree<T>::add(const T info, BTNode<T>* node){
+BTNode<T>* AVLTree<T>::add(const T info, BTNode<T>* node){
 	if(node == NULL){
 		return new BTNode<T>(info);
 	}else if(info < node->getData()){
@@ -147,12 +150,12 @@ BTNode<T>* BinarySearchTree<T>::add(const T info, BTNode<T>* node){
 }
 
 template <class T>
-void BinarySearchTree<T>::add(const T data){
+void AVLTree<T>::add(const T data){
 	head = add(data, head);
 }
 
 template <class T>
-BTNode<T>* BinarySearchTree<T>::remove(const T data, BTNode<T>* node){
+BTNode<T>* AVLTree<T>::remove(const T data, BTNode<T>* node){
 	if(node->getData() == data){
 		if(node->getLeft() != NULL && node->getRight() != NULL){
 			T temp = getMax(node->getLeft());
@@ -235,12 +238,12 @@ BTNode<T>* BinarySearchTree<T>::remove(const T data, BTNode<T>* node){
 }
 
 template <class T>
-void BinarySearchTree<T>::remove(const T data){
+void AVLTree<T>::remove(const T data){
 	head = remove(data, head);
 }
 
 template <class T>
-bool BinarySearchTree<T>::find(const T data, BTNode<T>* node){
+bool AVLTree<T>::find(const T data, BTNode<T>* node){
 	if(node != NULL){
 		if(node->getData() == data){
 			return true;
@@ -254,12 +257,32 @@ bool BinarySearchTree<T>::find(const T data, BTNode<T>* node){
 }
 
 template <class T>
-bool BinarySearchTree<T>::find(const T data){
+bool AVLTree<T>::find(const T data){
 	return find(data, head);
 }
 
 template <class T>
-void BinarySearchTree<T>::toString(BTNode<T>* node){
+Queue<T>* AVLTree<T>::toQueue(Queue<T>* queue, BTNode<T>* node){
+	if(node->getLeft() != NULL){
+		queue = toQueue(queue, node->getLeft());
+	}
+	queue->add(node->getData());
+	if(node->getRight()!= NULL){
+		queue = toQueue(queue, node->getRight());
+	}
+	return queue;
+}
+
+template <class T>
+Queue<T> AVLTree<T>::toQueue(){
+	Queue<T>* queue = new Queue<T>();
+	Queue<T> temp = *toQueue(queue, head);
+	delete queue;
+	return temp;
+}
+
+template <class T>
+void AVLTree<T>::toString(BTNode<T>* node){
 	if(node != NULL){
 		if(node->getLeft() != NULL){
 			toString(node->getLeft());
@@ -272,7 +295,7 @@ void BinarySearchTree<T>::toString(BTNode<T>* node){
 }
 
 template <class T>
-void BinarySearchTree<T>::toString(){
+void AVLTree<T>::toString(){
 	toString(head);
 }
 
