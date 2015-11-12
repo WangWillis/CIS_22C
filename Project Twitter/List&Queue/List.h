@@ -41,14 +41,6 @@ class List{
 		void clearList();
 		//add a node in the beginning, middle, or end of the list given by a choice of the user
 		void addAnywhere(const T data, const int position);
-		
-		//Operator overloading for MyTweet
-	/*
-	bool operator==(const List &obj){
-		bool status;
-		if ()
-	};
-	bool operator!=(const List & obj){ return !(*this == obj); };*/
 };
 //constructor
 template <class T> 

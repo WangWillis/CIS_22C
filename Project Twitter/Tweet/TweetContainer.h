@@ -24,6 +24,7 @@ class UserTweet{
 		Tweet* getRePost();
 		void toString();
 		bool operator==(const UserTweet&);
+		bool operator!=(const UserTweet&);
 		friend bool operator<(const UserTweet& lhs, const UserTweet& rhs){
 			return lhs.getTweet() < rhs.getTweet();
 		}
