@@ -52,19 +52,22 @@ int User::getFollowing()
 
 void User::addTweet(Tweet* pst)
 {
-	MyTweet Tweeting;
-	Tweeting.setPost(pst);
-	myTweets.addFront(Tweeting);
-	newsFeed.add(Tweeting);
+	if(pst->getUserId() == userName){
+		MyTweet Tweeting(pst);
+		myTweets.addFront(Tweeting);
+	}
+	UserTweet newsTweet(pst);
+	newsFeed.add(newsTweet);
 }
 
-void User::deleteTweet(MyTweet pst)
+void User::deleteTweet(UserTweet pst)
 {
-	if (pst.isReTweet() == true)
-		myRetweets.delInfo(pst);
-	else
-		myTweets.delInfo(pst);
-	
+	if(pst.getTweet()->getUserId() == userName){
+		if (pst.isReTweet() == true)
+			myRetweets.delInfo(pst);
+		else
+			myTweets.delInfo(pst);
+	}
 	newsFeed.remove(pst);
 }
 
@@ -81,8 +84,11 @@ void User::displayNewsFeed()
 	newsFeed.toString();
 }
 
-//Not sure
-Queue<string> User::toQueuefollowers()
+//Since the user class does not interact with the hash table
+//to remove and add tweets to users who are following you need to be done in main
+//in order to do that we need to stream the people who are following you
+//input those string into the has table and add or remove the tweet from their newsfeed
+Queue<string> User::toQueueFollowers()
 {
 	return followers.toQueue();
 }

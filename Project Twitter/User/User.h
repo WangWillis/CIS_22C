@@ -35,10 +35,10 @@ public:
 	int getFollowing();
 	
 	void addTweet(Tweet*);
-	void deleteTweet(MyTweet); 
+	void deleteTweet(UserTweet); 
 
 	void displayFollowers();
 	void displayFollowing();
 	void displayNewsFeed();
-	Queue <string> toQueuefollowers();
+	Queue <string> toQueueFollowers();
 };
