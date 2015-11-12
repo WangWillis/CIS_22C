@@ -16,6 +16,7 @@ class AVLTree{
 		BTNode<T>* rotateRight(BTNode<T>*);
 		BTNode<T>* add(const T, BTNode<T>*);
 		BTNode<T>* remove(const T, BTNode<T>*);
+		BTNode<T>* balance(BTNode<T>*);
 		Queue<T>* toQueue(Queue<T>*,BTNode<T>*);
 		T get(const T, BTNode<T>*);
 		T getMax(BTNode<T>*);
@@ -123,15 +124,7 @@ T AVLTree<T>::getMax(BTNode<T>* node){
 }
 
 template <class T>
-BTNode<T>* AVLTree<T>::add(const T info, BTNode<T>* node){
-	if(node == NULL){
-		return new BTNode<T>(info);
-	}else if(info < node->getData()){
-		node->setLeft(add(info, node->getLeft()));
-	}else{
-		node->setRight(add(info, node->getRight()));
-	}
-	node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
+BTNode<T>* AVLTree<T>::balance(BTNode<T>* node){
 	int diff = highDiff(node);
 	if(diff > 1){
 		if(highDiff(node->getLeft()) > 0){
@@ -152,6 +145,19 @@ BTNode<T>* AVLTree<T>::add(const T info, BTNode<T>* node){
 }
 
 template <class T>
+BTNode<T>* AVLTree<T>::add(const T info, BTNode<T>* node){
+	if(node == NULL){
+		return new BTNode<T>(info);
+	}else if(info < node->getData()){
+		node->setLeft(add(info, node->getLeft()));
+	}else{
+		node->setRight(add(info, node->getRight()));
+	}
+	node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
+	return balance(node);
+}
+
+template <class T>
 void AVLTree<T>::add(const T data){
 	head = add(data, head);
 }
@@ -164,23 +170,7 @@ BTNode<T>* AVLTree<T>::remove(const T data, BTNode<T>* node){
 			node->setData(temp);
 			node->setLeft(remove(temp, node->getLeft()));
 			node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
-			int diff = highDiff(node);
-			if(diff > 1){
-				if(highDiff(node->getLeft()) > 0){
-					return rotateRight(node);
-				}else{
-					node->setLeft(rotateLeft(node->getLeft()));
-					return rotateRight(node);
-				}
-			}else if(diff < -1){
-				if(highDiff(node->getRight()) < 0){
-					return rotateLeft(node);
-				}else{
-					node->setRight(rotateRight(node->getRight()));
-					return rotateLeft(node);
-				}
-			}
-			return node;
+			return balance(node);
 		}else if(node->getLeft() != NULL){
 			BTNode<T>* left = node->getLeft();
 			delete node;
@@ -196,43 +186,12 @@ BTNode<T>* AVLTree<T>::remove(const T data, BTNode<T>* node){
 	}else if(data < node->getData() && node->getLeft() != NULL){
 		node->setLeft(remove(data, node->getLeft()));
 		node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
-		int diff = highDiff(node);
-		if(diff > 1){
-			if(highDiff(node->getLeft()) > 0){
-				return rotateRight(node);
-			}else{
-				node->setLeft(rotateLeft(node->getLeft()));
-				return rotateRight(node);
-			}
-		}else if(diff < -1){
-			if(highDiff(node->getRight()) < 0){
-				return rotateLeft(node);
-			}else{
-				node->setRight(rotateRight(node->getRight()));
-				return rotateLeft(node);
-			}
-		}
-		return node;
+		return balance(node);
 	}else if(node->getRight() != NULL){
 		node->setRight(remove(data, node->getRight()));
 		node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
 		int diff = highDiff(node);
-		if(diff > 1){
-			if(highDiff(node->getLeft()) > 0){
-				return rotateRight(node);
-			}else{
-				node->setLeft(rotateLeft(node->getLeft()));
-				return rotateRight(node);
-			}
-		}else if(diff < -1){
-			if(highDiff(node->getRight()) < 0){
-				return rotateLeft(node);
-			}else{
-				node->setRight(rotateRight(node->getRight()));
-				return rotateLeft(node);
-			}
-		}
-		return node;
+		return balance(node);
 	}else{
 		cout << "Data Not in Set" << endl;
 		return node;
@@ -316,7 +275,7 @@ T get(const T data, BTNode<T>* node){
 }
 
 template <class T>
-T get(const T data){
+T AVLTree<T>::get(const T data){
 	return get(data, head);
 }
 
