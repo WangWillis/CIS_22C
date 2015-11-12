@@ -9,8 +9,6 @@ int main()
 	char input1;
 	char input2;
 	char inputDelete;
-	string user;
-	string password;
 	do
 	{
 		input1 = '\0';
@@ -34,7 +32,7 @@ int main()
 		case 'L':
 			menu1 = 0;
 			cout << "Please enter your username, or 'exit' to quit." << endl;
-			cin >> user;
+			getline(cin, user);
 			cin.clear();
 			cin.ignore(numeric_limits <streamsize> ::max(), '\n');
 			//check user against table
@@ -44,14 +42,14 @@ int main()
 				cin >> user;  //loop this
 			}
 			cout << "Please enter your password, or exit to quit." << endl;
-			cin >> password;
+			getline(cin, password);
 			cin.clear();
 			cin.ignore(numeric_limits <streamsize> ::max(), '\n');
 			//check user against hash
 			if (false) //if not in table
 			{
 				cout << "I'm sorry, that password is incorrect.  Please try again." << endl;
-				cin >> password;  //loop this
+				getline(cin, password);  //loop this
 			}
 			//on succcessful login you can do stuff
 			cout << "You have successfully logged in." << endl;
@@ -158,37 +156,36 @@ int main()
 				case 'L':
 					cout << "Logout successful." << endl;
 					cout << "Good bye! See you again next time!" << endl;
-					user = " ";
-					password = " ";
 					menu1 = 1;
 					break;
 				}
 			} while (menu1 == 0);
 			break;
 		case 'N':
+			string user;
+			string password;
 			cout << "Please enter your desired username, or exit to quit." << endl;
-			cin >> user;
-			cin.clear();
+			getline(cin, user);
 			cin.ignore(numeric_limits <streamsize> ::max(), '\n');
 			//check if username is taken or is viable
 			if (false) //if not viable
 			{
 				cout << "I'm sorry, that username is not available.  Please try again." << endl;
-				cin >> user;  //loop this
+				getline(cin, password);  //loop this
 			}
 			cout << "Please enter your desired password, or exit to quit." << endl;
-			cin >> password;
+			getline(cin, password);
 			cin.clear();
 			cin.ignore(numeric_limits <streamsize> ::max(), '\n');
 			//check if password is viable
 			if (false) //if not viable
 			{
 				cout << "I'm sorry, that password is unavailable.  Please try again." << endl;
-				cin >> password;  //loop this
+				getline(cin, password); //loop this
 			}
+			//Hash table needs to take care of dynamically allocated memory
+			User* cur = new User(user, password);
 			cout << "Your account has been successfully created." << endl;
-			user = " ";
-			password = " ";
 			break;
 		case 'Q':
 			cout << "Thank you for using Twatter.  Good bye!" << endl;
