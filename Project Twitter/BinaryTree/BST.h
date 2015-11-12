@@ -91,9 +91,7 @@ int AVLTree<T>::highDiff(BTNode<T>* node){
 	return high(node->getLeft()) - high(node->getRight());
 }
 
-//returns an address to something that holds an address 
-//wont break chain since pointer before Holds location of node not whats inside
-//for when unbalanced on the right side
+//for unblanaced on right side
 template <class T>
 BTNode<T>* AVLTree<T>::rotateLeft(BTNode<T>* node){
 	BTNode<T>* temp = node->getRight();
