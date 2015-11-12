@@ -17,6 +17,7 @@ class AVLTree{
 		BTNode<T>* add(const T, BTNode<T>*);
 		BTNode<T>* remove(const T, BTNode<T>*);
 		Queue<T>* toQueue(Queue<T>*,BTNode<T>*);
+		T get(const T, BTNode<T>*);
 		T getMax(BTNode<T>*);
 		bool find(const T, BTNode<T>*);
 		int high(BTNode<T>*);
@@ -29,6 +30,7 @@ class AVLTree{
 		AVLTree(T);
 		~AVLTree();
 		Queue<T> toQueue();
+		T get(const T);
 		bool find(const T);
 		void add(const T);
 		void remove(const T);
@@ -297,6 +299,25 @@ void AVLTree<T>::toString(BTNode<T>* node){
 template <class T>
 void AVLTree<T>::toString(){
 	toString(head);
+}
+
+template <class T>
+T get(const T data, BTNode<T>* node){
+	if(node != NULL){
+		if(data == node->getData()){
+			return node->getData();
+		}else if(data < node->getData()){
+			return get(data, node->getLeft());
+		}else{
+			return get(data, node->getRight());
+		}
+	}
+	return data;
+}
+
+template <class T>
+T get(const T data){
+	return get(data, head);
 }
 
 #endif
