@@ -5,8 +5,8 @@ User::User(string username, string psswrd)
 {
 	userName = username;
 	password = psswrd;
-	followers = 0;
-	following = 0;
+	numFollower = 0;
+	numFollowing = 0;
 }
 
 void User::setUsername(string username)
@@ -21,12 +21,12 @@ void User::setPassword(string psswrd)
 
 void User::setFollowers(int followrs)
 {
-	followers = followrs;
+	numFollower = followrs;
 }
 
 void User::setFollowing(int followng)
 {
-	following = followng;
+	numFollowing = followng;
 }
 
 string User::getUsername()
@@ -34,18 +34,20 @@ string User::getUsername()
 	return userName;
 }
 
-string User::getPassword()
+bool User::matchPassword(string pass)
 {
-	return password;
+	if (password == pass)
+		return true;
+	else false;
 }
 
 int User::getFollowers()
 {
-	return followers;
+	return numFollower;
 }
 int User::getFollowing()
 {
-	return following;
+	return numFollowing;
 }
 
 void User::addTweet(Tweet* pst)
@@ -53,12 +55,35 @@ void User::addTweet(Tweet* pst)
 	MyTweet Tweeting;
 	Tweeting.setPost(pst);
 	myTweets.addFront(Tweeting);
-	
-	//Needs to be added in followers newsfeed
+	newsFeed.add(Tweeting);
 }
 
-void User::deleteTweet (MyTweet pst)
+void User::deleteTweet(MyTweet pst)
 {
-//	myTweets.delInfo(pst);  This will not work :)
+	if (pst.isReTweet() == true)
+		myRetweets.delInfo(pst);
+	else
+		myTweets.delInfo(pst);
+	
+	newsFeed.remove(pst);
+}
+
+void User::displayFollowers()
+{
+	followers.toString();
+}
+void User::displayFollowing()
+{
+	following.toString();
+}
+void User::displayNewsFeed()
+{
+	newsFeed.toString();
+}
+
+//Not sure
+Queue<string> User::toQueuefollowers()
+{
+	return followers.toQueue();
 }
 
