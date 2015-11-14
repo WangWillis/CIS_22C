@@ -28,6 +28,12 @@ class UserTweet{
 		friend bool operator<(const UserTweet& lhs, const UserTweet& rhs){
 			return lhs.getTweet() < rhs.getTweet();
 		}
+		
+		friend ostream &operator << (ostream& strm, const UserTweet& obj){
+			strm << obj.getTweet();
+			return strm;
+		}
+
 };
 //whenever a new MyTweet update all followers
 class MyTweet : public UserTweet{
