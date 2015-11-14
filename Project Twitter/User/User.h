@@ -12,7 +12,7 @@ class User;
 class User{
 private:
 	string userName, password;
-	int numFollower, numFollowing;
+	int numFollower, numFollowing,numTweets,numRetweets,numTNewsF;
 	List <UserTweet> myTweets;
 	List <UserTweet> myRetweets;
 	AVLTree <UserTweet> newsFeed;
@@ -28,12 +28,18 @@ public:
 	void setPassword(string);
 	void setFollowers(int);
 	void setFollowing(int);
+	void setNumTweets(int);
+	void setNumRTweets(int);
+	void setNumNewsF(int);
 
 	string getUsername();
 	bool matchPassword(string);
 	int getFollowers();
 	int getFollowing();
-
+	int getNumTweets();
+	int getNumRTweets();
+	int getNumNewsF();
+	
 	void addTweet(Tweet*);
 	void deleteTweet(UserTweet);
 
@@ -42,4 +48,3 @@ public:
 	void displayNewsFeed();
 	Queue <string> toQueueFollowers();
 };
-
