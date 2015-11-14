@@ -1,3 +1,5 @@
+//Hash keys are exclusivly strings
+//finding a generic hashing function is hard
 #ifndef HASH_H
 #define HASH_H
 
