@@ -13,9 +13,9 @@ class User{
 private:
 	string userName, password;
 	int numFollower, numFollowing;
-	List <MyTweet> myTweets;
-	List <MyTweet> myRetweets;
-	AVLTree <MyTweet> newsFeed;
+	List <UserTweet> myTweets;
+	List <UserTweet> myRetweets;
+	AVLTree <UserTweet> newsFeed;
 	AVLTree <string> followers;
 	AVLTree <string> following;
 
@@ -33,12 +33,13 @@ public:
 	bool matchPassword(string);
 	int getFollowers();
 	int getFollowing();
-	
+
 	void addTweet(Tweet*);
-	void deleteTweet(UserTweet); 
+	void deleteTweet(UserTweet);
 
 	void displayFollowers();
 	void displayFollowing();
 	void displayNewsFeed();
 	Queue <string> toQueueFollowers();
 };
+
