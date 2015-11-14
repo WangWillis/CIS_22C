@@ -248,7 +248,7 @@ void AVLTree<T>::toString(BTNode<T>* node){
 		if(node->getLeft() != NULL){
 			toString(node->getLeft());
 		}
-		std::cout << node->getData() << std::endl;
+		cout << node->getData() << std::endl;
 		if(node->getRight() != NULL){
 			toString(node->getRight());
 		}
