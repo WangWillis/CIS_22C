@@ -29,6 +29,34 @@ void User::setFollowing(int followng)
 	numFollowing = followng;
 }
 
+void User::setNumTweets(int Ntweets)
+{
+	numTweets = Ntweets;
+}
+
+void User::setNumRTweets(int RT)
+{
+	numRetweets = RT;
+}
+
+void User::setNumNewsF(int NF)
+{
+	numTNewsF = NF;
+}
+
+int User::getNumTweets()
+{
+	return numTweets;
+}
+int User::getNumRTweets()
+{
+	return numRetweets;
+}
+int User::getNumNewsF()
+{
+	return numTNewsF;
+}
+
 string User::getUsername()
 {
 	return userName;
@@ -52,7 +80,7 @@ int User::getFollowing()
 
 void User::addTweet(Tweet* pst)
 {
-	if(pst->getUserId() == userName){
+	if (pst->getUserId() == userName){
 		MyTweet Tweeting(pst);
 		myTweets.addFront(Tweeting);
 	}
@@ -62,7 +90,7 @@ void User::addTweet(Tweet* pst)
 
 void User::deleteTweet(UserTweet pst)
 {
-	if(pst.getTweet()->getUserId() == userName){
+	if (pst.getTweet()->getUserId() == userName){
 		if (pst.isReTweet() == true)
 			myRetweets.delInfo(pst);
 		else
