@@ -14,7 +14,7 @@ int main()
 	{
 		for (int cont = 0; UserFile.peek() != EOF; cont++)
 		{
-			User* userobj;
+			User* userobj=NULL;
 			string user, passwr;
 			int NFollowrs, NFollowng, NTweets, NRetweets, NTNewsF;
 			
@@ -53,34 +53,58 @@ int main()
 			for (int i = 0; i < NTweets; i++)
 			{
 				getline(UserFile, tweet);
-				Tweet *Tweetobj;
-				Tweetobj->setuser(user);//No member function in tweet class
-				Tweetobj->setTweets(tweet);//No member function in tweet class
+				Tweet *Tweetobj=NULL;
+				Tweetobj->setUser(user);
+				Tweetobj->setTweets(tweet);
 				UserFile >> likes;
-				Tweetobj->setLikes(likes); //No member function in tweet class
+				Tweetobj->setlikes(likes); 
 				UserFile >> reTweets;
-				Tweetobj->setreteweets(reTweets); //No member function in tweet class
+				Tweetobj->setRT(reTweets);
 				UserFile >> postTime;
-				Tweetobj->setposttime(postTime); //No member function in tweet class
+				Tweetobj->setpostim(postTime); 
 				UserTweet Usertweetobj;
 				Usertweetobj.setPost(Tweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
 				Tweets.addFront(Usertweetobj);
 			}
 
-			//Read Retweets from input file (should be sort of the same as tweets)
+			//Read Retweets from input file
 			cin.clear();
 			cin.ignore();
 			for (int i = 0; i < NRetweets; i++)
 			{
 				getline(UserFile, tweet);
+				ReTweet *RTweetobj=NULL;
+				RTweetobj->setUser(user);
+				RTweetobj->setTweets(tweet);
+				UserFile >> likes;
+				RTweetobj->setlikes(likes);
+				UserFile >> reTweets;
+				RTweetobj->setRT(reTweets);
+				UserFile >> postTime;
+				RTweetobj->setpostim(postTime);
+				UserTweet Usertweetobj;
+				Usertweetobj.setPost(RTweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
+				Tweets.addFront(Usertweetobj);
 			}
 
-			//Read newsfeed from input file  (should be sort of the same as tweets)
+			//Read newsfeed from input file
 			cin.clear();
 			cin.ignore();
 			for (int i = 0; i < NTNewsF; i++)
 			{
 				getline(UserFile, tweet);
+				Tweet *Tweetobj=NULL;
+				Tweetobj->setUser(user);
+				Tweetobj->setTweets(tweet);
+				UserFile >> likes;
+				Tweetobj->setlikes(likes);
+				UserFile >> reTweets;
+				Tweetobj->setRT(reTweets);
+				UserFile >> postTime;
+				Tweetobj->setpostim(postTime);
+				UserTweet Usertweetobj;
+				Usertweetobj.setPost(Tweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
+				newsF.add(Usertweetobj);
 			}
 
 			//Read followers from input file
@@ -88,7 +112,7 @@ int main()
 			{
 				getline(UserFile, followr);
 				Followrs.add(followr);
-				//Add this tree to the user object...
+				//Add this tree to the user object......
 			}
 
 			//Read following from input file
@@ -96,7 +120,7 @@ int main()
 			{
 				getline(UserFile, followng);
 				Followng.add(followng);
-				//Add this tree to the user object...
+				//Add this tree to the user object
 			}
 
 			//Put all this information in the hash table :D
