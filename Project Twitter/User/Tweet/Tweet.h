@@ -11,14 +11,12 @@ class Tweet;
 class ReTweet;
 
 class Tweet{
-	private:
-		//no point in using default constructor
-		Tweet();
 	protected:
 		string text, userId;
 		int likes, reTweets;
 		time_t postTime;
 	public:
+		Tweet();
 		Tweet(const string, const string);
 		virtual void like();
 		virtual void unLike();
