@@ -1,4 +1,5 @@
 #include "User.h"
+#include "TweetContainer.h"
 
 User::User(string username, string psswrd)
 {
@@ -116,8 +117,16 @@ void User::displayNewsFeed()
 //to remove and add tweets to users who are following you need to be done in main
 //in order to do that we need to stream the people who are following you
 //input those string into the has table and add or remove the tweet from their newsfeed
+List<string> User::toListFollowers()
+{
+	return followers.toList();
+}
+List <string> User::toListFollowing()
+{
+	return following.toList();
+}
+
 Queue<string> User::toQueueFollowers()
 {
 	return followers.toQueue();
 }
-
