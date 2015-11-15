@@ -84,7 +84,7 @@ int main()
 				RTweetobj->setpostim(postTime);
 				UserTweet Usertweetobj;
 				Usertweetobj.setPost(RTweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
-				Tweets.addFront(Usertweetobj);
+				retweets.addFront(Usertweetobj);
 			}
 
 			//Read newsfeed from input file
