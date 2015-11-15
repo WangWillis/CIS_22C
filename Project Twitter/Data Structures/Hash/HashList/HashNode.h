@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef HNODE_H
+#define HNODE_H
 
 #include <stddef.h>
 // #include <type_traits>
