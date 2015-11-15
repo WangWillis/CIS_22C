@@ -1,8 +1,8 @@
-#include "Data Structures\BinaryTree\BST.h"
-#include "Data Structures\Hash.h"
-#include "Data Structures\BinaryTree\List&Queue\List.h"
-#include "Tweet\TweetContainer.h"
-#include "Tweet\Tweet.h"
+#include "BST.h"
+#include "Queue.h"
+#include "List.h"
+#include "TweetContainer.h"
+#include "Tweet.h"
 #include <string>
 
 using namespace std;
@@ -46,5 +46,7 @@ public:
 	void displayFollowers();
 	void displayFollowing();
 	void displayNewsFeed();
+	List <string> toListFollowers();
+	List <string> toListFollowing();
 	Queue <string> toQueueFollowers();
 };
