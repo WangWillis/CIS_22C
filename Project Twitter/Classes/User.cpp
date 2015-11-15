@@ -1,4 +1,5 @@
 #include "User.h"
+#include "TweetContainer.h"
 
 User::User(string username, string psswrd)
 {
@@ -65,7 +66,8 @@ bool User::matchPassword(string pass)
 {
 	if (password == pass)
 		return true;
-	else false;
+	else 
+		return false;
 }
 
 int User::getFollowers()
@@ -115,8 +117,8 @@ void User::displayNewsFeed()
 //to remove and add tweets to users who are following you need to be done in main
 //in order to do that we need to stream the people who are following you
 //input those string into the has table and add or remove the tweet from their newsfeed
+
 Queue<string> User::toQueueFollowers()
 {
 	return followers.toQueue();
 }
-
