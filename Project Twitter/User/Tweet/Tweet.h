@@ -23,6 +23,11 @@ class Tweet{
 		virtual void reTweet();
 		virtual void unReTweet();
 		virtual void toString();
+		void setUser(string);
+		void setTweets(string);
+		void setlikes(int);
+		void setRT(int);
+		void setpostim(time_t);
 		Tweet* getPost();
 		time_t getTime() const;
 		string getUserId() const;
