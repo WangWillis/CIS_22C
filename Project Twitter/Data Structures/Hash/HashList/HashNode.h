@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 // #include <type_traits>
+using namespace std;
 
 //declaring class prototype
 template <class T> class HashNode;
