@@ -4,11 +4,111 @@ using namespace std;
 
 int main()
 {
+	//Read data of the users from an input file (We need 25 users...)
+	string filename;
+	filename = "UserData.txt"; //Change for address of this file 
+	fstream UserFile;
+	UserFile.open(filename, ios::in | ios::out);
+
+	if (UserFile)
+	{
+		for (int cont = 0; UserFile.peek() != EOF; cont++)
+		{
+			User* userobj;
+			string user, passwr;
+			int NFollowrs, NFollowng, NTweets, NRetweets, NTNewsF;
+			
+			List<UserTweet>Tweets;
+			string tweet;
+			int likes, reTweets;
+			time_t postTime;
+			List <UserTweet> retweets;
+			
+			AVLTree <UserTweet> newsF;
+			
+			AVLTree <string> Followrs;
+			string followr;
+			
+			AVLTree <string> Followng;
+			string followng;
+			
+			getline(UserFile, user);
+			userobj->setUsername(user);
+			getline(UserFile, passwr);
+			userobj->setPassword(passwr);
+			UserFile >> NFollowrs;
+			userobj->setFollowers(NFollowrs);
+			UserFile >> NFollowng;
+			userobj->setFollowing(NFollowng);
+			UserFile >> NTweets;
+			userobj->setNumTweets(NTweets);
+			UserFile >> NRetweets;
+			userobj->setNumRTweets(NRetweets);
+			UserFile >> NTNewsF;
+			userobj->setNumNewsF(NTNewsF);
+
+			//Read tweets from input file
+			cin.clear();
+			cin.ignore();
+			for (int i = 0; i < NTweets; i++)
+			{
+				getline(UserFile, tweet);
+				Tweet *Tweetobj;
+				Tweetobj->setuser(user);//No member function in tweet class
+				Tweetobj->setTweets(tweet);//No member function in tweet class
+				UserFile >> likes;
+				Tweetobj->setLikes(likes); //No member function in tweet class
+				UserFile >> reTweets;
+				Tweetobj->setreteweets(reTweets); //No member function in tweet class
+				UserFile >> postTime;
+				Tweetobj->setposttime(postTime); //No member function in tweet class
+				UserTweet Usertweetobj;
+				Usertweetobj.setPost(Tweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
+				Tweets.addFront(Usertweetobj);
+			}
+
+			//Read Retweets from input file (should be sort of the same as tweets)
+			cin.clear();
+			cin.ignore();
+			for (int i = 0; i < NRetweets; i++)
+			{
+				getline(UserFile, tweet);
+			}
+
+			//Read newsfeed from input file  (should be sort of the same as tweets)
+			cin.clear();
+			cin.ignore();
+			for (int i = 0; i < NTNewsF; i++)
+			{
+				getline(UserFile, tweet);
+			}
+
+			//Read followers from input file
+			for (int i = 0; i < NFollowrs; i++)
+			{
+				getline(UserFile, followr);
+				Followrs.add(followr);
+				//Add this tree to the user object...
+			}
+
+			//Read following from input file
+			for (int i = 0; i < NFollowng; i++)
+			{
+				getline(UserFile, followng);
+				Followng.add(followng);
+				//Add this tree to the user object...
+			}
+
+			//Put all this information in the hash table :D
+		}
+	}
+	
 	int menu = 0;
 	int menu1;
 	char input1;
 	char input2;
 	char inputDelete;
+	
 	do
 	{
 		input1 = '\0';
