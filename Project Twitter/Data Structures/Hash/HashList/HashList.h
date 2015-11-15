@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef HLIST_H
+#define HLIST_H
 
 #include <iostream>
 #include "HashNode.h"
