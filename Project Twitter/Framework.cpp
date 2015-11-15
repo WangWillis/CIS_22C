@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
-#include "Data Structures\Hash\Hash.h"
+#include <fstream>
+#include "Classes\Data Structures\Hash.h"
+#include "Classes\User.h"
+
 using namespace std;
 
 int main()
