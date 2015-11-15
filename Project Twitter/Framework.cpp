@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "Data Structures\Hash\Hash.h"
 using namespace std;
 
 int main()
