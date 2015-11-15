@@ -65,7 +65,8 @@ bool User::matchPassword(string pass)
 {
 	if (password == pass)
 		return true;
-	else false;
+	else 
+		return false;
 }
 
 int User::getFollowers()
