@@ -6,6 +6,22 @@ Tweet::Tweet(string user, const string msg) : likes(0), reTweets(0){
 	time(&postTime);
 }
 
+void Tweet::setUser(string us){
+	userId = us;
+}
+void Tweet::setTweets(string msg){
+	text = msg;
+}
+void Tweet::setlikes(int lk){
+	likes = lk;
+}
+void Tweet::setRT(int RT){
+	reTweets = RT;
+}
+void Tweet::setpostim(time_t tm){
+	postTime = tm;
+}
+
 void Tweet::like(){
 	likes++;
 }
