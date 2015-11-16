@@ -89,7 +89,7 @@ void User::addTweet(Tweet* pst)
 	newsFeed.add(newsTweet);
 }
 
-void User::deleteTweet(UserTweet pst)
+void User::deleteTweet(MyTweet pst)
 {
 	if (pst.getTweet()->getUserId() == userName){
 		if (pst.isReTweet() == true)
@@ -121,4 +121,14 @@ void User::displayNewsFeed()
 Queue<string> User::toQueueFollowers()
 {
 	return followers.toQueue();
+}
+
+UserTweet User::getUserTweet(Tweet* twt){
+	UserTweet temp(twt);
+	return newsFeed.get(temp);
+}
+
+MyTweet User::getMyReTweet(Tweet* twt){
+	MyTweet temp(twt);
+	return myRetweets.getData(temp);
 }

@@ -1,8 +1,8 @@
-#include "BST.h"
-#include "Queue.h"
-#include "List.h"
-#include "TweetContainer.h"
-#include "Tweet.h"
+#include "Data Strutures\BinaryTree\BST.h"
+#include "Data Strutures\BinaryTree\List&Queue\Queue.h"
+#include "Data Strutures\BinaryTree\List&Queue\List.h"
+#include "Tweet\TweetContainer.h"
+#include "Tweet\Tweet.h"
 #include <string>
 
 using namespace std;
@@ -13,8 +13,8 @@ class User{
 private:
 	string userName, password;
 	int numFollower, numFollowing,numTweets,numRetweets,numTNewsF;
-	List <UserTweet> myTweets;
-	List <UserTweet> myRetweets;
+	List <MyTweet> myTweets;
+	List <MyTweet> myRetweets;
 	AVLTree <UserTweet> newsFeed;
 	AVLTree <string> followers;
 	AVLTree <string> following;
@@ -41,7 +41,9 @@ public:
 	int getNumNewsF();
 	
 	void addTweet(Tweet*);
-	void deleteTweet(UserTweet);
+	void deleteTweet(MyTweet);
+	UserTweet getUserTweet(Tweet*);
+	MyTweet getMyReTweet(Tweet*);
 
 	void displayFollowers();
 	void displayFollowing();

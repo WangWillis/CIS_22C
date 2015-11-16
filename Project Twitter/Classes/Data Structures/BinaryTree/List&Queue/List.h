@@ -26,6 +26,7 @@ class List{
 		//get data from any position
 		//pos starts at 0
 		T getDataPos(const int pos);
+		T getData(const T)
 		//adds node to front
 		void addFront(const T data);
 		//adds node next to node of same data
@@ -209,5 +210,17 @@ void List<T>::addAnywhere(const T data, const int position)
     		nodeptr->setNext(newnode);
     	}
 	}
+}
+
+template <class T>
+T List<T>::getData(const T data){
+	Node<T>* temp = head;
+	while(temp != NULL){
+		if(temp->getData() == data){
+			return temp->getData();
+		}
+		temp = temp->getNext();
+	}
+	return data;
 }
 #endif

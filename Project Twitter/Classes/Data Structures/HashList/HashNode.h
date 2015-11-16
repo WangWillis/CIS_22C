@@ -84,4 +84,5 @@ template <class T>
 void HashNode<T>::setNext(HashNode<T>* temp){
 	next = temp;
 }
+
 #endif
