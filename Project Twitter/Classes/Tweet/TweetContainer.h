@@ -33,7 +33,6 @@ class UserTweet{
 			strm << obj.getTweet();
 			return strm;
 		}
-
 };
 //whenever a new MyTweet update all followers
 class MyTweet : public UserTweet{

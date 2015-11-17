@@ -4,9 +4,9 @@
 #define HASH_H
 
 #include <string>
-#include "Queue.h"
-#include "HashList.h"
-#include "BST.h"
+#include "BinaryTree\List&Queue\Queue.h"
+#include "HashList\HashList.h"
+#include "BinaryTree\BST.h"
 
 using namespace std;
 static const int TABLESIZE = 50;

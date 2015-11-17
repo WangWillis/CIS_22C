@@ -1,15 +1,15 @@
-void add(User* user, string post, HashTable hash){
+void add(User* user, string post, HashTable<User*> hash){
 	Tweet* twt = new Tweet(user->getUsername(), post);
 	user->addTweet(twt);
-	Queue followerStream = user->toQueueFollowers();
+	Queue<string> followerStream = user->toQueueFollowers();
 	while(!followerStream.isEmpty()){
 		User* temp = hash.getData(followerStream.pop());
 		temp->addTweet(twt);
 	}
 }
 
-void remove(User* user, MyTweet pst, HashTable hash){
-	Queue followerStream = user->toQueueFollowers();
+void remove(User* user, MyTweet pst, HashTable<User*> hash){
+	Queue<string> followerStream = user->toQueueFollowers();
 	while(!followerStream.isEmpty()){
 		User* temp = hash.getData(followerStream.pop());
 		UserTweet utt = temp->getUserTweet(pst.getTweet());

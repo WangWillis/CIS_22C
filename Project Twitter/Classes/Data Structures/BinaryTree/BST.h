@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include "BTNode.h"
-#include "List.h"
-#include "Queue.h"
+#include "List&Queue\List.h"
+#include "List&Queue\Queue.h"
 
 using namespace std;
 
@@ -202,7 +202,6 @@ BTNode<T>* AVLTree<T>::remove(const T data, BTNode<T>* node){
 	else if (node->getRight() != NULL){
 		node->setRight(remove(data, node->getRight()));
 		node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
-		int diff = highDiff(node);
 		return balance(node);
 	}
 	else{

@@ -26,7 +26,7 @@ class List{
 		//get data from any position
 		//pos starts at 0
 		T getDataPos(const int pos);
-		T getData(const T)
+		T getData(const T);
 		//adds node to front
 		void addFront(const T data);
 		//adds node next to node of same data
