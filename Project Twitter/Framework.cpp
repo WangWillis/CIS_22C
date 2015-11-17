@@ -23,7 +23,7 @@ int main()
 	string filename;
 	filename = "UserData.txt"; //Change for address of this file 
 	fstream UserFile;
-	UserFile.open(filename, ios::in | ios::out | ios::trunc);
+	UserFile.open(filename, ios::in | ios::out);
 	Queue<string> KeysHash;
 	
 	//Read keys of hash table and put them in a queue
@@ -40,7 +40,7 @@ int main()
 	for (int i = 0; i < KeysHash.numEle(); i++,KeysHash.pop()) //I will change this later :)
 	{
 		filename=KeysHash.get()+".txt";
-		UserFile.open(filename, ios::in | ios::out | ios::trunc);
+		UserFile.open(filename, ios::in | ios::out);
 		Readfromfile(UserFile, Data);
 	}
 
