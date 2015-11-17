@@ -255,7 +255,7 @@ void AVLTree<T>::toString(){
 }
 
 template <class T>
-T get(const T data, BTNode<T>* node){
+T AVLTree<T>::get(const T data, BTNode<T>* node){
 	if (node != NULL){
 		if (data == node->getData()){
 			return node->getData();
