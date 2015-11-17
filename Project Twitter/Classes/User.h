@@ -1,6 +1,6 @@
-#include "Data Strutures\BinaryTree\BST.h"
-#include "Data Strutures\BinaryTree\List&Queue\Queue.h"
-#include "Data Strutures\BinaryTree\List&Queue\List.h"
+#include "Data Structures\BinaryTree\BST.h"
+#include "Data Structures\BinaryTree\List&Queue\Queue.h"
+#include "Data Structures\BinaryTree\List&Queue\List.h"
 #include "Tweet\TweetContainer.h"
 #include "Tweet\Tweet.h"
 #include <string>

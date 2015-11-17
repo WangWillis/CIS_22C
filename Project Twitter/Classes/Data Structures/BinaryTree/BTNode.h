@@ -20,10 +20,10 @@ class BTNode{
 	public:
 		BTNode(const T);
 		~BTNode();
-		T getData();
+		T getData() const;
 		BTNode<T>* getLeft();
 		BTNode<T>* getRight();
-        int getHeight();
+        int getHeight() const;
         void setHeight(const int);
         void setData(const T);
 		void setLeft(BTNode*);
@@ -47,7 +47,7 @@ template <class T>
 void BTNode<T>::del(T* const & p) {delete p;}
 
 template <class T>
-int BTNode<T>::getHeight(){
+int BTNode<T>::getHeight() const{
 	return height;
 }
 
@@ -57,7 +57,7 @@ void BTNode<T>::setHeight(const int len){
 }
 
 template <class T>
-T BTNode<T>::getData(){
+T BTNode<T>::getData() const{
 	return data;
 }
 

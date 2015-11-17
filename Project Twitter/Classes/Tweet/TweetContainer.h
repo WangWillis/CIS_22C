@@ -23,12 +23,11 @@ class UserTweet{
 		Tweet* changeReTweet(const string, const string);
 		Tweet* getRePost();
 		void toString();
-		bool operator==(const UserTweet&);
-		bool operator!=(const UserTweet&);
+		bool operator==(const UserTweet&) const;
+		bool operator!=(const UserTweet&) const;
 		friend bool operator<(const UserTweet& lhs, const UserTweet& rhs){
 			return lhs.getTweet() < rhs.getTweet();
 		}
-		
 		friend ostream &operator << (ostream& strm, const UserTweet& obj){
 			strm << obj.getTweet();
 			return strm;

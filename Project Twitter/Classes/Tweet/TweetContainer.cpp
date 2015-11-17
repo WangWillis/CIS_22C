@@ -68,14 +68,14 @@ void UserTweet::toString(){
 	post->toString();
 }
 
-bool UserTweet::operator==(const UserTweet& rhs){
+bool UserTweet::operator==(const UserTweet& rhs) const{
 	if(post == rhs.getTweet()){
 		return true;
 	}
 	return false;
 }
 
-bool UserTweet::operator!=(const UserTweet& rhs){
+bool UserTweet::operator!=(const UserTweet& rhs) const{
 	if(post != rhs.getTweet()){
 		return true;
 	}
