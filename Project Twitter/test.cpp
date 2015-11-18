@@ -31,7 +31,19 @@ void remove(User* user, MyTweet pst, HashTable<User*> hash){
 }
 
 int main(){
-	HashTable<User*> hash1;
-	
-	return 0;	
+	HashTable<User*> hash;
+	User* u1 = new User("WILLYBEAR", "1234");
+	User* u2 = new User("WILLYWNG", "4321");
+	cout << "HI!" << endl;
+	hash.addItem(u1->getUsername(), u1);
+	hash.addItem(u2->getUsername(), u2);
+	cout << "HI!" << endl;
+	u1->addFollower(u2->getUsername());
+	u2->addFollowing(u1->getUsername());
+	string post1 = "YOOOOO BISSHH IM BEK";
+	cout << "HI" << endl;
+	add(u1, post1, hash);
+	u1->displayNewsFeed();
+	u2->displayNewsFeed();
+	return 0;
 }
