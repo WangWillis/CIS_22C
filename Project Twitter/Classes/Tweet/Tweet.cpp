@@ -38,15 +38,8 @@ void Tweet::unReTweet(){
 	reTweets--;
 }
 
-void Tweet::toString(){
-	cout << "User: " << userId << endl;
-	cout << "Time Posted: " << ctime(&postTime);
-	cout << "Likes: " << likes << "\t ReTweets: " << reTweets << endl << endl;
-	cout << "Tweet: " << endl << text << endl << endl;
-}
-
-Tweet* Tweet::getPost(){
-	return this;
+string Tweet::getText() const{
+	return text;
 }
 
 time_t Tweet::getTime() const{
@@ -69,6 +62,10 @@ ReTweet::ReTweet(Tweet* post, const string user, const string msg) : Tweet(user,
 	orgPost = post;
 }
 
+Tweet* ReTweet::getPost() const{
+	return orgPost;
+}
+
 void ReTweet::like(){
 	likes++;
 	orgPost->like();
@@ -87,13 +84,4 @@ void ReTweet::reTweet(){
 void ReTweet::unReTweet(){
 	reTweets--;
 	orgPost->unReTweet();
-}
-
-void ReTweet::toString(){
-	cout << "User: " << userId << endl;
-	cout << "Time Posted: " << ctime(&postTime);
-	cout << "Likes: " << likes << "\t ReTweets: " << reTweets << endl << endl;
-	cout << "Tweet: " << endl << text << endl << endl;
-	cout << "ReTweet:" << endl;
-	orgPost->toString();
 }

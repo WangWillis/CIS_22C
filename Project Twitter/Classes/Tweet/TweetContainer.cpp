@@ -23,7 +23,7 @@ bool UserTweet::isReTweet() const{
 }
 
 Tweet* UserTweet::getTweet() const{
-	return post->getPost();
+	return post;
 }
 
 void UserTweet::setPost(Tweet* tweet){
@@ -41,8 +41,7 @@ void UserTweet::changeLiked(){
 		}
 	}
 }
-//if you want to repost gives a new repost
-//
+
 Tweet* UserTweet::changeReTweet(const string user, const string tweet){
 	if(post){
 		if(reTweet){
@@ -62,10 +61,6 @@ Tweet* UserTweet::changeReTweet(const string user, const string tweet){
 
 Tweet* UserTweet::getRePost(){
 	return rePost;
-}
-
-void UserTweet::toString(){
-	post->toString();
 }
 
 bool UserTweet::operator==(const UserTweet& rhs) const{
