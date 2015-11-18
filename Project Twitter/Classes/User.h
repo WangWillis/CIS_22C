@@ -1,3 +1,5 @@
+#ifndef USER_H
+#define USER_H
 #include "Data Structures\BinaryTree\BST.h"
 #include "Data Structures\BinaryTree\List&Queue\Queue.h"
 #include "Data Structures\BinaryTree\List&Queue\List.h"
@@ -52,3 +54,5 @@ public:
 	void displayNewsFeed();
 	Queue <string> toQueueFollowers();
 };
+
+#endif
