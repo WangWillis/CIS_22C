@@ -8,7 +8,7 @@
 using namespace std;
 
 void DisplayLogo();
-void Readfromfile(fstream&);
+void Readfromfile(fstream&,HashTable <User*>);
 int LoggedinSuccess(HashTable<User*>&, string, string);
 
 int main()
@@ -19,13 +19,30 @@ int main()
 	string user;
 	string password;
 	HashTable <User*> Data;
-	//Read data of the users from an input file (We need 25 users...)
+		//Read data of the users from an input file (We need 25 users...)
 	string filename;
 	filename = "UserData.txt"; //Change for address of this file 
 	fstream UserFile;
 	UserFile.open(filename, ios::in | ios::out);
+	Queue<string> KeysHash;
 	
-	Readfromfile(UserFile);
+	//Read keys of hash table and put them in a queue
+	if (UserFile)
+	{
+		for (int cont = 0; UserFile.peek() != EOF; cont++)
+		{
+			getline(UserFile, user);
+			KeysHash.add(user);
+		}
+	}
+
+	//For all users of the hash table get their file and read their info
+	for (int i = 0; i < KeysHash.numEle(); i++,KeysHash.pop()) //I will change this later :)
+	{
+		filename=KeysHash.get()+".txt";
+		UserFile.open(filename, ios::in | ios::out);
+		Readfromfile(UserFile, Data);
+	}
 
 	do
 	{
@@ -144,7 +161,7 @@ void DisplayLogo()
 	cout << "   |__/ \\_____/\\___/ |__/   \\___/   \\___/   \\_______/|__/                         /^\\\\\\    " << endl << endl;
 	cout << string(94, '=') << endl << endl;
 }
-void Readfromfile(fstream& UserFile)
+void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 {
 	if (UserFile)
 	{
@@ -168,6 +185,7 @@ void Readfromfile(fstream& UserFile)
 			AVLTree <string> Followng;
 			string followng;
 
+			
 			getline(UserFile, user);
 			userobj->setUsername(user);
 			getline(UserFile, passwr);
@@ -259,10 +277,9 @@ void Readfromfile(fstream& UserFile)
 				//Add this tree to the user object
 			}
 
-			//Put all this information in the hash table :D
+			Data.addItem(user,userobj); //Put all (not really) this information in the hash table :D
 		}
 	}
-
 
 }
 
