@@ -36,7 +36,11 @@ HashTable<T>::HashTable(){
 
 template <class T>
 HashTable<T>::~HashTable(){
-	delete [] table;
+	for(int i = 0; i < tableSize; i++){
+		if(!table[i].isEmpty()){
+			delete &table[i];
+		}
+	}
 }
 
 template <class T>
@@ -47,7 +51,11 @@ Container<T>* HashTable<T>::upSize(){
 		unsigned int index = hash(table[i].getKey());
 		temp[index].setDataKey(table[i].getKey(), table[i].getData());
 	}
-	delete table;
+	for(int i = 0; i < tableSize/2; i++){
+		if(!table[i].isEmpty()){
+			delete &table[i];
+		}
+	}
 	return temp;
 }
 
@@ -108,7 +116,7 @@ template <class T>
 void HashTable<T>::remove(std::string key){
 	unsigned int index = getIndex(key);
 	if(!table[index].isEmpty())
-		table[index].freeData();
+		table[index].remove();
 }
 
 #endif

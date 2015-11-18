@@ -38,7 +38,7 @@ class MyTweet : public UserTweet{
 	public:
 		MyTweet();
 		MyTweet(Tweet*);
-		~MyTweet();
+		void clearTweet();
 };
 
 #endif

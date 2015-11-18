@@ -8,6 +8,17 @@ User::User(string username, string psswrd)
 	numFollowing = 0;
 }
 
+User::~User(){
+	Queue<MyTweet> theQ = myTweets.toQueue();
+	while(!theQ.isEmpty()){
+		theQ.pop().clearTweet();
+	}
+	theQ = myRetweets.toQueue();
+	while(!theQ.isEmpty()){
+		theQ.pop().clearTweet();
+	}
+}
+
 void User::setUsername(string username)
 {
 	userName = username;

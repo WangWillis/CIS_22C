@@ -205,14 +205,15 @@ BTNode<T>* AVLTree<T>::remove(const T data, BTNode<T>* node){
 		return balance(node);
 	}
 	else{
-		cout << "Data Not in Set" << endl;
 		return node;
 	}
 }
 
 template <class T>
 void AVLTree<T>::remove(const T data){
-	head = remove(data, head);
+	if(head != NULL){
+		head = remove(data, head);
+	}
 }
 
 template <class T>
@@ -289,8 +290,9 @@ Queue<T>* AVLTree<T>::toQueue(Queue<T>* queue, BTNode<T>* node){
 
 template <class T>
 Queue<T> AVLTree<T>::toQueue(){
+	Queue<T> temp;
 	Queue<T>* queue = new Queue<T>();
-	Queue<T> temp = *toQueue(queue, head);
+	temp = *toQueue(queue, head);
 	delete queue;
 	return temp;
 }

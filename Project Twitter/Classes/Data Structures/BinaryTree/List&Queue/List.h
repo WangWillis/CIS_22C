@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Node.h"
+#include "Queue.h"
 
 //List class with a head pointer
 template <class T>
@@ -27,6 +28,7 @@ class List{
 		//pos starts at 0
 		T getDataPos(const int pos);
 		T getData(const T);
+		Queue<T> toQueue();
 		//adds node to front
 		void addFront(const T data);
 		//adds node next to node of same data
@@ -223,4 +225,18 @@ T List<T>::getData(const T data){
 	}
 	return data;
 }
+
+template <class T>
+Queue<T> List<T>::toQueue(){
+	Queue<T> tempQ;
+	if(this->head != NULL){
+		Node<T>* temp = head;
+		while(temp->getNext() != NULL){
+			tempQ.add(temp->getData());
+			temp = temp->getNext();
+		}
+	}
+	return tempQ;
+}
+
 #endif

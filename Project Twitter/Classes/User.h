@@ -3,6 +3,7 @@
 #include "Data Structures\BinaryTree\BST.h"
 #include "Data Structures\BinaryTree\List&Queue\Queue.h"
 #include "Data Structures\BinaryTree\List&Queue\List.h"
+#include "Data Structures\BinaryTree\List&Queue\Node.h"
 #include "Tweet\TweetContainer.h"
 #include "Tweet\Tweet.h"
 #include <string>
@@ -13,6 +14,7 @@ class User;
 
 class User{
 private:
+	User();
 	string userName, password;
 	int numFollower, numFollowing,numTweets,numRetweets,numTNewsF;
 	List <MyTweet> myTweets;
@@ -22,9 +24,8 @@ private:
 	AVLTree <string> following;
 
 public:
-	User(){};
-	~User(){};
 	User(string, string);
+	~User();
 
 	void setUsername(string);
 	void setPassword(string);
