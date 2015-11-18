@@ -109,7 +109,16 @@ void User::displayFollowing()
 }
 void User::displayNewsFeed()
 {
+	cout << userName << ": Newsfeed" << endl;
 	newsFeed.toString();
+}
+void User::addFollower(string fol){
+	followers.add(fol);
+	numFollower++;
+}
+void User::addFollowing(string fol){
+	following.add(fol);
+	numFollowing++;
 }
 
 //Since the user class does not interact with the hash table

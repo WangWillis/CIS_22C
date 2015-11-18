@@ -42,6 +42,8 @@ public:
 	
 	void addTweet(Tweet*);
 	void deleteTweet(MyTweet);
+	void addFollower(string);
+	void addFollowing(string);
 	UserTweet getUserTweet(Tweet*);
 	MyTweet getMyReTweet(Tweet*);
 
