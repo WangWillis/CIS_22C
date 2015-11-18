@@ -43,6 +43,9 @@ int main(){
 	add(u1, post1, hash);
 	u1->displayNewsFeed();
 	u2->displayNewsFeed();
+	remove(u1, u1->getMyTweet(0), hash);
+	u1->displayNewsFeed();
+	u2->displayNewsFeed();
 	delete hash;
 	return 0;
 }

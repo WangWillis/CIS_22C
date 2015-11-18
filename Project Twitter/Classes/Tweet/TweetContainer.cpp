@@ -81,4 +81,7 @@ MyTweet::MyTweet() : UserTweet(){}
 
 MyTweet::MyTweet(Tweet* post) : UserTweet(post){}
 
-void MyTweet::clearTweet(){delete post;}
+void MyTweet::clearTweet(){
+	delete post;
+	post = NULL;
+}

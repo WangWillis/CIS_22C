@@ -48,6 +48,7 @@ public:
 	void addFollower(string);
 	void addFollowing(string);
 	UserTweet getUserTweet(Tweet*);
+	MyTweet getMyTweet(const int);
 	MyTweet getMyReTweet(Tweet*);
 
 	void displayFollowers();

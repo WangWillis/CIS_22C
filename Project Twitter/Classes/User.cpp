@@ -102,10 +102,13 @@ void User::addTweet(Tweet* pst)
 void User::deleteTweet(MyTweet pst)
 {
 	if (pst.getTweet()->getUserId() == userName){
-		if (pst.isReTweet() == true)
+		if (pst.isReTweet() == true){
+			myRetweets.getData(pst).clearTweet();
 			myRetweets.delInfo(pst);
-		else
+		}else{
+			myTweets.getData(pst).clearTweet();
 			myTweets.delInfo(pst);
+		}	
 	}
 	newsFeed.remove(pst);
 }
@@ -150,4 +153,8 @@ UserTweet User::getUserTweet(Tweet* twt){
 MyTweet User::getMyReTweet(Tweet* twt){
 	MyTweet temp(twt);
 	return myRetweets.getData(temp);
+}
+
+MyTweet User::getMyTweet(const int pos){
+	return myTweets.getDataPos(pos);
 }
