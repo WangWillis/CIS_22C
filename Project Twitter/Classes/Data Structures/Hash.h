@@ -50,8 +50,7 @@ HashTable<T>::~HashTable(){
 template <class T>
 unsigned int HashTable<T>::hash(string key){
 	int hash = 0;
-	for (int i = 0; i < key.length(); i++)
-	{
+	for (int i = 0; i < static_cast<int>(key.length()); i++){
 		hash = (hash + (int)key[i]) * 17;
 	}
 	return hash % TABLESIZE;
