@@ -34,7 +34,9 @@ Container<T>::Container(){
 
 template <class T>
 Container<T>::~Container(){
-	del();
+	if(!empty){
+		del();
+	}
 }
 
 template <class T>

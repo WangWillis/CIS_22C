@@ -36,11 +36,12 @@ HashTable<T>::HashTable(){
 
 template <class T>
 HashTable<T>::~HashTable(){
-	for(int i = 0; i < tableSize; i++){
-		if(!table[i].isEmpty()){
-			delete &table[i];
-		}
-	}
+	// for(int i = 0; i < tableSize; i++){
+	// 	if(!table[i].isEmpty()){
+	// 		delete &table[i];
+	// 	}
+	// }
+	delete [] table;
 }
 
 template <class T>
@@ -114,6 +115,7 @@ bool HashTable<T>::freeKey(std::string key){
 
 template <class T>
 void HashTable<T>::remove(std::string key){
+	ele--;
 	unsigned int index = getIndex(key);
 	if(!table[index].isEmpty())
 		table[index].remove();
