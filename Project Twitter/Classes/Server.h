@@ -2,10 +2,10 @@
 #define SERVER_H
 
 #include "User.h"
-#include "Data Structures\HashTable.h"
-#include "Tweet\Tweet.h"
-#include "Data Structures\BinaryTree\List&Queue\Queue.h"
-#include "Tweet\TweetContainer.h"
+#include "Data Structures/HashTable.h"
+#include "Tweet/Tweet.h"
+#include "Data Structures/BinaryTree/List&Queue/Queue.h"
+#include "Tweet/TweetContainer.h"
 
 class Server;
 
