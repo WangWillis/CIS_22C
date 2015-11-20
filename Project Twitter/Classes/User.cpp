@@ -13,10 +13,6 @@ User::~User(){
 	while(!theQ.isEmpty()){
 		theQ.pop().clearTweet();
 	}
-	theQ = myRetweets.toQueue();
-	while(!theQ.isEmpty()){
-		theQ.pop().clearTweet();
-	}
 }
 
 void User::setUsername(string username)
@@ -91,26 +87,21 @@ int User::getFollowing()
 
 void User::addTweet(Tweet* pst)
 {
+	UserTweet newsTweet(pst);
+	newsFeed.add(newsTweet);
 	if (pst->getUserId() == userName){
 		MyTweet Tweeting(pst);
 		myTweets.addFront(Tweeting);
 	}
-	UserTweet newsTweet(pst);
-	newsFeed.add(newsTweet);
 }
 
 void User::deleteTweet(MyTweet pst)
 {
-	if (pst.getTweet()->getUserId() == userName){
-		if (pst.isReTweet() == true){
-			myRetweets.getData(pst).clearTweet();
-			myRetweets.delInfo(pst);
-		}else{
-			myTweets.getData(pst).clearTweet();
-			myTweets.delInfo(pst);
-		}	
-	}
 	newsFeed.remove(pst);
+	if (pst.getTweet()->getUserId() == userName){
+		myTweets.getData(pst).clearTweet();
+		myTweets.delInfo(pst);
+	}
 }
 
 void User::displayFollowers()
@@ -152,7 +143,7 @@ UserTweet User::getUserTweet(Tweet* twt){
 
 MyTweet User::getMyReTweet(Tweet* twt){
 	MyTweet temp(twt);
-	return myRetweets.getData(temp);
+	return myTweets.getData(temp);
 }
 
 MyTweet User::getMyTweet(const int pos){

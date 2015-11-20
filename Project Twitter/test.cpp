@@ -1,9 +1,10 @@
 #include <iostream>
-#include "Classes\User.h"
-#include "Classes\Data Structures\HashTable.h"
-#include "Classes\Tweet\Tweet.h"
-#include "Classes\Data Structures\BinaryTree\List&Queue\Queue.h"
-#include "Classes\Tweet\TweetContainer.h"
+#include "Classes/User.h"
+#include "Classes/Data Structures/HashTable.h"
+#include "Classes/Tweet/Tweet.h"
+#include "Classes/Data Structures/BinaryTree/List&Queue/Queue.h"
+#include "Classes/Tweet/TweetContainer.h"
+#include "Classes/Server.h"
 #include <string>
 
 using namespace std;

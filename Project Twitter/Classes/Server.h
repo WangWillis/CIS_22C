@@ -13,13 +13,13 @@ class Server{
 	private:
 		HashTable<User*> overLord;
 	public:
-		bool checkKey(string);
+		bool checkKey(std::string);
 		void addUser(User*);
 		void removeUser(User*);
-		User* getUser(string, string);
-		void add(User*, string);
+		User* getUser(std::string, std::string);
+		void add(User*, std::string);
 		void remove(User*, MyTweet);
-		void reTweet(User*, UserTweet);
+		void reTweet(User*, UserTweet&, std::string);
 };
 
 #endif

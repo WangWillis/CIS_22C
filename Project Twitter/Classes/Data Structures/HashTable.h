@@ -3,7 +3,7 @@
 
 #include <string>
 #include "Container.h"
-#include "BinaryTree\BST.h"
+#include "BinaryTree/BST.h"
 
 template <class T>
 class HashTable;

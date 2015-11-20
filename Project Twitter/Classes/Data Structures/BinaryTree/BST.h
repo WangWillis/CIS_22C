@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include "BTNode.h"
-#include "List&Queue\List.h"
-#include "List&Queue\Queue.h"
+#include "List&Queue/List.h"
+#include "List&Queue/Queue.h"
 
 using namespace std;
 

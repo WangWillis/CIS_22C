@@ -1,11 +1,11 @@
 #ifndef USER_H
 #define USER_H
-#include "Data Structures\BinaryTree\BST.h"
-#include "Data Structures\BinaryTree\List&Queue\Queue.h"
-#include "Data Structures\BinaryTree\List&Queue\List.h"
-#include "Data Structures\BinaryTree\List&Queue\Node.h"
-#include "Tweet\TweetContainer.h"
-#include "Tweet\Tweet.h"
+#include "Data Structures/BinaryTree/BST.h"
+#include "Data Structures/BinaryTree/List&Queue/Queue.h"
+#include "Data Structures/BinaryTree/List&Queue/List.h"
+#include "Data Structures/BinaryTree/List&Queue/Node.h"
+#include "Tweet/TweetContainer.h"
+#include "Tweet/Tweet.h"
 #include <string>
 
 using namespace std;
@@ -18,7 +18,6 @@ private:
 	string userName, password;
 	int numFollower, numFollowing,numTweets,numRetweets,numTNewsF;
 	List <MyTweet> myTweets;
-	List <MyTweet> myRetweets;
 	AVLTree <UserTweet> newsFeed;
 	AVLTree <string> followers;
 	AVLTree <string> following;

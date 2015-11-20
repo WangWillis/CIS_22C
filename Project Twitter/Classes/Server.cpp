@@ -1,6 +1,6 @@
 #include "Server.h"
 
-bool Server::checkKey(string key){
+bool Server::checkKey(std::string key){
 	return overLord.freeKey(key);
 }
 
@@ -12,7 +12,7 @@ void Server::removeUser(User* user){
 	overLord.remove(user->getUsername());
 }
 
-User* Server::getUser(string userName, string pass){
+User* Server::getUser(std::string userName, std::string pass){
 	if(!overLord.freeKey(userName)){
 		User* temp = overLord.getData(userName);
 		if(temp->matchPassword(pass)){
@@ -22,25 +22,35 @@ User* Server::getUser(string userName, string pass){
 	return NULL;
 }
 
-void Server::add(User* user, string post){
+void Server::add(User* user, std::string post){
 	Tweet* twt = new Tweet(user->getUsername(), post);
 	user->addTweet(twt);
-	Queue<string> followerStream = user->toQueueFollowers();
+	Queue<std::string> followerStream = user->toQueueFollowers();
 	while(!followerStream.isEmpty()){
-		User* temp = hash->getData(followerStream.pop());
+		User* temp = overLord.getData(followerStream.pop());
 		temp->addTweet(twt);
 	}
 }
 
 void Server::remove(User* user, MyTweet pst){
-	Queue<string> followerStream = user->toQueueFollowers();
+	Queue<std::string> followerStream = user->toQueueFollowers();
 	while(!followerStream.isEmpty()){
-		User* temp = hash->getData(followerStream.pop());
+		User* temp = overLord.getData(followerStream.pop());
 		UserTweet utt = temp->getUserTweet(pst.getTweet());
 		if(utt.isReTweet()){
-			remove(temp, temp->getMyReTweet(utt.getRePost()), hash);
+			remove(temp, temp->getMyReTweet(utt.getRePost()));
 		}
 		temp->deleteTweet(pst);
 	}
 	user->deleteTweet(pst);
+}
+
+void Server::reTweet(User* user, UserTweet& pst, std::string cmt){
+	Tweet* twt = pst.changeReTweet(user->getUsername(), cmt);
+	Queue<std::string> followerStream = user->toQueueFollowers();
+	while(!followerStream.isEmpty()){
+		User* temp = overLord.getData(followerStream.pop());
+		temp->addTweet(twt);
+	}
+	user->addTweet(twt);
 }
