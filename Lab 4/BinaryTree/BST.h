@@ -278,12 +278,14 @@ T AVLTree<T>::get(const T data){
 
 template <class T>
 Queue<T>* AVLTree<T>::toQueue(Queue<T>* queue, BTNode<T>* node){
-	if (node->getLeft() != NULL){
-		queue = toQueue(queue, node->getLeft());
-	}
-	queue->add(node->getData());
-	if (node->getRight() != NULL){
-		queue = toQueue(queue, node->getRight());
+	if(node != NULL){
+		if (node->getLeft() != NULL){
+			queue = toQueue(queue, node->getLeft());
+		}
+		queue->add(node->getData());
+		if (node->getRight() != NULL){
+			queue = toQueue(queue, node->getRight());
+		}
 	}
 	return queue;
 }
