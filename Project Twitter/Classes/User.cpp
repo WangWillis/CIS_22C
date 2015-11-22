@@ -6,6 +6,7 @@ User::User(string username, string psswrd)
 	password = psswrd;
 	numFollower = 0;
 	numFollowing = 0;
+	numTweets = 0;
 }
 
 User::~User(){
@@ -40,27 +41,9 @@ void User::setNumTweets(int Ntweets)
 	numTweets = Ntweets;
 }
 
-void User::setNumRTweets(int RT)
-{
-	numRetweets = RT;
-}
-
-void User::setNumNewsF(int NF)
-{
-	numTNewsF = NF;
-}
-
 int User::getNumTweets()
 {
 	return numTweets;
-}
-int User::getNumRTweets()
-{
-	return numRetweets;
-}
-int User::getNumNewsF()
-{
-	return numTNewsF;
 }
 
 string User::getUsername()
@@ -92,6 +75,7 @@ void User::addTweet(Tweet* pst)
 	if (pst->getUserId() == userName){
 		MyTweet Tweeting(pst);
 		myTweets.addFront(Tweeting);
+		numTweets++;
 	}
 }
 
@@ -101,6 +85,7 @@ void User::deleteTweet(MyTweet pst)
 	if (pst.getTweet()->getUserId() == userName){
 		myTweets.getData(pst).clearTweet();
 		myTweets.delInfo(pst);
+		numTweets--;
 	}
 }
 
@@ -126,6 +111,20 @@ void User::addFollowing(string fol){
 	numFollowing++;
 }
 
+void User::removeFollower(string fol){
+	if(numFollower > 0){
+		followers.remove(fol);
+		numFollower--;
+	}
+}
+
+void User::removeFollowing(string fol){
+	if(numFollowing > 0){
+		following.remove(fol);
+		numFollowing--;
+	}
+}
+
 //Since the user class does not interact with the hash table
 //to remove and add tweets to users who are following you need to be done in main
 //in order to do that we need to stream the people who are following you
@@ -139,11 +138,6 @@ Queue<string> User::toQueueFollowers()
 UserTweet User::getUserTweet(Tweet* twt){
 	UserTweet temp(twt);
 	return newsFeed.get(temp);
-}
-
-MyTweet User::getMyReTweet(Tweet* twt){
-	MyTweet temp(twt);
-	return myTweets.getData(temp);
 }
 
 MyTweet User::getMyTweet(const int pos){

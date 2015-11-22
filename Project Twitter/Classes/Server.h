@@ -19,7 +19,8 @@ class Server{
 		User* getUser(std::string, std::string);
 		void add(User*, std::string);
 		void remove(User*, MyTweet);
-		void reTweet(User*, UserTweet&, std::string);
+		void follow(User*, std::string);
+		void unFollow(User*, std::string);
 };
 
 #endif

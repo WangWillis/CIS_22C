@@ -9,19 +9,12 @@ class MyTweet;
 class UserTweet{
 	protected:
 		Tweet* post;
-		Tweet* rePost;
-		bool liked, reTweet;
 	public:
 		UserTweet();
 		UserTweet(Tweet*);
 		~UserTweet();
-		bool isLiked() const;
-		bool isReTweet() const;
 		Tweet* getTweet() const;
 		void setPost(Tweet*);
-		void changeLiked();
-		Tweet* changeReTweet(const string, const string);
-		Tweet* getRePost();
 		bool operator==(const UserTweet&) const;
 		bool operator!=(const UserTweet&) const;
 		friend bool operator<(const UserTweet& lhs, const UserTweet& rhs){
