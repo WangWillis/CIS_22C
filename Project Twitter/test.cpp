@@ -9,44 +9,24 @@
 
 using namespace std;
 
-void add(User* user, string post, HashTable<User*>* hash){
-	Tweet* twt = new Tweet(user->getUsername(), post);
-	user->addTweet(twt);
-	Queue<string> followerStream = user->toQueueFollowers();
-	while(!followerStream.isEmpty()){
-		User* temp = hash->getData(followerStream.pop());
-		temp->addTweet(twt);
-	}
-}
-
-void remove(User* user, MyTweet pst, HashTable<User*>* hash){
-	Queue<string> followerStream = user->toQueueFollowers();
-	while(!followerStream.isEmpty()){
-		User* temp = hash->getData(followerStream.pop());
-		UserTweet utt = temp->getUserTweet(pst.getTweet());
-		if(utt.isReTweet()){
-			remove(temp, temp->getMyReTweet(utt.getRePost()), hash);
-		}
-		temp->deleteTweet(pst);
-	}
-	user->deleteTweet(pst);
-}
-
 int main(){
-	HashTable<User*>* hash = new HashTable<User*>();
-	User* u1 = new User("WILLYBEAR", "1234");
-	User* u2 = new User("WILLYWNG", "4321");
-	hash->add(u1->getUsername(), u1);
-	hash->add(u2->getUsername(), u2);
-	u1->addFollower(u2->getUsername());
-	u2->addFollowing(u1->getUsername());
-	string post1 = "YOOOOO BISSHH IM BEK";
-	add(u1, post1, hash);
+	Server awesome;
+	string key = "WIllyBear";
+	User* u1 = new User(key, "1234");
+	User* u2 = new User("e", "1234");
+	if(awesome.checkKey(key)){
+		awesome.addUser(u1);
+		awesome.addUser(u2);
+		awesome.follow(u2, key);
+	}else{
+		delete u1;
+		u1 = NULL;
+	}
+	awesome.add(u1, "IWIN");
 	u1->displayNewsFeed();
 	u2->displayNewsFeed();
-	remove(u1, u1->getMyTweet(0), hash);
+	awesome.remove(u1, u1->getMyTweet(0));
 	u1->displayNewsFeed();
 	u2->displayNewsFeed();
-	delete hash;
 	return 0;
 }
