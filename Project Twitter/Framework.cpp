@@ -2,7 +2,7 @@
 #include <string>
 #include <iomanip>
 #include <fstream>
-#include "Classes\Data Structures\Hash.h"
+#include "Classes\Data Structures\HashTable.h"  //originally tried to open Hash.h
 #include "Classes\User.h"
 
 using namespace std;
@@ -196,8 +196,8 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 			userobj->setFollowing(NFollowng);
 			UserFile >> NTweets;
 			userobj->setNumTweets(NTweets);
-			UserFile >> NRetweets;
-			userobj->setNumRTweets(NRetweets);
+			/*UserFile >> NRetweets;				we're not doing retweets anymore right?
+			userobj->setNumRTweets(NRetweets);*/
 			UserFile >> NTNewsF;
 			userobj->setNumNewsF(NTNewsF);
 
@@ -212,8 +212,8 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 				Tweetobj->setTweets(tweet);
 				UserFile >> likes;
 				Tweetobj->setlikes(likes);
-				UserFile >> reTweets;
-				Tweetobj->setRT(reTweets);
+				/*UserFile >> reTweets;			we're not doing retweets anymore right?
+				Tweetobj->setRT(reTweets);*/
 				UserFile >> postTime;
 				Tweetobj->setpostim(postTime);
 				UserTweet Usertweetobj;
@@ -221,25 +221,25 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 				Tweets.addFront(Usertweetobj);
 			}
 
-			//Read Retweets from input file
-			cin.clear();
-			cin.ignore();
-			for (int i = 0; i < NRetweets; i++)
-			{
-				getline(UserFile, tweet);
-				ReTweet *RTweetobj = NULL;
-				RTweetobj->setUser(user);
-				RTweetobj->setTweets(tweet);
-				UserFile >> likes;
-				RTweetobj->setlikes(likes);
-				UserFile >> reTweets;
-				RTweetobj->setRT(reTweets);
-				UserFile >> postTime;
-				RTweetobj->setpostim(postTime);
-				UserTweet Usertweetobj;
-				Usertweetobj.setPost(RTweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
-				Tweets.addFront(Usertweetobj);
-			}
+			//Read Retweets from input file				we're not doing retweets anymore right?
+			//cin.clear();
+			//cin.ignore();
+			//for (int i = 0; i < NRetweets; i++)
+			//{
+			//	getline(UserFile, tweet);
+			//	ReTweet *RTweetobj = NULL;
+			//	RTweetobj->setUser(user);
+			//	RTweetobj->setTweets(tweet);
+			//	UserFile >> likes;
+			//	RTweetobj->setlikes(likes);
+			//	UserFile >> reTweets;
+			//	RTweetobj->setRT(reTweets);
+			//	UserFile >> postTime;
+			//	RTweetobj->setpostim(postTime);
+			//	UserTweet Usertweetobj;
+			//	Usertweetobj.setPost(RTweetobj); //Does not take into account Tweet* rePost and bool liked, reTweet..... WRONG
+			//	Tweets.addFront(Usertweetobj);
+			//}
 
 			//Read newsfeed from input file
 			cin.clear();
@@ -252,8 +252,8 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 				Tweetobj->setTweets(tweet);
 				UserFile >> likes;
 				Tweetobj->setlikes(likes);
-				UserFile >> reTweets;
-				Tweetobj->setRT(reTweets);
+				/*UserFile >> reTweets;				we're not doing retweets anymore right?
+				Tweetobj->setRT(reTweets);*/
 				UserFile >> postTime;
 				Tweetobj->setpostim(postTime);
 				UserTweet Usertweetobj;
