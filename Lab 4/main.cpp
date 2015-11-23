@@ -1,4 +1,5 @@
 //Tree is AVL tree
+//input file is people.txt
 //in the input file format name '~' birthday
 //Steven~12/12/12
 #include "BinaryTree/BST.h"
@@ -33,19 +34,25 @@ int main()
     
     temp2 = entry.toQueueBF();
     
-    outFile.open("BreathFirst.txt", fstream::trunc);
-    outFile.clear();
+    outFile.open("TextFiles/BreathFirst(Birthdays).txt", fstream::trunc);
     while(!temp2.isEmpty()){
         outFile << temp2.pop().getBirthday();
         outFile << endl;
     }
     outFile.close();
-    outFile.open("inOrder.txt", fstream::trunc);
+    outFile.open("TextFiles/PostOrder(Names).txt", fstream::trunc);
     outFile.clear();
-    temp2 = entry.toQueue();
+    temp2 = entry.toQueuePO();
     while(!temp2.isEmpty()){
         outFile << temp2.pop().getName();
         outFile << endl;
+    }
+    outFile.close();
+    outFile.open("TextFiles/InOrder(Both).txt", fstream::trunc);
+    temp2 = entry.toQueue();
+    while(!temp2.isEmpty()){
+        People temp = temp2.pop();
+        outFile << temp.getName() << " " << temp.getBirthday() << endl;
     }
     outFile.close();
     return 0;

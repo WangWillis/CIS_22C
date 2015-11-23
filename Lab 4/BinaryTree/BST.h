@@ -23,6 +23,7 @@ private:
 	BTNode<T>* balance(BTNode<T>*);
 	Queue<T>* toQueue(Queue<T>*, BTNode<T>*);
 	Queue<T>* toQueueBF(Queue<T>*, BTNode<T>*);
+	Queue<T>* toQueuePO(Queue<T>*, BTNode<T>*);
 	T get(const T, BTNode<T>*);
 	T getMax(BTNode<T>*);
 	bool find(const T, BTNode<T>*);
@@ -38,6 +39,7 @@ public:
 	T get(const T);
 	Queue<T> toQueue();
 	Queue<T> toQueueBF();
+	Queue<T> toQueuePO();
 	bool find(const T);
 	void add(const T);
 	void remove(const T);
@@ -326,6 +328,29 @@ Queue<T> AVLTree<T>::toQueueBF(){
 	Queue<T> temp;
 	Queue<T>* queue = new Queue<T>();
 	temp = *toQueueBF(queue, head);
+	delete queue;
+	return temp;
+}
+
+template <class T>
+Queue<T>* AVLTree<T>::toQueuePO(Queue<T>* queue, BTNode<T>* node){
+	if(node != NULL){
+		if (node->getLeft() != NULL){
+			queue = toQueue(queue, node->getLeft());
+		}
+		if (node->getRight() != NULL){
+			queue = toQueue(queue, node->getRight());
+		}
+		queue->add(node->getData());
+	}
+	return queue;
+}
+
+template <class T>
+Queue<T> AVLTree<T>::toQueuePO(){
+	Queue<T> temp;
+	Queue<T>* queue = new Queue<T>();
+	temp = *toQueuePO(queue, head);
 	delete queue;
 	return temp;
 }
