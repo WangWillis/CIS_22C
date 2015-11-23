@@ -14,6 +14,7 @@ class User;
 
 class User{
 private:
+	User();  //This used to be private
 	string userName, password;
 	int numFollower, numFollowing, numTweets;
 	List <MyTweet> myTweets;
@@ -22,7 +23,6 @@ private:
 	AVLTree <string> following;
 
 public:
-	User();  //This used to be private
 	User(string, string);
 	~User();
 
