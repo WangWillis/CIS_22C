@@ -308,6 +308,7 @@ Queue<T>* AVLTree<T>::toQueueBF(Queue<T>* temp, BTNode<T>* node){
 	if(node != NULL){
 		queue.add(node);
 		while(!queue.isEmpty()){
+			node = queue.pop();
 			temp->add(node->getData());
 			if(node->getLeft() != NULL){
 				queue.add(node->getLeft());
@@ -315,7 +316,6 @@ Queue<T>* AVLTree<T>::toQueueBF(Queue<T>* temp, BTNode<T>* node){
 			if(node->getRight() != NULL){
 				queue.add(node->getRight());
 			}
-			node = queue.pop();
 		}
 	}
 	return temp;

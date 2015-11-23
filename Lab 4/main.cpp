@@ -19,7 +19,7 @@ int main()
     string temp;
     
     inFile.open("People.txt");
-    while (getline(inFile, temp))
+    while (getline(inFile, temp, '~'))
     {
         People person;
         person.setName(temp);
@@ -34,14 +34,14 @@ int main()
     
     temp2 = entry.toQueueBF();
     
-    outFile.open("BreathFirst.txt", fstream::app);
+    outFile.open("BreathFirst.txt", fstream::trunc);
     outFile.clear();
     while(!temp2.isEmpty()){
         outFile << temp2.pop().getBirthday();
         outFile << endl;
     }
     outFile.close();
-    outFile.open("inOrder.txt", fstream::app);
+    outFile.open("inOrder.txt", fstream::trunc);
     outFile.clear();
     temp2 = entry.toQueue();
     while(!temp2.isEmpty()){
