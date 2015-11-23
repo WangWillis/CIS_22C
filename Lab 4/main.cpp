@@ -1,7 +1,6 @@
 //Tree is AVL tree
-//in the input file format name '\n' birthday
-//Steven
-//12/12/12
+//in the input file format name '~' birthday
+//Steven~12/12/12
 #include "BinaryTree/BST.h"
 #include <iostream>
 #include <fstream> 
