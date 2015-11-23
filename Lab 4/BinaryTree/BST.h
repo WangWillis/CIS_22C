@@ -22,7 +22,7 @@ private:
 	BTNode<T>* remove(const T, BTNode<T>*);
 	BTNode<T>* balance(BTNode<T>*);
 	Queue<T>* toQueue(Queue<T>*, BTNode<T>*);
-	Queue<T> toQueueBF(BTNode<T>*);
+	Queue<T>* toQueueBF(Queue<T>*, BTNode<T>*);
 	T get(const T, BTNode<T>*);
 	T getMax(BTNode<T>*);
 	bool find(const T, BTNode<T>*);
@@ -303,19 +303,18 @@ Queue<T> AVLTree<T>::toQueue(){
 }
 
 template <class T>
-Queue<T> AVLTree<T>::toQueueBF(, BTNode* node){
-	Queue<BTNode<T>> queue;
-	Queue<T> temp;
+Queue<T>* AVLTree<T>::toQueueBF(Queue<T>* temp, BTNode<T>* node){
+	Queue<BTNode<T>*> queue;
 	if(node != NULL){
 		queue.add(node);
 		while(!queue.isEmpty()){
+			temp->add(node->getData());
 			if(node->getLeft() != NULL){
 				queue.add(node->getLeft());
 			}
 			if(node->getRight() != NULL){
 				queue.add(node->getRight());
 			}
-			temp.add(node->getData());
 			node = queue.pop();
 		}
 	}
@@ -324,7 +323,11 @@ Queue<T> AVLTree<T>::toQueueBF(, BTNode* node){
 
 template <class T>
 Queue<T> AVLTree<T>::toQueueBF(){
-	return writeBF(head);
+	Queue<T> temp;
+	Queue<T>* queue = new Queue<T>();
+	temp = *toQueueBF(queue, head);
+	delete queue;
+	return temp;
 }
 
 #endif
