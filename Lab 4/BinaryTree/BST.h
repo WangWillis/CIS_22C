@@ -2,6 +2,7 @@
 #define BST_H
 
 #include <iostream>
+#include <fstream>
 #include "BTNode.h"
 #include "List&Queue/List.h"
 #include "List&Queue/Queue.h"
@@ -21,6 +22,7 @@ private:
 	BTNode<T>* remove(const T, BTNode<T>*);
 	BTNode<T>* balance(BTNode<T>*);
 	Queue<T>* toQueue(Queue<T>*, BTNode<T>*);
+	Queue<T> toQueueBF(BTNode<T>*);
 	T get(const T, BTNode<T>*);
 	T getMax(BTNode<T>*);
 	bool find(const T, BTNode<T>*);
@@ -35,6 +37,7 @@ public:
 	~AVLTree();
 	T get(const T);
 	Queue<T> toQueue();
+	Queue<T> toQueueBF();
 	bool find(const T);
 	void add(const T);
 	void remove(const T);
@@ -297,6 +300,31 @@ Queue<T> AVLTree<T>::toQueue(){
 	temp = *toQueue(queue, head);
 	delete queue;
 	return temp;
+}
+
+template <class T>
+Queue<T> AVLTree<T>::toQueueBF(, BTNode* node){
+	Queue<BTNode<T>> queue;
+	Queue<T> temp;
+	if(node != NULL){
+		queue.add(node);
+		while(!queue.isEmpty()){
+			if(node->getLeft() != NULL){
+				queue.add(node->getLeft());
+			}
+			if(node->getRight() != NULL){
+				queue.add(node->getRight());
+			}
+			temp.add(node->getData());
+			node = queue.pop();
+		}
+	}
+	return temp;
+}
+
+template <class T>
+Queue<T> AVLTree<T>::toQueueBF(){
+	return writeBF(head);
 }
 
 #endif
