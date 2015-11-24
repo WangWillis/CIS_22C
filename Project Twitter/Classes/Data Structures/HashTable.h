@@ -23,6 +23,7 @@ class HashTable{
 		~HashTable();
 		void add(std::string, T);
 		void remove(std::string);
+		void displayKeys();
 		T getData(std::string);
 		bool freeKey(std::string);
 };
@@ -119,6 +120,11 @@ void HashTable<T>::remove(std::string key){
 	unsigned int index = getIndex(key);
 	if(!table[index].isEmpty())
 		table[index].remove();
+}
+
+template <class T>
+void HashTable<T>::displayKeys(){
+	keys.toString();
 }
 
 #endif

@@ -83,8 +83,9 @@ void User::deleteTweet(MyTweet pst)
 {
 	newsFeed.remove(pst);
 	if (pst.getTweet()->getUserId() == userName){
-		myTweets.getData(pst).clearTweet();
+		MyTweet temp = myTweets.getData(pst);
 		myTweets.delInfo(pst);
+		temp.clearTweet();
 		numTweets--;
 	}
 }
@@ -101,6 +102,10 @@ void User::displayNewsFeed()
 {
 	cout << userName << ": Newsfeed" << endl;
 	newsFeed.toString();
+}
+void User::displayMyTweets(){
+	cout << userName << ": My Tweets" << endl;
+	myTweets.toString();
 }
 void User::addFollower(string fol){
 	followers.add(fol);
@@ -142,4 +147,8 @@ UserTweet User::getUserTweet(Tweet* twt){
 
 MyTweet User::getMyTweet(const int pos){
 	return myTweets.getDataPos(pos);
+}
+
+Queue<MyTweet> User::toQueueMyTweet(){
+	return myTweets.toQueue();
 }

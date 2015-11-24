@@ -12,8 +12,10 @@ class Server;
 class Server{
 	private:
 		HashTable<User*> overLord;
+		void addSingleTweet(User*, Tweet*);
+		void delSingleTweet(User*, MyTweet);
 	public:
-		bool checkKey(std::string);
+		bool checkKey(std::string);  //returns true if user is not taken
 		void addUser(User*);
 		void removeUser(User*);
 		User* getUser(std::string, std::string);
@@ -21,6 +23,7 @@ class Server{
 		void remove(User*, MyTweet);
 		void follow(User*, std::string);
 		void unFollow(User*, std::string);
+		void displayUsers();
 };
 
 #endif

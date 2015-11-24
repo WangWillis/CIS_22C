@@ -1,48 +1,52 @@
+#define _CRT_SECURE_NO_WARNINGS_
+#define _CRT_SECURE_NO_DEPRECATE_
+
 #include <iostream>
 #include <string>
 #include <iomanip>
 #include <fstream>
-#include "Classes\Server.h"  //originally tried to open Hash.h
-#include "Classes\User.h"
+#include "Classes/User.h"
+#include "Classes/Server.h"
 
 using namespace std;
 
-void DisplayLogo();
-void Readfromfile(fstream&,HashTable <User*>);
-int LoggedinSuccess(HashTable<User*>&, string, string);
+// void DisplayLogo();
+// void Readfromfile(fstream&,HashTable <User*>);
+// int LoggedinSuccess(Server System, HashTable<User*> Data, string user, string password);
 
 int main()
 {
 	int menu = 0;
-	int menu1=0;
+	int menu1 = 0;
 	char input1;
+	bool quit = false;
 	string user;
 	string password;
 	Server helper;
-	//Read data of the users from an input file (We need 25 users...)
-	string filename;
-	filename = "UserData.txt"; //Change for address of this file 
-	fstream UserFile;
-	UserFile.open(filename, ios::in | ios::out);
-	Queue<string> KeysHash;
+	// //Read data of the users from an input file (We need 25 users...
+	// string filename;
+	// filename = "UserData.txt"; //Change for address of this file 
+	// fstream UserFile;
+	// UserFile.open(filename, ios::in | ios::out);
+	// Queue<string> KeysHash;
 	
-	//Read keys of hash table and put them in a queue
-	if (UserFile)
-	{
-		for (int cont = 0; UserFile.peek() != EOF; cont++)
-		{
-			getline(UserFile, user);
-			KeysHash.add(user);
-		}
-	}
+	// //Read keys of hash table and put them in a queue
+	// if (UserFile)
+	// {
+	// 	for (int cont = 0; UserFile.peek() != EOF; cont++)
+	// 	{
+	// 		getline(UserFile, user);
+	// 		KeysHash.add(user);
+	// 	}
+	// }
 
-	//For all users of the hash table get their file and read their info
-	for (int i = 0; i < KeysHash.numEle(); i++,KeysHash.pop()) //I will change this later :)
-	{
-		filename=KeysHash.get()+".txt";
-		UserFile.open(filename, ios::in | ios::out);
-		Readfromfile(UserFile, Data);
-	}
+	// //For all users of the hash table get their file and read their info
+	// for (int i = 0; i < KeysHash.numEle(); i++,KeysHash.pop()) //I will change this later :)
+	// {
+	// 	filename=KeysHash.get()+".txt";
+	// 	UserFile.open(filename, ios::in | ios::out);
+	// 	Readfromfile(UserFile, Data);
+	// }
 
 	do
 	{
@@ -72,69 +76,92 @@ int main()
 		case 'L':
 		{
 					menu1 = 0;
-					cout << " Please enter your username: ";
-					getline(cin, user);
-					//check user against table
-					while (Data.inSet(user) == false) //Search in the hash table for user 
-					{
-						cout << "\n I'm sorry, that username is not in our data banks.  Please try again..." << endl << endl;
-						cout << " Username: ";
-						getline(cin, user);  //loop this
-					}
 
-					cout << "\n Please enter your password:";
-					getline(cin, password);
-
-					User* obj = new User; 
-					obj = Data.getData(user);
-
-					//check password in the hash table
-					while (obj->matchPassword(password) == false) //if not in table
-					{
-						cout << "\nI'm sorry, that password is incorrect.  Please try again..." << endl << endl;
-						cout << " Password: ";
-						getline(cin, password);  //loop this
-					}
-					delete obj;
-
-					//on succcessful login you can do stuff
-					cout << "\n You have successfully logged in." << endl;
 					do
 					{
-						menu1 = LoggedinSuccess(Data, user, password);
+						cout << "Please enter your username or 'exit' to quit." << endl << endl;
+						cout << " Username: ";
+						getline(cin, user);
+						if (user == "exit")
+						{
+							quit = true;
+						}
+						else if (System.checkKey(user) == true)
+						{
+							cout << "\n I'm sorry, that username is not in our data banks." << endl;
+						}
+					} while (System.checkKey(user) == true && !quit);
 
-					} while (menu1 == 0);
+					User* obj = new User(" ", " "); //since default constructor is private, I have to cheat by using this
+					if (!quit)
+					{
+						obj = Data.getData(user);
+						do
+						{
+							cout << "\nPlease enter your password or 'exit' to quit." << endl << endl;
+							cout << " Password: ";
+							getline(cin, password);
+							if (password == "exit")
+							{
+								quit = true;
+							}
+							else if (obj->matchPassword(password) == false)
+							{
+								cout << "\nI'm sorry, that password is incorrect.  Please try again..." << endl;
+							}
+						} while (obj->matchPassword(password) == false && !quit);
+					}
+
+					if (quit)
+					{
+						cout << "Cancelling log in." << endl;
+					}
+					else
+					{
+						delete obj;
+
+						//on succcessful login you can do stuff
+						cout << "\n You have successfully logged in." << endl;
+						do
+						{
+							menu1 = LoggedinSuccess(System, Data, user, password);
+
+						} while (menu1 == 0);
+					}
 					break;
 		}
 		case 'N':
 		{
-					cout << " Please enter your desired username: ";
-					getline(cin, user);
-					//check if username is taken or is viable
-					while (Data.inSet(user) == true) //if not viable
-					{
-						cout << "\n I'm sorry, that username is not available.  Please try again." << endl;
-						cout << " Username: ";
-						getline(cin, password);  //loop this
-					}
-					cout << "\n Please enter your desired password: ";
-					getline(cin, password);
-	
-					//check if password is viable ?????Why????? 
-					while (false) //if not viable
-					{
-						cout << "I'm sorry, that password is unavailable.  Please try again." << endl;
-						getline(cin, password); //loop this
-					}
+			do
+			{
+				cout << " Please enter your desired username: ";
+				getline(cin, user);
+				if (System.checkKey(user) == false || user == "exit")
+				{
+					cout << "\n I'm sorry, that username is not available.  Please try again." << endl;
+				}
+			} while (System.checkKey(user) == false || user == "exit");
+					
+			do
+			{
+				cout << "\n Please enter your desired password: ";
+				getline(cin, password);
+				if (password == "exit")
+				{
+					cout << "I'm sorry, that password is unavailable.  Please try again." << endl;
+				}
+			} while (password == "exit");
 
+			cout << "here" << endl;
 					//Hash table needs to take care of dynamically allocated memory
 					User* cur = new User(user, password);
-					Data.addItem(user, cur);
+					cout << "here" << endl;
+					System.addUser(cur);
 					cout << "\n\n Your account has been successfully created." << endl;
 					cout << string(94, '=')<<endl<<endl;
 					do
 					{
-						menu1=LoggedinSuccess(Data, user, password);
+						menu1=LoggedinSuccess(System, Data, user, password);
 
 					} while (menu1 == 0);
 					break;
@@ -167,15 +194,16 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 	{
 		for (int cont = 0; UserFile.peek() != EOF; cont++)
 		{
-			User* userobj = new User;
+			User* userobj;
 			string user, passwr;
 			int NFollowrs, NFollowng, NTweets, NRetweets, NTNewsF;
 
 			List<UserTweet>Tweets;
 			string tweet;
-			int likes, reTweets;
+			int likes;
+			//int reTweets;
 			time_t postTime;
-			List <UserTweet> retweets;
+			//List <UserTweet> retweets;
 
 			AVLTree <UserTweet> newsF;
 
@@ -187,9 +215,8 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 
 			
 			getline(UserFile, user);
-			userobj->setUsername(user);
 			getline(UserFile, passwr);
-			userobj->setPassword(passwr);
+			userobj = new User(user, passwr);
 			UserFile >> NFollowrs;
 			userobj->setFollowers(NFollowrs);
 			UserFile >> NFollowng;
@@ -198,8 +225,8 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 			userobj->setNumTweets(NTweets);
 			/*UserFile >> NRetweets;				we're not doing retweets anymore right?
 			userobj->setNumRTweets(NRetweets);*/
-			UserFile >> NTNewsF;
-			userobj->setNumNewsF(NTNewsF);
+			/*UserFile >> NTNewsF;
+			userobj->setNumNewsF(NTNewsF);         Not sure what this is supposed to do*/
 
 			//Read tweets from input file
 			cin.clear();
@@ -211,7 +238,7 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 				Tweetobj->setUser(user);
 				Tweetobj->setTweets(tweet);
 				UserFile >> likes;
-				Tweetobj->setlikes(likes);
+				/*Tweetobj->setlikes(likes);    Not doing likes anymore*/  
 				/*UserFile >> reTweets;			we're not doing retweets anymore right?
 				Tweetobj->setRT(reTweets);*/
 				UserFile >> postTime;
@@ -244,14 +271,14 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 			//Read newsfeed from input file
 			cin.clear();
 			cin.ignore();
-			for (int i = 0; i < NTNewsF; i++)
+			for (int i = 0; i < 9/*NTNewsF*/; i++)  //what is NTNewsF?
 			{
 				getline(UserFile, tweet);
 				Tweet *Tweetobj = NULL;
 				Tweetobj->setUser(user);
 				Tweetobj->setTweets(tweet);
-				UserFile >> likes;
-				Tweetobj->setlikes(likes);
+				//UserFile >> likes;
+				//Tweetobj->setlikes(likes);        Not doing likes anymore
 				/*UserFile >> reTweets;				we're not doing retweets anymore right?
 				Tweetobj->setRT(reTweets);*/
 				UserFile >> postTime;
@@ -277,19 +304,18 @@ void Readfromfile(fstream& UserFile,HashTable<User*> Data)
 				//Add this tree to the user object
 			}
 
-			Data.addItem(user,userobj); //Put all (not really) this information in the hash table :D
+			Data.add(user,userobj); //Put all (not really) this information in the hash table :D
 		}
 	}
 
 }
 
-int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
+int LoggedinSuccess(Server System, HashTable<User*> Data, string user, string password)
 {
-	User* USERobj = new User;
-	USERobj = Data.getData(user);
+	User* USERobj = System.getUser(user, password);
 	int input2, menu1=0;
-	system("pause");
-	system("CLS");
+	// helper("pause");
+	// helper("CLS");
 	DisplayLogo();
 	cout << " Hi " << user << ", What would you like to do?..." << endl << endl;
 	cout << "\t1) View my followers" << endl;
@@ -301,14 +327,16 @@ int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
 	cout << "\t7) Delete my account" << endl;
 	cout << "\t8) Logout" << endl << endl;
 
-	cout << " Please insert the number of your choice: ";
-	cin >> input2;
-	while ((input2<1) && (input2>8))
+	do
 	{
-		cout << " Invalid input." << endl;
-		cout << " Try again... Please insert the number of your choice: ";
+		cout << " Please insert the number of your choice: ";
 		cin >> input2;
-	}
+		if ((input2 < 1) && (input2>8))
+		{
+			cout << "Invalid input." << endl;
+			cout << "Try again..." << endl;
+		}
+	} while ((input2 < 1) && (input2>8));
 
 	cout <<endl <<endl<<string(94, '=')<<endl<<endl;
 	switch (input2)
@@ -319,11 +347,11 @@ int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
 				   cout << " Nobody is following you :("<<endl<<endl;
 			   else{
 				   List<string>* followrsList = new List<string>;
-				   USERobj->toListFollowers();
-				   int lenght = followrsList->countNodes();
+				   USERobj->displayFollowers();
+				   int length = followrsList->countNodes();
 
 				   cout << " Your Followers are:" << endl;
-				   for (int i = 0; i < lenght; i++)
+				   for (int i = 0; i < length; i++)
 					   cout << followrsList->getDataPos(i) << endl;
 				   cout << endl << string(94, '=') << endl << endl;
 				   delete followrsList;
@@ -339,12 +367,15 @@ int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
 				else{
 					cout << " You are Following:" << endl;
 					List<string>* followngList = new List<string>;
-					USERobj->toListFollowing();
-					int lenght = followngList->countNodes();
-					for (int i = 0; i < lenght; i++)
+					USERobj->displayFollowing();
+					int length = followngList->countNodes();
+					for (int i = 0; i < length; i++)
 						cout << followngList->getDataPos(i) << endl;
 
 					char choice;
+
+
+
 					cout << endl << " Would you like to unfollow someone? Press 'Y' for Yes, or 'N' for No" << endl;
 					cin.get(choice);
 					choice = toupper(choice);
@@ -366,7 +397,7 @@ int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
 						string tounfollow;
 						cout << " Please insert the username of the person you would like to unfollow\n";
 						getline(cin, tounfollow);
-						while (Data.inSet(tounfollow) == false)
+						while (System.checkKey(tounfollow) == true)  //not correct, only checks if this is an existing user, need to check if current user is following this user tounfollow
 						{
 							cout << " This person does not exist in the people you follow" << endl;
 							cout << " Please try again...\n";
@@ -390,7 +421,8 @@ int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
 						}
 						if (choice2 == 'Y')
 						{
-							followngList->delInfo(tounfollow);
+							User* unfollowed = Data.getData(tounfollow);
+							System.unFollow(USERobj, tounfollow);
 							//Is there a function in the hash table to update the data?
 							//Go to the person you unfollowed and erase your name from the followers list 
 						}
@@ -400,74 +432,95 @@ int LoggedinSuccess(HashTable<User*>& Data,string user,string password)
 			  break;
 	}
 	case 3:
+	{
+		cout << "Displaying all users." << endl;
+	}
 		//case follow people
 		//display people you aren't following (is this possible?)  If not possible, show all people, but distinguish who you're already following
 		//ask for username and if you're sure
 		//if sure follow, if not go back to view all people, q to quit
+
 		break;
 	case 4:
+	{
+		
+	}
 		//case view my tweets
 		//cout my tweets
-		//possible delete a tweet?  Edit a tweet?
 		break;
 	case 5:
+	{
+		cout << "Displaying newsfeed." << endl;
+		USERobj->displayNewsFeed();
+	}
 		//case view newsfeed
 		//cout newsfeed
-		//like a tweet?  comment on tweet?  retweet? (how do we input which tweet we want to act on?
 		break;
 	case 6:
+	{
+		string tweet;
+		cout << "What's on your mind?" << endl;
+		cin >> tweet;
+		System.add(USERobj, tweet);
+		cout << "Post successful!" << endl;
+	}
 		//Case write a tweet
 		break;
 	case 7:
 	{
-			  cout << "Please enter your username, or 'exit' to quit." << endl;
-			  cin >> user;
-			  cin.clear();
-			  cin.ignore(numeric_limits <streamsize> ::max(), '\n');
-			  //check user against table
-			  if (false) //if not in table
-			  {
-				  cout << "I'm sorry, that username is not in our data banks.  Please try again." << endl;
-				  cin >> user;  //loop this
-			  }
-			  cout << "Please enter your password, or exit to quit." << endl;
-			  cin >> password;
-			  cin.clear();
-			  cin.ignore(numeric_limits <streamsize> ::max(), '\n');
-			  //check user against hash
-			  if (false) //if not in table
-			  {
-				  cout << "I'm sorry, that password is incorrect.  Please try again." << endl;
-				  cin >> password;  //loop this
-			  }
-			  char inputDelete = '\0';
-			  cout << "Are you sure you wish to delete your account? (Y/N)" << endl;
-			  cin.get(inputDelete);
-			  inputDelete = toupper(inputDelete);
-			  cout << inputDelete << endl;
-			  cin.clear();
-			  cin.ignore(numeric_limits <streamsize> ::max(), '\n');
-			  while (inputDelete != 'Y' && inputDelete != 'N')
-			  {
-				  cout << "Invalid input." << endl;
-				  cout << "Are you sure you wish to delete your account? (Y/N)" << endl;
-				  cin.get(inputDelete);
-				  inputDelete = toupper(inputDelete);
-				  cin.clear();
-				  cin.ignore(numeric_limits <streamsize> ::max(), '\n');
-			  }
-			  if (inputDelete == 'Y')
-			  {
-				  //delete account
-				  cout << "Your account has successfully been deleted." << endl;
-				  cout << "Logging out.  Good bye!" << endl;
-				  menu1 = 1;
-			  }
-			  else if (inputDelete == 'N')
-			  {
-				  cout << "Canceling deletion." << endl;
-			  }
-			  break;
+			  //cout << "Please enter your username." << endl;							probably redundant designwise, you should only use your password
+			  //cin >> user;
+			  //cin.clear();
+			  //cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+			  ////check user against table
+
+			  //string userActual = USERobj->getUsername();
+
+			  //if (false) //if not in table
+			  //{
+				 // cout << "I'm sorry, that username is not in our data banks.  Please try again." << endl;
+				 // cin >> user;  //loop this
+			  //}
+
+		do
+		{
+			cout << "Please enter your password, or exit to quit." << endl;  //Assumes there is no way the user cannot know their password since they are already logged in, otherwise there's no way to exit this loop
+			cin >> password;
+			cin.clear();
+			cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+			if (!USERobj->matchPassword(password)) //if not correct
+			{
+				cout << "I'm sorry, that password is incorrect.  Please try again." << endl;
+			}
+		} while (!USERobj->matchPassword(password));
+		
+		char inputDelete = '\0';
+
+		do
+		{
+			cout << "Are you sure you wish to delete your account? (Y/N)" << endl;
+			cin.get(inputDelete);
+			inputDelete = toupper(inputDelete);
+			cin.clear();
+			cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+			if (inputDelete != 'Y' && inputDelete != 'N')
+			{
+				cout << "Invalid input." << endl;
+			}
+		} while (inputDelete != 'Y' && inputDelete != 'N');
+
+		if (inputDelete == 'Y')
+		{
+			//delete account
+			cout << "Your account has successfully been deleted." << endl;
+			cout << "Logging out.  Good bye!" << endl;
+			menu1 = 1;
+		}
+		else if (inputDelete == 'N')
+		{
+			cout << "Canceling deletion." << endl;
+		}
+		break;
 	}
 	case 8:
 		cout << "Logout successful." << endl;
