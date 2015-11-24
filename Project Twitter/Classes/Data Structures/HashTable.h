@@ -2,6 +2,7 @@
 #define HASHTABLE_H
 
 #include <string>
+#include <iostream>
 #include "Container.h"
 #include "BinaryTree/BST.h"
 
@@ -14,7 +15,7 @@ class HashTable{
 		int tableSize;
 		Container<T>* table;
 		AVLTree<string> keys;
-		unsigned int hash(std::string);
+		unsigned int hash(std::string, Container<T>*);
 		unsigned int getIndex(std::string);
 		Container<T>* upSize();
 		int ele;
@@ -37,11 +38,11 @@ HashTable<T>::HashTable(){
 
 template <class T>
 HashTable<T>::~HashTable(){
-	// for(int i = 0; i < tableSize; i++){
-	// 	if(!table[i].isEmpty()){
-	// 		delete &table[i];
-	// 	}
-	// }
+	for(int i = 0; i < tableSize; i++){
+		if(!table[i].isEmpty()){
+			table[i].del();
+		}
+	}
 	delete [] table;
 }
 
@@ -50,28 +51,26 @@ Container<T>* HashTable<T>::upSize(){
 	tableSize *= 2;
 	Container<T>* temp = new Container<T> [tableSize];
 	for(int i = 0; i < tableSize/2; i++){
-		unsigned int index = hash(table[i].getKey());
-		temp[index].setDataKey(table[i].getKey(), table[i].getData());
+		string key = table[i].getKey();
+		unsigned int index = hash(key, temp);
+		temp[index].setDataKey(key, table[i].getData());
 	}
-	for(int i = 0; i < tableSize/2; i++){
-		if(!table[i].isEmpty()){
-			delete &table[i];
-		}
-	}
+	delete [] table;
 	return temp;
 }
 
 template <class T>
-unsigned int HashTable<T>::hash(std::string key){
+unsigned int HashTable<T>::hash(std::string key, Container<T>* temp){
 	int i = 1;
 	unsigned int index = 0;
 	for(int j = 0; j < key.size(); j++){
 		index += key[j];		
 	}
 	index = index % tableSize;
-	while(!table[index].isEmpty()){
+	while(!temp[index].isEmpty()){
 		index += i*i;
 		index = index % tableSize;
+		i++;
 	}
 	return index;
 }
@@ -98,7 +97,7 @@ void HashTable<T>::add(std::string key, T data){
 		table = upSize();
 	}
 	keys.add(key);
-	unsigned int index = hash(key);
+	unsigned int index = hash(key, table);
 	table[index].setDataKey(key, data);
 }
 

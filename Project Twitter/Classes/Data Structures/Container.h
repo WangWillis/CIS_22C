@@ -10,10 +10,9 @@ class Container{
 		T data;
 		bool empty;
 		// void del(T const&);
-		void del();
 	public:
 		Container();
-		~Container();
+		void del();
 		T getData() const;
 		std::string getKey() const;
 		void remove();
@@ -30,13 +29,6 @@ void Container<T>::del(){delete data;}
 template <class T>
 Container<T>::Container(){
 	empty = true;
-}
-
-template <class T>
-Container<T>::~Container(){
-	if(!empty){
-		del();
-	}
 }
 
 template <class T>
