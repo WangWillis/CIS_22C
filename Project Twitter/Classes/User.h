@@ -14,7 +14,7 @@ class User;
 
 class User{
 private:
-	User();  //This used to be private
+	User();
 	string userName, password;
 	int numFollower, numFollowing, numTweets;
 	List <MyTweet> myTweets;

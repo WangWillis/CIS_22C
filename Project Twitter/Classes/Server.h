@@ -11,9 +11,11 @@ class Server;
 
 class Server{
 	private:
+		Server();
 		HashTable<User*> overLord;
 	public:
-		bool checkKey(std::string);
+		Server(HashTable<User*> hash);
+		bool checkKey(std::string);  //returns true if user is not taken
 		void addUser(User*);
 		void removeUser(User*);
 		User* getUser(std::string, std::string);

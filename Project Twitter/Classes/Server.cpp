@@ -1,5 +1,10 @@
 #include "Server.h"
 
+Server::Server(HashTable<User*> hash)
+{
+	overLord = hash;
+}
+
 bool Server::checkKey(std::string key){
 	return overLord.freeKey(key);
 }
@@ -19,6 +24,7 @@ User* Server::getUser(std::string userName, std::string pass){
 			return temp;
 		}
 	}
+	cout << "User not found." << endl;
 	return NULL;
 }
 

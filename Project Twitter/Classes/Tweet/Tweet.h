@@ -1,5 +1,7 @@
 #ifndef TWEET_H
 #define TWEET_H
+#define _CRT_SECURE_NO_WARNINGS_
+#define _CRT_SECURE_NO_DEPRECATE_
 
 #include <iostream>
 #include <string>
