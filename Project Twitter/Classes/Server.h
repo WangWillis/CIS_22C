@@ -2,7 +2,7 @@
 #define SERVER_H
 
 #include "User.h"
-#include "Data Structures/HashTable.h"
+#include "Data Structures/HashTableForPointers.h"
 #include "Tweet/Tweet.h"
 #include "Data Structures/BinaryTree/List&Queue/Queue.h"
 #include "Tweet/TweetContainer.h"
