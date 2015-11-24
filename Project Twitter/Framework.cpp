@@ -2,7 +2,7 @@
 #include <string>
 #include <iomanip>
 #include <fstream>
-#include "Classes\Data Structures\HashTable.h"  //originally tried to open Hash.h
+#include "Classes\Server.h"  //originally tried to open Hash.h
 #include "Classes\User.h"
 
 using namespace std;
@@ -18,8 +18,8 @@ int main()
 	char input1;
 	string user;
 	string password;
-	HashTable <User*> Data;
-		//Read data of the users from an input file (We need 25 users...)
+	Server helper;
+	//Read data of the users from an input file (We need 25 users...)
 	string filename;
 	filename = "UserData.txt"; //Change for address of this file 
 	fstream UserFile;
