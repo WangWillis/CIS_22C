@@ -147,6 +147,7 @@ int main(){
 		}else if(choice == 3){
 			cout << "Goodbye" << endl;
 		}else{
+			cin.ignore();
 			cin.clear();
 			cin.ignore();
 			cout << "Invalid input" << endl;
