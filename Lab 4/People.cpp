@@ -27,9 +27,9 @@ void People::setBirthday(const std::string birth){
 }
 
 bool People::operator==(const People& rhs) const{
-	return name == rhs.getName();
+	return name == rhs.getName() || birthday == rhs.getBirthday();
 }
 
 bool People::operator!=(const People& rhs) const{
-	return name != rhs.getName();
+	return name != rhs.getName() || birthday != rhs.getBirthday();
 }
