@@ -9,7 +9,6 @@ class Container{
 		std::string key;
 		T data;
 		bool empty;
-		// void del(T const&);
 	public:
 		Container();
 		void del();
@@ -20,11 +19,19 @@ class Container{
 		bool isEmpty() const;
 };
 
-// template <class T>
-// void Container<T>::del(T const&){}
+//to check if pointer gotten form stackoverflow
+template<class T>
+struct is_pointer { static const bool value = false; };
+
+template<class T>
+struct is_pointer<T*> { static const bool value = true; };
+
 
 template <class T>
-void Container<T>::del(){delete data;}
+void Container<T>::del(){
+	if(is_pointer<T>::value)
+		delete data;
+}
 
 template <class T>
 Container<T>::Container(){
