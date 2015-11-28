@@ -12,7 +12,7 @@ using namespace std;
 class Tweet;
 
 class Tweet{
-	protected:
+	private:
 		string text, userId;
 		time_t postTime;
 	public:

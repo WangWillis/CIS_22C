@@ -31,7 +31,7 @@ class HashTable{
 
 template <class T>
 HashTable<T>::HashTable(){
-	tableSize = 10;
+	tableSize = 53;
 	table = new Container<T> [tableSize];
 	ele = 0;
 }
@@ -93,7 +93,7 @@ unsigned int HashTable<T>::getIndex(std::string key){
 template <class T>
 void HashTable<T>::add(std::string key, T data){
 	ele++;
-	if(ele > tableSize){
+	if(ele > tableSize/2){
 		table = upSize();
 	}
 	keys.add(key);
