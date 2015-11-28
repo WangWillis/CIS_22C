@@ -1,11 +1,9 @@
-#define _CRT_SECURE_NO_WARNINGS
-#define _CRT_SECURE_NO_DEPRECATE_
 #include <iostream>
 #include <string>
 #include <iomanip>
 #include <fstream>
-#include "Server.h"
-#include "User.h"
+#include "Classes/Server.h"
+#include "Classes/User.h"
 
 using namespace std;
 
