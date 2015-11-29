@@ -6,6 +6,7 @@
 #include "Classes/User.h"
 
 using namespace std;
+void inputfromfile();
 
 int main(){
 	Server helper;
@@ -166,3 +167,106 @@ int main(){
 	cout << "hoop" << endl;
 	return 0; //crashes if a user was created.  User destructor must be broken
 }
+
+void inputfromfile()
+{
+	Server input;
+	
+	string filename;
+	Queue<string> KeysHash;
+	filename = "Keys.txt"; 
+	ifstream infile;
+	infile.open(filename);
+
+	//Reads keys of the hashtable from input file and puts them in a queue
+	if (infile)
+	{
+		while (!infile.eof())
+		{
+			string key;
+			getline(infile, key);
+			KeysHash.add(key);
+		}
+	}
+	else
+		cout << "File that holds keys of the hash table couldn't be open...\n";
+	infile.close();
+
+	
+	while (!KeysHash.isEmpty())
+	{
+		User* user = new User();
+		string username,password,follower,follwng;
+		int numFollower,numFollowing;
+	filename = KeysHash.get() + ".txt";
+	infile.open(filename);
+
+	if (infile)
+	{
+		KeysHash.pop();
+		//Username
+		getline(infile, username);
+		user->setUsername(username);
+		//password
+		getline(infile, password);
+		user->setPassword(password);
+		//number of followers
+		infile >> numFollower;
+		user->setFollowers(numFollower);
+		//number following
+		infile >> numFollowing;
+		user->setFollowing(numFollowing);
+		
+		//Followers
+		Queue<string> followers;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		for (int i = 0; i < numFollower; i++)
+		{
+			getline(infile, follower);
+			followers.add(follower);
+			user->addFollower(follower);
+		}
+
+		//Following
+		Queue<string> following;
+		for (int i = 0; i < numFollowing; i++)
+		{
+			getline(infile, follwng);
+			following.add(follwng);
+			user->addFollowing(follwng);
+		}
+
+		//myTweets
+		while (!infile.eof())
+		{
+			Tweet* temp = new Tweet();
+			string post;
+			time_t timeTemp;
+			getline(infile, username);
+			temp->setUser(username);
+			infile >> timeTemp;
+			temp->setpostim(timeTemp);
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			getline(infile, post);
+			temp->setTweets(post);
+			user->addTweet(temp); 
+
+			input.addUser(user); //Adds user to the hash table using the server
+			delete temp;
+		}
+
+		delete user;
+		infile.close();
+	}
+
+	else
+	{
+		cout << "File of user " << KeysHash.get() << " could not be opened";
+		KeysHash.pop();
+	}
+	}
+
+}
+
