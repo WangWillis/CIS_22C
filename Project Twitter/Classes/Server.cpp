@@ -4,14 +4,6 @@ bool Server::checkKey(std::string key){
 	return overLord.freeKey(key);
 }
 
-void Server::addSingleTweet(User* user, Tweet* twt){
-	user->addTweet(twt);
-}
-
-void Server::delSingleTweet(User* user, MyTweet twt){
-	user->deleteTweet(twt);
-}
-
 void Server::addUser(User* user){
 	overLord.add(user->getUsername(), user);
 }
@@ -32,17 +24,11 @@ User* Server::getUser(std::string userName, std::string pass){
 
 void Server::add(User* user, std::string post){
 	Tweet* twt = new Tweet(user->getUsername(), post);
-	cout << "hi" << endl;
 	Queue<std::string> followerStream = user->toQueueFollowers();
-	cout << "hi" << endl;
 	while(!followerStream.isEmpty()){
-		cout << "hi" << endl;
 		User* temp = overLord.getData(followerStream.pop()); //crashes here
-		cout << "hi" << endl;
 		temp->addTweet(twt);
-		cout << "hi" << endl;
 	}
-	cout << "hi" << endl;
 	user->addTweet(twt);
 }
 
@@ -56,20 +42,13 @@ void Server::remove(User* user, MyTweet pst){
 }
 
 void Server::follow(User* user, std::string unam){
-	cout << "hop" << endl;
 	user->addFollowing(unam);
-	cout << "hop" << endl;
 	User* u2 = overLord.getData(unam);
-	cout << "hop" << endl;
 	Queue<MyTweet> tStream = u2->toQueueMyTweet();
-	cout << "hop" << endl;
 	while(!tStream.isEmpty()){
-		addSingleTweet(user, tStream.pop().getTweet());  //crashes here
-		cout << "hop" << endl;
+		user->addTweet(tStream.pop().getTweet());
 	}
-	cout << "hop" << endl;
 	u2->addFollower(user->getUsername());
-	cout << "hop" << endl;
 }
 
 void Server::unFollow(User* user, std::string unam){
@@ -77,7 +56,7 @@ void Server::unFollow(User* user, std::string unam){
 	User* u2 = overLord.getData(unam);
 	Queue<MyTweet> tStream = u2->toQueueMyTweet();
 	while(!tStream.isEmpty()){
-		delSingleTweet(user, tStream.pop());
+		user->deleteTweet(tStream.pop());
 	}
 	u2->removeFollower(user->getUsername());
 }

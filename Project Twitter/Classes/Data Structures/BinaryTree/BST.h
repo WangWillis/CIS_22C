@@ -119,8 +119,7 @@ template <class T>
 T AVLTree<T>::getMax(BTNode<T>* node){
 	if (node->getRight() == NULL){
 		return node->getData();
-	}
-	else{
+	}else{
 		return getMax(node->getRight());
 	}
 }
@@ -131,17 +130,14 @@ BTNode<T>* AVLTree<T>::balance(BTNode<T>* node){
 	if (diff > 1){
 		if (highDiff(node->getLeft()) > 0){
 			return rotateRight(node);
-		}
-		else{
+		}else{
 			node->setLeft(rotateLeft(node->getLeft()));
 			return rotateRight(node);
 		}
-	}
-	else if (diff < -1){
+	}else if (diff < -1){
 		if (highDiff(node->getRight()) < 0){
 			return rotateLeft(node);
-		}
-		else{
+		}else{
 			node->setRight(rotateRight(node->getRight()));
 			return rotateLeft(node);
 		}
@@ -151,13 +147,11 @@ BTNode<T>* AVLTree<T>::balance(BTNode<T>* node){
 
 template <class T>
 BTNode<T>* AVLTree<T>::add(const T info, BTNode<T>* node){
-	if (node == NULL){
+	if(node == NULL){
 		return new BTNode<T>(info);
-	}
-	else if (info < node->getData()){
+	}else if (info < node->getData()){
 		node->setLeft(add(info, node->getLeft()));
-	}
-	else{
+	}else{
 		node->setRight(add(info, node->getRight()));
 	}
 	node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
@@ -178,33 +172,27 @@ BTNode<T>* AVLTree<T>::remove(const T data, BTNode<T>* node){
 			node->setLeft(remove(temp, node->getLeft()));
 			node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
 			return balance(node);
-		}
-		else if (node->getLeft() != NULL){
+		}else if (node->getLeft() != NULL){
 			BTNode<T>* left = node->getLeft();
 			delete node;
 			return left;
-		}
-		else if (node->getRight() != NULL){
+		}else if (node->getRight() != NULL){
 			BTNode<T>* right = node->getRight();
 			delete node;
 			return right;
-		}
-		else{
+		}else{
 			delete node;
 			return NULL;
 		}
-	}
-	else if (data < node->getData() && node->getLeft() != NULL){
+	}else if (data < node->getData() && node->getLeft() != NULL){
 		node->setLeft(remove(data, node->getLeft()));
 		node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
 		return balance(node);
-	}
-	else if (node->getRight() != NULL){
+	}else if (node->getRight() != NULL){
 		node->setRight(remove(data, node->getRight()));
 		node->setHeight(max(high(node->getLeft()), high(node->getRight())) + 1);
 		return balance(node);
-	}
-	else{
+	}else{
 		return node;
 	}
 }

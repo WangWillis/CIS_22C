@@ -25,7 +25,10 @@ class Tweet{
 		string getText() const;
 		string getUserId() const;
 		friend bool operator<(const Tweet& lhs, const Tweet& rhs){
-			return lhs.getTime() < rhs.getTime();
+			if(difftime(lhs.getTime(), rhs.getTime()) < 0){
+				return true;
+			}
+			return false;
 		}
 		friend ostream &operator << (ostream& strm, const Tweet& obj){
 			time_t temp = obj.getTime();

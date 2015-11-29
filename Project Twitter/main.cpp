@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include <string>
 #include <iomanip>
 #include <fstream>
@@ -78,7 +79,6 @@ int main(){
 								Queue<MyTweet> myTweetStream = user->toQueueMyTweet();
 								int i = 1;
 								int option;
-								cout << "hip" << endl;
 								if(!myTweetStream.isEmpty()){ //crashes here
 									cout << endl;
 									while(!myTweetStream.isEmpty()){
@@ -117,7 +117,6 @@ int main(){
 						cout << endl << "Please enter the username of the person you would like to follow." << endl;
 						getline(cin, temp);
 						if(!helper.checkKey(temp)){
-							cout << "hip" << endl;
 							helper.follow(user, temp);  //crashes here
 							cout << "You are now following " << temp << "!" << endl;
 						}else{
@@ -164,109 +163,108 @@ int main(){
 			cout << "I'm sorry, that's an invalid input!" << endl << endl;
 		}
 	}while(choice != 3);
-	cout << "hoop" << endl;
 	return 0; //crashes if a user was created.  User destructor must be broken
 }
 
-void inputfromfile()
-{
-	Server input;
+// void inputfromfile()
+// {
+// 	Server input;
 	
-	string filename;
-	Queue<string> KeysHash;
-	filename = "Keys.txt"; 
-	ifstream infile;
-	infile.open(filename);
+// 	string filename;
+// 	Queue<string> KeysHash;
+// 	filename = "Keys.txt"; 
+// 	ifstream infile;
+// 	infile.open(filename);
 
-	//Reads keys of the hashtable from input file and puts them in a queue
-	if (infile)
-	{
-		while (!infile.eof())
-		{
-			string key;
-			getline(infile, key);
-			KeysHash.add(key);
-		}
-	}
-	else
-		cout << "File that holds keys of the hash table couldn't be open...\n";
-	infile.close();
+// 	//Reads keys of the hashtable from input file and puts them in a queue
+// 	if (infile)
+// 	{
+// 		while (!infile.eof())
+// 		{
+// 			string key;
+// 			getline(infile, key);
+// 			KeysHash.add(key);
+// 		}
+// 	}
+// 	else
+// 		cout << "File that holds keys of the hash table couldn't be open...\n";
+// 	infile.close();
 
 	
-	while (!KeysHash.isEmpty())
-	{
-		User* user = new User();
-		string username,password,follower,follwng;
-		int numFollower,numFollowing;
-	filename = KeysHash.get() + ".txt";
-	infile.open(filename);
+// 	while (!KeysHash.isEmpty())
+// 	{
+// 		User* user = new User();
+// 		string username,password,follower,follwng;
+// 		int numFollower,numFollowing;
+// 	filename = KeysHash.get() + ".txt";
+// 	infile.open(filename);
 
-	if (infile)
-	{
-		KeysHash.pop();
-		//Username
-		getline(infile, username);
-		user->setUsername(username);
-		//password
-		getline(infile, password);
-		user->setPassword(password);
-		//number of followers
-		infile >> numFollower;
-		user->setFollowers(numFollower);
-		//number following
-		infile >> numFollowing;
-		user->setFollowing(numFollowing);
+// 	if (infile)
+// 	{
+// 		KeysHash.pop();
+// 		//Username
+// 		getline(infile, username);
+// 		user->setUsername(username);
+// 		//password
+// 		getline(infile, password);
+// 		user->setPassword(password);
+// 		//number of followers
+// 		infile >> numFollower;
+// 		user->setFollowers(numFollower);
+// 		//number following
+// 		infile >> numFollowing;
+// 		user->setFollowing(numFollowing);
 		
-		//Followers
-		Queue<string> followers;
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		for (int i = 0; i < numFollower; i++)
-		{
-			getline(infile, follower);
-			followers.add(follower);
-			user->addFollower(follower);
-		}
+// 		//Followers
+// 		Queue<string> followers;
+// 		cin.clear();
+// 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+// 		for (int i = 0; i < numFollower; i++)
+// 		{
+// 			getline(infile, follower);
+// 			followers.add(follower);
+// 			user->addFollower(follower);
+// 		}
 
-		//Following
-		Queue<string> following;
-		for (int i = 0; i < numFollowing; i++)
-		{
-			getline(infile, follwng);
-			following.add(follwng);
-			user->addFollowing(follwng);
-		}
+// 		//Following
+// 		Queue<string> following;
+// 		for (int i = 0; i < numFollowing; i++)
+// 		{
+// 			getline(infile, follwng);
+// 			following.add(follwng);
+// 			user->addFollowing(follwng);
+// 		}
 
-		//myTweets
-		while (!infile.eof())
-		{
-			Tweet* temp = new Tweet();
-			string post;
-			time_t timeTemp;
-			getline(infile, username);
-			temp->setUser(username);
-			infile >> timeTemp;
-			temp->setpostim(timeTemp);
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			getline(infile, post);
-			temp->setTweets(post);
-			user->addTweet(temp); 
+// 		//myTweets
+// 		while (!infile.eof())
+// 		{
+// 			Tweet* temp = new Tweet();
+// 			string post;
+// 			time_t timeTemp;
+// 			getline(infile, username);
+// 			temp->setUser(username);
+// 			infile >> timeTemp;
+// 			temp->setpostim(timeTemp);
+// 			cin.clear();
+// 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+// 			getline(infile, post);
+// 			temp->setTweets(post);
+// 			user->addTweet(temp); 
 
-			input.addUser(user); //Adds user to the hash table using the server
-			delete temp;
-		}
+// 			input.addUser(user); //Adds user to the hash table using the server
+// 			delete temp;
+// 		}
 
-		delete user;
-		infile.close();
-	}
+// 		delete user;
+// 		infile.close();
+// 	}
 
-	else
-	{
-		cout << "File of user " << KeysHash.get() << " could not be opened";
-		KeysHash.pop();
-	}
-	}
+// 	else
+// 	{
+// 		cout << "File of user " << KeysHash.get() << " could not be opened";
+// 		KeysHash.pop();
+// 	}
+// 	}
 
-}
+// }
 

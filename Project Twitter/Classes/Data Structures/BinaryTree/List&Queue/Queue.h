@@ -54,6 +54,8 @@ Queue<T>::Queue(const Queue& source){
 		queue = new T [arrSize];
 		for(end; end < source.numEle() - 1; end++)
 			queue[end + 1] = source.get(end + 1);
+	}else{
+		queue = new T [2];
 	}
 }
 //frees memory
@@ -188,6 +190,8 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& source){
 		queue = new T [arrSize];
 		for(end; end < source.numEle() - 1; end++)
 			queue[end + 1] = source.get(end + 1);
+	}else{
+		queue = new T [2];
 	}
 	return *this;
 }
