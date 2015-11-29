@@ -16,7 +16,7 @@ class Tweet{
 		string text, userId;
 		time_t postTime;
 	public:
-		Tweet();
+		Tweet(){};
 		Tweet(const string, const string);
 		void setUser(string);
 		void setTweets(string);
