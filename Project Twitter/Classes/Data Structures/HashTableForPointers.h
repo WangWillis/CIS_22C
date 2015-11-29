@@ -51,9 +51,11 @@ Container<T>* HashTable<T>::upSize(){
 	tableSize *= 2;
 	Container<T>* temp = new Container<T> [tableSize];
 	for(int i = 0; i < tableSize/2; i++){
-		string key = table[i].getKey();
-		unsigned int index = hash(key, temp);
-		temp[index].setDataKey(key, table[i].getData());
+		if(!table[i].isEmpty()){
+			string key = table[i].getKey();
+			unsigned int index = hash(key, temp);
+			temp[index].setDataKey(key, table[i].getData());
+		}
 	}
 	delete [] table;
 	return temp;
