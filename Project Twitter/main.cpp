@@ -79,9 +79,11 @@ int main(){
 								Queue<MyTweet> myTweetStream = user->toQueueMyTweet();
 								int i = 1;
 								int option;
-								if(!myTweetStream.isEmpty()){ //crashes here
+								cout << "pop" << endl;
+								if (cout << "poop" << endl && !myTweetStream.isEmpty() && cout << "poop" << endl){ 
 									cout << endl;
-									while(!myTweetStream.isEmpty()){
+									cout << "p" << endl;
+									while (cout << "p" << endl  && !myTweetStream.isEmpty() && cout << "p" << endl){ //somehow the queue is not empty even when it should be
 										cout << i << ". " << myTweetStream.pop() << endl;
 										i++;
 									}
@@ -163,6 +165,7 @@ int main(){
 			cout << "I'm sorry, that's an invalid input!" << endl << endl;
 		}
 	}while(choice != 3);
+	system("pause");
 	return 0; //crashes if a user was created.  User destructor must be broken
 }
 

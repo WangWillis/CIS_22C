@@ -23,7 +23,7 @@ private:
 	AVLTree <string> following;
 
 public:
-	User(){};
+
 	User(string, string);
 	~User();
 
