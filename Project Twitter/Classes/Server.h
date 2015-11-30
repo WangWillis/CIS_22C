@@ -12,8 +12,6 @@ class Server;
 class Server{
 	private:
 		HashTable<User*> overLord;
-		void addSingleTweet(User*, Tweet*);
-		void delSingleTweet(User*, MyTweet);
 	public:
 		bool checkKey(std::string);  //returns true if user is not taken
 		void addUser(User*);

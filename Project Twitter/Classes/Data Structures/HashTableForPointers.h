@@ -106,8 +106,14 @@ void HashTable<T>::add(std::string key, T data){
 template <class T>
 T HashTable<T>::getData(std::string key){
 	unsigned int index = getIndex(key);
-	if(!table[index].isEmpty())
+	if (!table[index].isEmpty())
+	{
 		return table[index].getData();
+	}
+	else
+	{
+		//I think we need something here
+	}
 }
 
 template <class T>

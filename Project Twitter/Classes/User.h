@@ -23,6 +23,10 @@ private:
 	AVLTree <string> following;
 
 public:
+<<<<<<< HEAD
+=======
+
+>>>>>>> 759775e9b42746e1e700e35d9bce372a9359b0b5
 	User(string, string);
 	~User();
 
