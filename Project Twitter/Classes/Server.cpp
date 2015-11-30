@@ -34,13 +34,11 @@ void Server::add(User* user, std::string post){
 
 void Server::remove(User* user, MyTweet pst){
 	Queue<std::string> followerStream = user->toQueueFollowers();
-	if (!followerStream.isEmpty()){
-		while (!followerStream.isEmpty()){
-			User* temp = overLord.getData(followerStream.pop());
-			temp->deleteTweet(pst);
-		}
-		user->deleteTweet(pst);
+	while (!followerStream.isEmpty()){
+		User* temp = overLord.getData(followerStream.pop());
+		temp->deleteTweet(pst);
 	}
+	user->deleteTweet(pst);
 }
 
 void Server::follow(User* user, std::string unam){
