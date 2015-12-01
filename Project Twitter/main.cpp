@@ -68,7 +68,8 @@ int main(){
 							cout << "2. Delete a Tweet" << endl;
 							cout << "3. View My Followers" << endl;
 							cout << "4. View who I am Following" << endl;
-							cout << "5. Back" << endl;
+							cout << "5. Unfollow" << endl;
+							cout << "6. Back" << endl;
 							cin >> pChoice;
 							cin.clear();
 							cin.ignore(numeric_limits <streamsize> ::max(), '\n');
@@ -79,11 +80,8 @@ int main(){
 								Queue<MyTweet> myTweetStream = user->toQueueMyTweet();
 								int i = 1;
 								int option;
-								cout << "pop" << endl;
-								if (cout << "poop" << endl && !myTweetStream.isEmpty() && cout << "poop" << endl){ 
-									cout << endl;
-									cout << "p" << endl;
-									while (cout << "p" << endl  && !myTweetStream.isEmpty() && cout << "p" << endl){ //somehow the queue is not empty even when it should be
+								if(!myTweetStream.isEmpty()){ 
+									while(!myTweetStream.isEmpty()){ //somehow the queue is not empty even when it should be
 										cout << i << ". " << myTweetStream.pop() << endl;
 										i++;
 									}
@@ -107,10 +105,20 @@ int main(){
 							}else if(pChoice == 4){
 								cout << endl << "Number of People I Follow: " << user->getFollowing() << endl;
 								user->displayFollowing();
-							}else if(pChoice != 5){
+							}else if(pChoice == 5){
+								string temp;
+								cout << endl << "Please enter the username of the person you would like to Unfollow." << endl;
+								getline(cin, temp);
+								if(user->amFollowing(temp)){
+									helper.unFollow(user, temp);
+									cout << "You have now unfollowed " << temp << "!" << endl;
+								}else{
+									cout << temp << " is not valid choice/you are not following " << temp << "!" << endl;
+								}
+							}else if(pChoice != 6){
 								cout << "I'm sorry, that's an invalid input!" << endl;
 							}
-						}while(pChoice != 5);
+						}while(pChoice != 6);
 					}else if(userChoice == 4){
 						cout << endl;
 						helper.displayUsers();
@@ -165,7 +173,6 @@ int main(){
 			cout << "I'm sorry, that's an invalid input!" << endl << endl;
 		}
 	}while(choice != 3);
-	system("pause");
 	return 0; //crashes if a user was created.  User destructor must be broken
 }
 

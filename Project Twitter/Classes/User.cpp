@@ -59,6 +59,10 @@ bool User::matchPassword(string pass)
 		return false;
 }
 
+bool User::amFollowing(string temp){
+	return following.find(temp);
+}
+
 int User::getFollowers()
 {
 	return numFollower;
