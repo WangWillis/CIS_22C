@@ -35,7 +35,7 @@ int main(){
 
 	while (!KeysHash.isEmpty())
 	{
-		User* userin=new User();
+		
 		string username, password, follower, follwng;
 		int numFollower, numFollowing;
 		
@@ -47,10 +47,12 @@ int main(){
 			KeysHash.pop();
 			//Username
 			getline(infile, username);
-			userin->setUsername(username);
+			
 			//password
 			getline(infile, password);
-			userin->setPassword(password);
+			
+
+			User* userin = new User(username,password);
 			//number of followers
 			infile >> numFollower;
 			userin->setFollowers(numFollower);
@@ -78,21 +80,27 @@ int main(){
 			}
 
 			//myTweets
-			while (!infile.eof())
+			if (infile.eof())
 			{
-				Tweet *temp=new Tweet;
+				userin->setNumTweets(0);
+			}
+			else{
+				while (!infile.eof())
+				{
+					Tweet *temp = new Tweet;
 
-				string post;
-				long int hold;
-				time_t timeTemp;
-				getline(infile, username);
-				temp->setUser(username);
-				infile >> hold;
-				timeTemp = static_cast<time_t>(hold);
-				temp->setpostim(timeTemp);
-				getline(infile, post);
-				temp->setTweets(post);
-				userin->addTweet(temp);
+					string post;
+					long int hold;
+					time_t timeTemp;
+					getline(infile, username);
+					temp->setUser(username);
+					infile >> hold;
+					timeTemp = static_cast<time_t>(hold);
+					temp->setpostim(timeTemp);
+					getline(infile, post);
+					temp->setTweets(post);
+					userin->addTweet(temp);
+				}
 			}
 
 			helper.addUser(userin); //Adds user to the hash table using the server			
@@ -106,7 +114,8 @@ int main(){
 		}
 
 	}
-	
+
+
 	cout << string(94, '=') << endl << endl;
 	cout << " /$$$$$$$$            /$$   /$$     /$$                                              .--.     " << endl;
 	cout << "|__  $$__/           |__/  | $$    | $$                                            .'  o \\__ " << endl;
