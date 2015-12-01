@@ -11,6 +11,102 @@ void inputfromfile();
 
 int main(){
 	Server helper;
+	
+	string filename;
+	Queue<string> KeysHash;
+	filename = "Keys.txt";
+	ifstream infile;
+	infile.open(filename);
+
+	//Reads keys of the hashtable from input file and puts them in a queue
+	if (infile)
+	{
+		while (!infile.eof())
+		{
+			string key;
+			getline(infile, key);
+			KeysHash.add(key);
+		}
+	}
+	else
+		cout << "File that holds keys of the hash table couldn't be open...\n";
+	infile.close();
+
+
+	while (!KeysHash.isEmpty())
+	{
+		User* userin=new User();
+		string username, password, follower, follwng;
+		int numFollower, numFollowing;
+		
+		filename = KeysHash.get() + ".txt";
+		infile.open(filename);
+
+		if (infile)
+		{
+			KeysHash.pop();
+			//Username
+			getline(infile, username);
+			userin->setUsername(username);
+			//password
+			getline(infile, password);
+			userin->setPassword(password);
+			//number of followers
+			infile >> numFollower;
+			userin->setFollowers(numFollower);
+			//number following
+			infile >> numFollowing;
+			userin->setFollowing(numFollowing);
+
+			//Followers
+			Queue<string> followers;
+
+			for (int i = 0; i < numFollower; i++)
+			{
+				getline(infile, follower);
+				followers.add(follower);
+				userin->addFollower(follower);
+			}
+
+			//Following
+			Queue<string> following;
+			for (int i = 0; i < numFollowing; i++)
+			{
+				getline(infile, follwng);
+				following.add(follwng);
+				userin->addFollowing(follwng);
+			}
+
+			//myTweets
+			while (!infile.eof())
+			{
+				Tweet *temp=new Tweet;
+
+				string post;
+				long int hold;
+				time_t timeTemp;
+				getline(infile, username);
+				temp->setUser(username);
+				infile >> hold;
+				timeTemp = static_cast<time_t>(hold);
+				temp->setpostim(timeTemp);
+				getline(infile, post);
+				temp->setTweets(post);
+				userin->addTweet(temp);
+			}
+
+			helper.addUser(userin); //Adds user to the hash table using the server			
+			infile.close();
+		}
+
+		else
+		{
+			cout << "File of user " << KeysHash.get() << " could not be opened";
+			KeysHash.pop();
+		}
+
+	}
+	
 	cout << string(94, '=') << endl << endl;
 	cout << " /$$$$$$$$            /$$   /$$     /$$                                              .--.     " << endl;
 	cout << "|__  $$__/           |__/  | $$    | $$                                            .'  o \\__ " << endl;
