@@ -20,7 +20,7 @@ private:
 	BTNode<T>* add(const T, BTNode<T>*);
 	BTNode<T>* remove(const T, BTNode<T>*);
 	BTNode<T>* balance(BTNode<T>*);
-	Queue<T>* toQueue(Queue<T>*, BTNode<T>*);
+	void toQueue(Queue<T>&, BTNode<T>*);
 	T get(const T, BTNode<T>*);
 	T getMax(BTNode<T>*);
 	bool find(const T, BTNode<T>*);
@@ -265,25 +265,22 @@ T AVLTree<T>::get(const T data){
 }
 
 template <class T>
-Queue<T>* AVLTree<T>::toQueue(Queue<T>* queue, BTNode<T>* node){
+void AVLTree<T>::toQueue(Queue<T>& queue, BTNode<T>* node){
 	if(node != NULL){
 		if (node->getLeft() != NULL){
-			queue = toQueue(queue, node->getLeft());
+			toQueue(queue, node->getLeft());
 		}
-		queue->add(node->getData());
+		queue.add(node->getData());
 		if (node->getRight() != NULL){
-			queue = toQueue(queue, node->getRight());
+			toQueue(queue, node->getRight());
 		}
 	}
-	return queue;
 }
 
 template <class T>
 Queue<T> AVLTree<T>::toQueue(){
 	Queue<T> temp;
-	Queue<T>* queue = new Queue<T>();
-	temp = *toQueue(queue, head);
-	delete queue;
+	toQueue(temp, head);
 	return temp;
 }
 
