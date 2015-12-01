@@ -25,6 +25,7 @@ class HashTable{
 		void add(std::string, T);
 		void remove(std::string);
 		void displayKeys();
+		void showIndent();
 		T getData(std::string);
 		bool freeKey(std::string);
 };
@@ -124,6 +125,11 @@ void HashTable<T>::remove(std::string key){
 	unsigned int index = getIndex(key);
 	if(!table[index].isEmpty())
 		table[index].remove();
+}
+
+template <class T>
+void HashTable<T>::showIndent(){
+	keys.indentPrint();
 }
 
 template <class T>

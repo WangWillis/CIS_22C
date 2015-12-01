@@ -26,7 +26,8 @@ int main(){
 		cout << endl << "Welcome to Twitter!  Please enter a number to indicate what you wish to do." << endl;
 		cout << "1. Login" << endl;
 		cout << "2. Register" << endl;
-		cout << "3. Exit" << endl;
+		cout << "3. Show Users in BST" << endl;
+		cout << "4. Exit" << endl;
 		cin >> choice;
 		cin.clear();
 		cin.ignore(numeric_limits <streamsize> ::max(), '\n');
@@ -169,11 +170,13 @@ int main(){
 				cout << "Your account has successfully been created!" << endl << endl;
 			}
 		}else if(choice == 3){
+			helper.showIndentedKey();
+		}else if(choice == 4){
 			cout << "Goodbye!" << endl << endl;
 		}else{
 			cout << "I'm sorry, that's an invalid input!" << endl << endl;
 		}
-	}while(choice != 3);
+	}while(choice != 4);
 	return 0; //crashes if a user was created.  User destructor must be broken
 }
 

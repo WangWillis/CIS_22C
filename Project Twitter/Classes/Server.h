@@ -22,6 +22,7 @@ class Server{
 		void follow(User*, std::string);
 		void unFollow(User*, std::string);
 		void displayUsers();
+		void showIndentedKey();
 };
 
 #endif

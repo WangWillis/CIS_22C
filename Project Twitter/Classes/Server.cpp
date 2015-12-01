@@ -68,3 +68,7 @@ void Server::unFollow(User* user, std::string unam){
 void Server::displayUsers(){
 	overLord.displayKeys();
 }
+
+void Server::showIndentedKey(){
+	overLord.showIndent();
+}

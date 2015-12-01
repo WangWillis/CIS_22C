@@ -29,6 +29,7 @@ private:
 	int max(const int, const int);
 	void clearList(BTNode<T>*);
 	void toString(BTNode<T>*);
+	void indentPrint(string, BTNode<T>*);
 public:
 	AVLTree();
 	AVLTree(T);
@@ -39,6 +40,7 @@ public:
 	void add(const T);
 	void remove(const T);
 	void toString();
+	void indentPrint();
 };
 
 template <class T>
@@ -280,6 +282,25 @@ void AVLTree<T>::toQueue(Queue<T>& queue, BTNode<T>* node){
 template <class T>
 void AVLTree<T>::toQueue(Queue<T>& temp){
 	toQueue(temp, head);
+}
+
+template <class T>
+void AVLTree<T>::indentPrint(string indent, BTNode<T>* node){
+	if(node != NULL){
+		cout << indent << node->getData() << endl;
+		indent = indent + " ";
+		if(node->getLeft() != NULL){
+			indentPrint(indent, node->getLeft());
+		}
+		if(node->getRight() != NULL){
+			indentPrint(indent, node->getRight());
+		}
+	}
+}
+
+template <class T>
+void AVLTree<T>::indentPrint(){
+	indentPrint("", head);
 }
 
 #endif
