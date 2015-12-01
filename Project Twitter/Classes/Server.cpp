@@ -24,7 +24,8 @@ User* Server::getUser(std::string userName, std::string pass){
 
 void Server::add(User* user, std::string post){
 	Tweet* twt = new Tweet(user->getUsername(), post);
-	Queue<std::string> followerStream = user->toQueueFollowers();
+	Queue<string> followerStream;
+	user->toQueueFollowers(followerStream);
 	while(!followerStream.isEmpty()){
 		User* temp = overLord.getData(followerStream.pop()); //crashes here
 		temp->addTweet(twt);
@@ -33,7 +34,8 @@ void Server::add(User* user, std::string post){
 }
 
 void Server::remove(User* user, MyTweet pst){
-	Queue<std::string> followerStream = user->toQueueFollowers();
+	Queue<string> followerStream;
+	user->toQueueFollowers(followerStream);
 	while (!followerStream.isEmpty()){
 		User* temp = overLord.getData(followerStream.pop());
 		temp->deleteTweet(pst);
@@ -44,7 +46,8 @@ void Server::remove(User* user, MyTweet pst){
 void Server::follow(User* user, std::string unam){
 	user->addFollowing(unam);
 	User* u2 = overLord.getData(unam);
-	Queue<MyTweet> tStream = u2->toQueueMyTweet();
+	Queue<MyTweet> tStream;
+	u2->toQueueMyTweet(tStream);
 	while(!tStream.isEmpty()){
 		user->addTweet(tStream.pop().getTweet());
 	}
@@ -54,7 +57,8 @@ void Server::follow(User* user, std::string unam){
 void Server::unFollow(User* user, std::string unam){
 	user->removeFollowing(unam);
 	User* u2 = overLord.getData(unam);
-	Queue<MyTweet> tStream = u2->toQueueMyTweet();
+	Queue<MyTweet> tStream;
+	u2->toQueueMyTweet(tStream);
 	while(!tStream.isEmpty()){
 		user->deleteTweet(tStream.pop());
 	}

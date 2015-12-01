@@ -34,7 +34,7 @@ public:
 	AVLTree(T);
 	~AVLTree();
 	T get(const T);
-	Queue<T> toQueue();
+	void toQueue(Queue<T>&);
 	bool find(const T);
 	void add(const T);
 	void remove(const T);
@@ -278,10 +278,8 @@ void AVLTree<T>::toQueue(Queue<T>& queue, BTNode<T>* node){
 }
 
 template <class T>
-Queue<T> AVLTree<T>::toQueue(){
-	Queue<T> temp;
+void AVLTree<T>::toQueue(Queue<T>& temp){
 	toQueue(temp, head);
-	return temp;
 }
 
 #endif

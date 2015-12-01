@@ -10,7 +10,8 @@ User::User(string username, string psswrd)
 }
 
 User::~User(){
-	Queue<MyTweet> theQ = myTweets.toQueue();
+	Queue<MyTweet> theQ;
+	myTweets.toQueue(theQ);
 	while(!theQ.isEmpty()){
 		theQ.pop().clearTweet();
 	}
@@ -139,9 +140,9 @@ void User::removeFollowing(string fol){
 //in order to do that we need to stream the people who are following you
 //input those string into the has table and add or remove the tweet from their newsfeed
 
-Queue<string> User::toQueueFollowers()
+void User::toQueueFollowers(Queue<string>& temp)
 {
-	return followers.toQueue();
+	followers.toQueue(temp);
 }
 
 UserTweet User::getUserTweet(Tweet* twt){
@@ -153,6 +154,6 @@ MyTweet User::getMyTweet(const int pos){
 	return myTweets.getDataPos(pos);
 }
 
-Queue<MyTweet> User::toQueueMyTweet(){
-	return myTweets.toQueue();
+void User::toQueueMyTweet(Queue<MyTweet>& temp){
+	myTweets.toQueue(temp);
 }

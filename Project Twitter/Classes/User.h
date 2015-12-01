@@ -51,8 +51,8 @@ public:
 	void displayFollowing();
 	void displayNewsFeed();
 	void displayMyTweets();
-	Queue <string> toQueueFollowers();
-	Queue <MyTweet> toQueueMyTweet();
+	void toQueueFollowers(Queue<string>&);
+	void toQueueMyTweet(Queue<MyTweet>&);
 };
 
 #endif

@@ -77,7 +77,8 @@ int main(){
 								cout << endl;
 								user->displayMyTweets();
 							}else if(pChoice == 2){
-								Queue<MyTweet> myTweetStream = user->toQueueMyTweet();
+								Queue<MyTweet> myTweetStream;
+								user->toQueueMyTweet(myTweetStream);
 								int i = 1;
 								int option;
 								if(!myTweetStream.isEmpty()){ 

@@ -28,7 +28,7 @@ class List{
 		//pos starts at 0
 		T getDataPos(const int pos);
 		T getData(const T);
-		Queue<T> toQueue();
+		void toQueue(Queue<T>&);
 		//adds node to front
 		void addFront(const T data);
 		//adds node next to node of same data
@@ -237,8 +237,7 @@ void List<T>::toString(){
 }
 
 template <class T>
-Queue<T> List<T>::toQueue(){
-	Queue<T> tempQ;
+void List<T>::toQueue(Queue<T>& tempQ){
 	if(head != NULL){
 		Node<T>* temp = head;
 		while(temp){
@@ -246,7 +245,6 @@ Queue<T> List<T>::toQueue(){
 			temp = temp->getNext();
 		}
 	}
-	return tempQ;
 }
 
 #endif
