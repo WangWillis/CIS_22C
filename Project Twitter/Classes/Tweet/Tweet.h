@@ -21,6 +21,7 @@ class Tweet{
 		Tweet(){};
 		//sets the username and the body
 		Tweet(const string, const string);
+		Tweet(const string, const string, const time_t);
 		//sets the username
 		void setUser(string);
 		//sets the body

@@ -7,6 +7,11 @@ Tweet::Tweet(string user, const string msg){
 	//sets the post time
 	time(&postTime);
 }
+Tweet::Tweet(const string user, const string msg, const time_t tim){
+	userId = user;
+	text = msg;
+	postTime = tim;
+}
 //setters and getters
 void Tweet::setUser(string us){
 	userId = us;

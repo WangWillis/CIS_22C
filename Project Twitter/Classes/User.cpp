@@ -20,13 +20,13 @@ User::~User(){
     string file = userName + ".txt";
     outFile.open(file.c_str(), std::fstream::trunc);
     //number following
-    outFile << numFollowing << endl;
+    outFile << numFollower << endl;
     //Following
-    Queue<string> folwing;
-    following.toQueue(folwing);
-    while( !folwing.isEmpty())
+    Queue<string> folw;
+    followers.toQueue(folw);
+    while( !folw.isEmpty())
     {
-        outFile << folwing.pop() << endl;
+        outFile << folw.pop() << endl;
     }
     //myTweets
     Queue<MyTweet> theQ2;
@@ -189,6 +189,11 @@ void User::removeFollowing(string fol){
 void User::toQueueFollowers(Queue<string>& temp)
 {
 	followers.toQueue(temp);
+}
+//get a queue stream for the people you follow
+void User::toQueueFollowing(Queue<string>& temp)
+{
+	following.toQueue(temp);
 }
 //get a certain user tweet
 UserTweet User::getUserTweet(Tweet* twt){

@@ -37,6 +37,19 @@ void Server::add(User* user, std::string post){
 	//adds the tweet to the owners newsfeed too
 	user->addTweet(twt);
 }
+//adds a tweet by user and tweet object
+void Server::add(User* user, Tweet* twt){
+	Queue<string> followerStream;
+	user->toQueueFollowers(followerStream);
+	//while the stream is not empty
+	while(!followerStream.isEmpty()){
+		//gets the follower's user object and adds the tweet
+		User* temp = overLord.getData(followerStream.pop());
+		temp->addTweet(twt);
+	}
+	//adds the tweet to the owners newsfeed too
+	user->addTweet(twt);
+}
 //removes a tweet
 void Server::remove(User* user, MyTweet pst){
 	//gets a stream of the users followers
@@ -81,6 +94,13 @@ void Server::unFollow(User* user, std::string unam){
 	//remove you from their followers
 	u2->removeFollower(user->getUsername());
 }
+
+void Server::addFollower(User* user, std::string unam){
+	user->addFollower(unam);
+	User* u2 = overLord.getData(unam);
+	u2->addFollowing(user->getUsername());
+}
+
 //display all the users
 void Server::displayUsers(){
 	overLord.displayKeys();

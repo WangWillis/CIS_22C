@@ -23,18 +23,20 @@ class Server{
 		User* getUser(std::string, std::string);
 		//adds a tweet by a user
 		void add(User*, std::string);
+		void add(User*, Tweet*);
 		//removes a tweets by a user
 		void remove(User*, MyTweet);
 		//makes a user follow another
 		void follow(User*, std::string);
 		//makes a user unfollow another
 		void unFollow(User*, std::string);
+		void addFollower(User*, std::string);
 		//display all the users
 		void displayUsers();
 		//display all the users plus their level in the bst
 		void showIndentedKey();
 		//gets the efficiency of inserting a string
-		int getKeyEff(std::string);
+		void getEff();
 		void writeKey();
 };
 

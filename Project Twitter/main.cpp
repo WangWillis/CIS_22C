@@ -11,51 +11,99 @@ void inputfromfile();
 
 int main(){
 	Server helper;
-	// while (!KeysHash.isEmpty())
-	// {
-	// 	string username, password, follower, follwng;
-	// 	int numFollower, numFollowing;
-	// 	if (infile)
-	// 	{
-	// 		KeysHash.pop();
-	// 		//Username
-	// 		getline(infile, username);
-			
-	// 		//password
-	// 		getline(infile, password);
-			
+	string filename;
+	Queue<string> userQueue;
+	Queue<string> passQueue;
+	filename = "user.txt";
+	ifstream infile;
+	infile.open(filename.c_str());
 
-	// 		User* userin = new User(username,password);
-	// 		//number of followers
-	// 		infile >> numFollower;
-	// 		userin->setFollowers(numFollower);
-	// 		//number following
-	// 		infile >> numFollowing;
-	// 		userin->setFollowing(numFollowing);
-	// 		if (infile.eof())
-	// 		{
-	// 			userin->setNumTweets(0);
-	// 		}
-	// 		else{
-	// 			while (!infile.eof())
-	// 			{
-	// 				Tweet *temp = new Tweet;
+	//Reads keys of the hashtable from input file and puts them in a queue
+	if (infile)
+	{
+		string key;
+		while (getline(infile, key))
+		{
+			string pass;
+			getline(infile, pass);
+			User* temp = new User(key, pass);
+			helper.addUser(temp);
+			userQueue.add(key);
+			passQueue.add(pass);
+		}
+	}
+	else
+		cout << "File that holds keys of the hash table couldn't be open...\n";
+	infile.close();
+	while (!userQueue.isEmpty())
+	{
+		
+		string userName = userQueue.pop();
+		int numFollower;
+		
+		filename = userName + ".txt";
+		infile.open(filename.c_str());
 
-	// 				string post;
-	// 				long int hold;
-	// 				time_t timeTemp;
-	// 				getline(infile, username);
-	// 				temp->setUser(username);
-	// 				infile >> hold;
-	// 				timeTemp = static_cast<time_t>(hold);
-	// 				temp->setpostim(timeTemp);
-	// 				getline(infile, post);
-	// 				temp->setTweets(post);
-	// 				userin->addTweet(temp);
-	// 			}
-	// 		}
-	// 	}
-	// }
+		if (infile)
+		{
+			User* user = helper.getUser(userName, passQueue.pop());
+			//number following
+			string lines;
+			getline(infile, lines);
+			numFollower = atoi(lines.c_str());
+			for (int i = 0; i < numFollower; i++)
+			{
+				getline(infile, lines);
+				helper.addFollower(user, lines);
+			}
+			while(getline(infile, lines))
+			{
+				string post;
+				int date = 0, hr = 0, mn = 0, sec = 0, year = 0,holdWdat = 0, holdMonth = 0;
+				char day[3], month[3],dtm[200];
+				infile.getline(dtm, 200, '\n');
+				sscanf(dtm, "%s %s %d %d:%d:%d %d", day, month, &date, &hr, &mn, &sec, &year);
+				
+				string Month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+				for (int i = 0; i < 12; i++)
+				{
+					if (Month[i] == month)
+					{
+						holdMonth = i;
+						break;
+					}
+				}
+				string Wday[7] = { "Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+				for (int i = 0; i < 7; i++)
+				{
+					if (Wday[i] == day)
+					{
+						holdWdat = i;
+						break;
+					}
+				}
+				time_t rawtime;
+				struct tm *timeinfo;
+				time(&rawtime);
+				timeinfo = localtime(&rawtime);
+
+				timeinfo->tm_wday = holdWdat;
+				timeinfo->tm_mon = holdMonth;
+				timeinfo->tm_mday = date;
+				timeinfo->tm_hour = hr;
+				timeinfo->tm_min = mn;
+				timeinfo->tm_sec = sec;
+				timeinfo->tm_year = year-1900;
+				timeinfo->tm_isdst = 0;
+				time_t timeTemp = mktime(timeinfo);
+				getline(infile, post);
+				Tweet* temp = new Tweet(lines, post, timeTemp);
+				helper.add(user, temp);
+			}			
+		}
+		infile.close();
+	}
+
 	cout << string(94, '=') << endl << endl;
 	cout << " /$$$$$$$$            /$$   /$$     /$$                                              .--.     " << endl;
 	cout << "|__  $$__/           |__/  | $$    | $$                                            .'  o \\__ " << endl;
