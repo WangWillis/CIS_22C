@@ -26,7 +26,7 @@ class HashTable{
 		//upsizes the table
 		Container<T>* upSize();
 		//holds the number of key, data pairs
-		int ele;
+		int ele, numCol, longCol;
 	public:
 		//hash table default constructor
 		HashTable();
@@ -44,21 +44,24 @@ class HashTable{
 		//checks if the key is used
 		bool freeKey(std::string);
 		//to get the effeciency of a key
-		int efficiency(std::string);
+		void efficiency();
+		//writes keys to file
 		void writeKeys();
 };
 
 template <class T>
 HashTable<T>::HashTable(){
-	writeKeys();
 	//default size 2 times expected ele and prime
 	tableSize = 53;
 	table = new Container<T> [tableSize];
 	ele = 0;
+	numCol = 0;
+	longCol = 0;
 }
 
 template <class T>
 HashTable<T>::~HashTable(){
+	writeKeys();
 	//used to free up the spots where it holds dynamically allocated memeory
 	for(int i = 0; i < tableSize; i++){
 		if(!table[i].isEmpty()){
@@ -71,6 +74,8 @@ HashTable<T>::~HashTable(){
 //increase the size
 template <class T>
 Container<T>* HashTable<T>::upSize(){
+	numCol = 0;
+	longCol = 0;
 	//doubles it cuz want to would do next prime after double though but no list/primes list take too much to generate
 	tableSize *= 2;
 	Container<T>* temp = new Container<T> [tableSize];
@@ -104,6 +109,10 @@ unsigned int HashTable<T>::hash(std::string key, Container<T>* temp){
 		i++;
 		index += i*i;
 		index = index % tableSize;
+	}
+	numCol += i;
+	if(longCol < i){
+		longCol = i;
 	}
 	return index;
 }
@@ -163,8 +172,17 @@ void HashTable<T>::remove(std::string key){
 	ele--;
 	unsigned int index = getIndex(key);
 	//deletes data from the hash table
-	if(!table[index].isEmpty())
+	if(!table[index].isEmpty()){
 		table[index].remove();
+		numCol = 0;
+		longCol = 0;
+		//only way to re-evaluate
+		Queue<string> temp;
+		keys.toQueue(temp);
+		while(!temp.isEmpty()){
+			unsigned int trashCan = hash(temp.pop(), table);
+		}
+	}
 }
 //prints the indented hash table keys
 template <class T>
@@ -178,22 +196,16 @@ void HashTable<T>::displayKeys(){
 }
 
 template <class T>
-int HashTable<T>::efficiency(std::string key){
-	if(!freeKey(key)){
-		int i = 0;
-		unsigned int index = 0;
-		for(int j = 0; j < key.size(); j++){
-			index += key[j];		
-		}
-		index = index % tableSize;
-		while(!table[index].isEmpty() && table[index].getKey() != key){
-			i++;
-			index += i*i;
-			index = index % tableSize;
-		}
-		return i;
+void HashTable<T>::efficiency(){
+	if(ele != 0){
+		//average col per ele
+		std::cout << "Load Factor: " << (double)(numCol)/ele << std::endl;
+		//total number of col
+		std::cout << "Number of Collisions: " << numCol << std::endl;
+		//longest col
+		std::cout << "Longest Collisions Path: " << longCol << std::endl;
 	}else{
-		return -1;
+		std::cout << "No elemets" << std::endl;
 	}
 }
 

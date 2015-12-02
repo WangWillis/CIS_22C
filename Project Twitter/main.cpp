@@ -235,16 +235,8 @@ int main(){
 		}else if(choice == 3){
 			//shows bst style keys
 			helper.showIndentedKey();
-		}else if(choice == 4){
-			string temp;
-			cout << "Enter the key you would like to check" << endl;
-			getline(cin, temp);
-			int eff = helper.getKeyEff(temp);
-			if(eff != -1){
-				cout << "The number of collitions were " << eff << endl;
-			}else{
-				cout << "Invalid key" << endl;
-			}
+		}else if(choice == 4){//gets the efficiency of the hash table
+			helper.getEff();
 		}else if(choice == 5){
 			helper.writeKey();
 			cout << "These keys were written to the file Keys.txt" << endl;
