@@ -237,7 +237,7 @@ int main(){
 						cout << endl << "Please enter the username of the person you would like to follow." << endl;
 						getline(cin, temp);
 						//checks if it is a valid user to follow
-						if(!helper.checkKey(temp) && !user->amFollowing(temp)){
+						if(!helper.checkKey(temp) && !user->amFollowing(temp) && temp != user->getUsername()){
 							helper.follow(user, temp);
 							cout << "You are now following " << temp << "!" << endl;
 						}else{

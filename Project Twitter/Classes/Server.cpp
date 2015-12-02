@@ -10,8 +10,19 @@ void Server::addUser(User* user){
 }
 //removes a user
 void Server::removeUser(User* user){
-	if(user != NULL)
+	if(user != NULL){
+		Queue<string> stream;
+		user->toQueueFollowing(stream);
+		while(!stream.isEmpty()){
+			unFollow(user, stream.pop());
+		}
+		user->toQueueFollowers(stream);
+		while(!stream.isEmpty()){
+			User* u2 = overLord.getData(stream.pop());
+			unFollow(u2, user->getUsername());
+		}
 		overLord.remove(user->getUsername());
+	}
 }
 //gets a user if the password matches
 User* Server::getUser(std::string userName, std::string pass){
