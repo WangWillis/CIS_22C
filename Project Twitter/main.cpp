@@ -11,51 +11,147 @@ void inputfromfile();
 
 int main(){
 	Server helper;
-	// while (!KeysHash.isEmpty())
-	// {
-	// 	string username, password, follower, follwng;
-	// 	int numFollower, numFollowing;
-	// 	if (infile)
-	// 	{
-	// 		KeysHash.pop();
-	// 		//Username
-	// 		getline(infile, username);
+	string filename;
+	Queue<string> KeysHash;
+	filename = "Keys.txt";
+	ifstream infile;
+	infile.open(filename);
+
+	//Reads keys of the hashtable from input file and puts them in a queue
+	if (infile)
+	{
+		while (!infile.eof())
+		{
+			string key;
+			getline(infile, key);
+			KeysHash.add(key);
+		}
+	}
+	else
+		cout << "File that holds keys of the hash table couldn't be open...\n";
+	infile.close();
+
+
+	while (!KeysHash.isEmpty())
+	{
+		
+		string username, password, follower, follwng;
+		int numFollower, numFollowing;
+		
+		filename = KeysHash.get() + ".txt";
+		infile.open(filename);
+
+		if (infile)
+		{
+			KeysHash.pop();
+			//Username
+			getline(infile, username);
 			
-	// 		//password
-	// 		getline(infile, password);
+			//password
+			getline(infile, password);
 			
 
-	// 		User* userin = new User(username,password);
-	// 		//number of followers
-	// 		infile >> numFollower;
-	// 		userin->setFollowers(numFollower);
-	// 		//number following
-	// 		infile >> numFollowing;
-	// 		userin->setFollowing(numFollowing);
-	// 		if (infile.eof())
-	// 		{
-	// 			userin->setNumTweets(0);
-	// 		}
-	// 		else{
-	// 			while (!infile.eof())
-	// 			{
-	// 				Tweet *temp = new Tweet;
+			User* userin = new User(username,password);
+			//number of followers
+			infile >> numFollower;
+			userin->setFollowers(numFollower);
+			//number following
+			infile >> numFollowing;
+			userin->setFollowing(numFollowing);
 
-	// 				string post;
-	// 				long int hold;
-	// 				time_t timeTemp;
-	// 				getline(infile, username);
-	// 				temp->setUser(username);
-	// 				infile >> hold;
-	// 				timeTemp = static_cast<time_t>(hold);
-	// 				temp->setpostim(timeTemp);
-	// 				getline(infile, post);
-	// 				temp->setTweets(post);
-	// 				userin->addTweet(temp);
-	// 			}
-	// 		}
-	// 	}
-	// }
+			infile.clear();
+			infile.ignore(numeric_limits<streamsize>::max(), '\n');
+			//Followers
+			Queue<string> followers;
+
+			for (int i = 0; i < numFollower; i++)
+			{
+				getline(infile, follower);
+				followers.add(follower);
+				userin->addFollower(follower);
+			}
+
+			//Following
+			Queue<string> following;
+			for (int i = 0; i < numFollowing; i++)
+			{
+				getline(infile, follwng);
+				following.add(follwng);
+				userin->addFollowing(follwng);
+			}
+
+			//myTweets
+			if (infile.eof())
+			{
+				userin->setNumTweets(0);
+			}
+			else{
+				while (!infile.eof())
+				{
+					Tweet *temp = new Tweet;
+					string post,us;	
+
+					getline(infile,us);
+					temp->setUser(us);
+
+					int date, hr, mn, sec, year,holdWdat,holdMonth;
+					char day[3], month[3],dtm[200];
+					infile.getline(dtm, 200, '\n');
+					sscanf(dtm, "%s %s %d %d:%d:%d %d", day, month, &date, &hr, &mn, &sec, &year);
+					
+					
+					string Month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+					for (int i = 0; i < 12; i++)
+					{
+						if (Month[i] == month)
+						{
+							holdMonth = i;
+							break;
+						}
+					}
+					string Wday[7] = { "Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+					for (int i = 0; i < 7; i++)
+					{
+						if (Wday[i] == day)
+						{
+							holdWdat = i;
+							break;
+						}
+					}
+					time_t rawtime;
+					struct tm *timeinfo;
+					time(&rawtime);
+					timeinfo = localtime(&rawtime);
+
+					timeinfo->tm_wday = holdWdat;
+					timeinfo->tm_mon = holdMonth;
+					timeinfo->tm_mday = date;
+					timeinfo->tm_hour = hr;
+					timeinfo->tm_min = mn;
+					timeinfo->tm_sec = sec;
+					timeinfo->tm_year = year-1900;
+					timeinfo->tm_isdst = 0;
+					time_t timeTemp = mktime(timeinfo);
+					temp->setpostim(timeTemp);
+					
+					getline(infile, post);
+					temp->setTweets(post);
+					userin->addTweet(temp);
+				}
+			}
+
+			helper.addUser(userin); //Adds user to the hash table using the server			
+			infile.close();
+		}
+
+		else
+		{
+			cout << "File of user " << KeysHash.get() << " could not be opened";
+			KeysHash.pop();
+		}
+
+	}
+
 	cout << string(94, '=') << endl << endl;
 	cout << " /$$$$$$$$            /$$   /$$     /$$                                              .--.     " << endl;
 	cout << "|__  $$__/           |__/  | $$    | $$                                            .'  o \\__ " << endl;
