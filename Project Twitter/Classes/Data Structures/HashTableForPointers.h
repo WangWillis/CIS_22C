@@ -202,7 +202,7 @@ template <class T>
 void HashTable<T>::efficiency(){
 	if(ele != 0){
 		//average col per ele
-		std::cout << "Load Factor: " << (double)(numCol)/ele << std::endl;
+		std::cout << "Load Factor: " << 1 + (double)(numCol)/ele << std::endl;
 		//total number of col
 		std::cout << "Number of Collisions: " << numCol << std::endl;
 		//longest col

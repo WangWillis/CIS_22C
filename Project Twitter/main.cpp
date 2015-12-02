@@ -150,7 +150,7 @@ int main(){
 					cout << "4. Display all Users" << endl;
 					cout << "5. Follow User" << endl;
 					cout << "6. Logout" << endl;
-					cout << "7. Delete Account(Only For Demo)" << endl;
+					cout << "7. Delete Account" << endl;
 					cin >> userChoice;
 					cin.clear();
 					cin.ignore(numeric_limits <streamsize> ::max(), '\n');
@@ -253,8 +253,10 @@ int main(){
 						cin.clear();
 						cin.ignore(numeric_limits <streamsize> ::max(), '\n');
 						if(sure == 1){
+							string fileNam = user->getUsername() + ".txt";
 							helper.removeUser(user);
 							user = NULL;
+							remove(fileNam.c_str());
 							cout << "Your account has been deleted" << endl;
 						}else{
 							userChoice = 0;
