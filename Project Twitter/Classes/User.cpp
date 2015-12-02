@@ -160,6 +160,11 @@ void User::toQueueFollowers(Queue<string>& temp)
 {
 	followers.toQueue(temp);
 }
+//get a queue stream for the people you follow
+void User::toQueueFollowing(Queue<string>& temp)
+{
+	following.toQueue(temp);
+}
 //get a certain user tweet
 UserTweet User::getUserTweet(Tweet* twt){
 	UserTweet temp(twt);
