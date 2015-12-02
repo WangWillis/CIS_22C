@@ -99,7 +99,8 @@ int main(){
 				getline(infile, post);
 				Tweet* temp = new Tweet(lines, post, timeTemp);
 				helper.add(user, temp);
-			}			
+				//time_t does not always work so there are sometimes incorrect time comparisons
+			}	
 		}
 		infile.close();
 	}
@@ -122,7 +123,7 @@ int main(){
 		cout << "1. Login" << endl;
 		cout << "2. Register" << endl;
 		cout << "3. Show Users in BST" << endl;
-		cout << "4. Show Efficiency of a key" << endl;
+		cout << "4. Show Efficiency" << endl;
 		cout << "5. Write Keys to file" << endl;
 		cout << "6. Exit" << endl;
 		cin >> choice;
