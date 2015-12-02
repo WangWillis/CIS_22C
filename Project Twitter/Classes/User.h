@@ -61,6 +61,7 @@ public:
 	void displayMyTweets();
 	//streaming functions "getting a queue"
 	void toQueueFollowers(Queue<string>&);
+	void toQueueFollowing(Queue<string>&);
 	void toQueueMyTweet(Queue<MyTweet>&);
 };
 
