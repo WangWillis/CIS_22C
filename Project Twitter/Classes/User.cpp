@@ -10,6 +10,36 @@ User::User(string username, string psswrd)
 }
 //destructor
 User::~User(){
+	ofstream outFile;
+    outFile.open("user.txt", std::fstream::app);
+    //Username
+    outFile << userName << endl;
+    //password
+    outFile << password << endl;
+    outFile.close();
+    string file = userName + ".txt";
+    outFile.open(file.c_str(), std::fstream::trunc);
+    //number following
+    outFile << numFollowing << endl;
+    //Following
+    Queue<string> folwing;
+    following.toQueue(folwing);
+    while( !folwing.isEmpty())
+    {
+        outFile << folwing.pop() << endl;
+    }
+    //myTweets
+    Queue<MyTweet> theQ2;
+    myTweets.toQueue(theQ2);
+    while(!theQ2.isEmpty())
+    {
+        Tweet* temp = theQ2.pop().getTweet();
+        time_t timeTemp = temp->getTime();
+        outFile << temp->getUserId() << endl;
+        outFile << ctime(&timeTemp);
+        outFile << temp->getText()  << endl;
+    }
+    outFile.close();
 	//freeing up the dynamically allocated tweets from myTweets
 	Queue<MyTweet> theQ;
 	myTweets.toQueue(theQ);

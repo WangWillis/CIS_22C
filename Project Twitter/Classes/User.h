@@ -5,6 +5,7 @@
 #include "Data Structures/BinaryTree/List&Queue/List.h"
 #include "Data Structures/BinaryTree/List&Queue/Node.h"
 #include "Tweet/TweetContainer.h"
+#include <fstream>
 #include "Tweet/Tweet.h"
 #include <string>
 

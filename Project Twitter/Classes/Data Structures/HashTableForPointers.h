@@ -61,7 +61,9 @@ HashTable<T>::HashTable(){
 
 template <class T>
 HashTable<T>::~HashTable(){
-	writeKeys();
+	ofstream out;
+	out.open("user.txt", std::fstream::trunc);
+	out.close();
 	//used to free up the spots where it holds dynamically allocated memeory
 	for(int i = 0; i < tableSize; i++){
 		if(!table[i].isEmpty()){
