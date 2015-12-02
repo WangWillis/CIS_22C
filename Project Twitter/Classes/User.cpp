@@ -10,6 +10,50 @@ User::User(string username, string psswrd)
 }
 //destructor
 User::~User(){
+	
+	ofstream outFile;
+	outFile.open(userName + ".txt");
+	outFile.clear();
+	//Username
+	outFile << userName << endl;
+	//password
+	outFile << password << endl;
+	//number of followers
+	outFile << numFollower << endl;
+	//number following
+	outFile<< numFollowing << endl;
+	//Followers
+	Queue<string> folwer;
+	toQueueFollowers(folwer);
+	while (!folwer.isEmpty())
+	{
+		outFile << folwer.pop() << endl;
+	}
+	//Following
+	Queue<string> folwing;
+	toQueueFollowing(folwing);
+	while (!folwing.isEmpty())
+	{
+		outFile << folwing.pop()<<endl;
+	}
+	//myTweets
+	Queue<MyTweet> theQ2;
+	myTweets.toQueue(theQ2);
+	while (!theQ2.isEmpty())
+	{
+		MyTweet te = theQ2.get();
+		Tweet* pst = te.getTweet();
+		string msgtemp, userIdtemp;
+		time_t timeTemp = pst->getTime();
+		outFile <<pst->getUserId() << endl;
+		outFile << ctime(&timeTemp)<<endl;
+		outFile <<pst->getText();
+		theQ2.pop();
+		if (!theQ2.isEmpty())
+			outFile << endl;
+	}
+	
+	outFile.close();
 	//freeing up the dynamically allocated tweets from myTweets
 	Queue<MyTweet> theQ;
 	myTweets.toQueue(theQ);
