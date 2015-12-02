@@ -186,12 +186,12 @@ int main(){
 								//displays all their tweets
 								Queue<MyTweet> myTweetStream;
 								user->toQueueMyTweet(myTweetStream);
-								int i = 1;
+								int i = 0;
 								int option;
 								if(!myTweetStream.isEmpty()){ 
 									while(!myTweetStream.isEmpty()){ //somehow the queue is not empty even when it should be
-										cout << i << ". " << myTweetStream.pop() << endl;
 										i++;
+										cout << i << ". " << myTweetStream.pop() << endl;
 									}
 									//user selects a number to delete
 									cout << "Please select the Tweet you would like to delete by entering its number." << endl;
