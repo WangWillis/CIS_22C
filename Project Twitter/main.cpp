@@ -150,6 +150,7 @@ int main(){
 					cout << "4. Display all Users" << endl;
 					cout << "5. Follow User" << endl;
 					cout << "6. Logout" << endl;
+					cout << "7. Delete Account(Only For Demo)" << endl;
 					cin >> userChoice;
 					cin.clear();
 					cin.ignore(numeric_limits <streamsize> ::max(), '\n');
@@ -245,10 +246,23 @@ int main(){
 					}else if(userChoice == 6){//exit the user logout 
 						cout << "Goodbye! " << user->getUsername() << endl;
 						user = NULL;
+					}else if(userChoice == 7){
+						int sure;
+						cout << "enter 1 for confirmation" << endl;
+						cin >> sure;
+						cin.clear();
+						cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+						if(sure == 1){
+							helper.removeUser(user);
+							user = NULL;
+							cout << "Your account has been deleted" << endl;
+						}else{
+							userChoice = 0;
+						}
 					}else{//for invalid inputs
 						cout << "I'm sorry, that's an invalid input!" << endl;
 					}
-				}while(userChoice != 6);
+				}while(userChoice != 6 && userChoice != 7);
 			}else{//when user == NULL
 				cout << "Invalid Username and/or Password!" << endl;
 			}

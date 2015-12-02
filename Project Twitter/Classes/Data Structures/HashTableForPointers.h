@@ -176,6 +176,7 @@ void HashTable<T>::remove(std::string key){
 	//deletes data from the hash table
 	if(!table[index].isEmpty()){
 		table[index].remove();
+		keys.remove(key);
 		numCol = 0;
 		longCol = 0;
 		//only way to re-evaluate

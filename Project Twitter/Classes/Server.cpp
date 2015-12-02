@@ -5,11 +5,13 @@ bool Server::checkKey(std::string key){
 }
 //adds a user
 void Server::addUser(User* user){
-	overLord.add(user->getUsername(), user);
+	if(user != NULL)
+		overLord.add(user->getUsername(), user);
 }
 //removes a user
 void Server::removeUser(User* user){
-	overLord.remove(user->getUsername());
+	if(user != NULL)
+		overLord.remove(user->getUsername());
 }
 //gets a user if the password matches
 User* Server::getUser(std::string userName, std::string pass){
