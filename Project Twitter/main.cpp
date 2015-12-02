@@ -12,101 +12,101 @@ void inputfromfile();
 int main(){
 	Server helper;
 	
-	string filename;
-	Queue<string> KeysHash;
-	filename = "Keys.txt";
-	ifstream infile;
-	infile.open(filename);
+	// string filename;
+	// Queue<string> KeysHash;
+	// filename = "Keys.txt";
+	// ifstream infile;
+	// infile.open(filename);
 
-	//Reads keys of the hashtable from input file and puts them in a queue
-	if (infile)
-	{
-		while (!infile.eof())
-		{
-			string key;
-			getline(infile, key);
-			KeysHash.add(key);
-		}
-	}
-	else
-		cout << "File that holds keys of the hash table couldn't be open...\n";
-	infile.close();
+	// //Reads keys of the hashtable from input file and puts them in a queue
+	// if (infile)
+	// {
+	// 	while (!infile.eof())
+	// 	{
+	// 		string key;
+	// 		getline(infile, key);
+	// 		KeysHash.add(key);
+	// 	}
+	// }
+	// else
+	// 	cout << "File that holds keys of the hash table couldn't be open...\n";
+	// infile.close();
 
 
-	while (!KeysHash.isEmpty())
-	{
-		User* userin=new User();
-		string username, password, follower, follwng;
-		int numFollower, numFollowing;
+	// while (!KeysHash.isEmpty())
+	// {
+	// 	User* userin=new User();
+	// 	string username, password, follower, follwng;
+	// 	int numFollower, numFollowing;
 		
-		filename = KeysHash.get() + ".txt";
-		infile.open(filename);
+	// 	filename = KeysHash.get() + ".txt";
+	// 	infile.open(filename);
 
-		if (infile)
-		{
-			KeysHash.pop();
-			//Username
-			getline(infile, username);
-			userin->setUsername(username);
-			//password
-			getline(infile, password);
-			userin->setPassword(password);
-			//number of followers
-			infile >> numFollower;
-			userin->setFollowers(numFollower);
-			//number following
-			infile >> numFollowing;
-			userin->setFollowing(numFollowing);
+	// 	if (infile)
+	// 	{
+	// 		KeysHash.pop();
+	// 		//Username
+	// 		getline(infile, username);
+	// 		userin->setUsername(username);
+	// 		//password
+	// 		getline(infile, password);
+	// 		userin->setPassword(password);
+	// 		//number of followers
+	// 		infile >> numFollower;
+	// 		userin->setFollowers(numFollower);
+	// 		//number following
+	// 		infile >> numFollowing;
+	// 		userin->setFollowing(numFollowing);
 
-			//Followers
-			Queue<string> followers;
+	// 		//Followers
+	// 		Queue<string> followers;
 
-			for (int i = 0; i < numFollower; i++)
-			{
-				getline(infile, follower);
-				followers.add(follower);
-				userin->addFollower(follower);
-			}
+	// 		for (int i = 0; i < numFollower; i++)
+	// 		{
+	// 			getline(infile, follower);
+	// 			followers.add(follower);
+	// 			userin->addFollower(follower);
+	// 		}
 
-			//Following
-			Queue<string> following;
-			for (int i = 0; i < numFollowing; i++)
-			{
-				getline(infile, follwng);
-				following.add(follwng);
-				userin->addFollowing(follwng);
-			}
+	// 		//Following
+	// 		Queue<string> following;
+	// 		for (int i = 0; i < numFollowing; i++)
+	// 		{
+	// 			getline(infile, follwng);
+	// 			following.add(follwng);
+	// 			userin->addFollowing(follwng);
+	// 		}
 
-			//myTweets
-			while (!infile.eof())
-			{
-				Tweet *temp=new Tweet;
+	// 		//myTweets
+	// 		while (!infile.eof())
+	// 		{
+	// 			Tweet *temp=new Tweet;
 
-				string post;
-				long int hold;
-				time_t timeTemp;
-				getline(infile, username);
-				temp->setUser(username);
-				infile >> hold;
-				timeTemp = static_cast<time_t>(hold);
-				temp->setpostim(timeTemp);
-				getline(infile, post);
-				temp->setTweets(post);
-				userin->addTweet(temp);
-			}
+	// 			string post;
+	// 			long int hold;
+	// 			time_t timeTemp;
+	// 			getline(infile, username);
+	// 			temp->setUser(username);
+	// 			infile >> hold;
+	// 			timeTemp = static_cast<time_t>(hold);
+	// 			temp->setpostim(timeTemp);
+	// 			getline(infile, post);
+	// 			temp->setTweets(post);
+	// 			userin->addTweet(temp);
+	// 		}
 
-			helper.addUser(userin); //Adds user to the hash table using the server			
-			infile.close();
-		}
+	// 		helper.addUser(userin); //Adds user to the hash table using the server			
+	// 		infile.close();
+	// 	}
 
-		else
-		{
-			cout << "File of user " << KeysHash.get() << " could not be opened";
-			KeysHash.pop();
-		}
+	// 	else
+	// 	{
+	// 		cout << "File of user " << KeysHash.get() << " could not be opened";
+	// 		KeysHash.pop();
+	// 	}
 
-	}
-	
+	// }
+	//COOL ASS LOGO
 	cout << string(94, '=') << endl << endl;
 	cout << " /$$$$$$$$            /$$   /$$     /$$                                              .--.     " << endl;
 	cout << "|__  $$__/           |__/  | $$    | $$                                            .'  o \\__ " << endl;
@@ -117,8 +117,10 @@ int main(){
 	cout << "   | $$|  $$$$$/$$$$/| $$  |  $$$$/|  $$$$/|  $$$$$$$| $$         `''`           `\\`\\       " << endl;
 	cout << "   |__/ \\_____/\\___/ |__/   \\___/   \\___/   \\_______/|__/                         /^\\\\\\    " << endl << endl;
 	cout << string(94, '=') << endl;
+	//choice for first menu
 	int choice;
 	do{
+		//main menu
 		cout << endl << "Welcome to Twitter!  Please enter a number to indicate what you wish to do." << endl;
 		cout << "1. Login" << endl;
 		cout << "2. Register" << endl;
@@ -133,11 +135,14 @@ int main(){
 			getline(cin, username);
 			cout << "Please enter your password" << endl;
 			getline(cin, pass);
+			//gets the user object returns NULL if not vaild pass or user
 			User* user = helper.getUser(username, pass);
+			//when not valid user or password
 			if(user != NULL){
 				int userChoice;
 				cout << endl << "Welcome " << user->getUsername() << "!" << endl;
 				do{
+					//user's menu
 					cout << endl << "What would you like to do?  Please enter a valid choice." << endl;
 					cout << "1. Add Tweet" << endl;
 					cout << "2. View Newsfeed" << endl;
@@ -148,18 +153,20 @@ int main(){
 					cin >> userChoice;
 					cin.clear();
 					cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+					//adds a tweet
 					if(userChoice == 1){
 						string msg;
 						cout << endl <<"What's on your mind?" << endl;
 						cout << "Tweet Msg: " << endl;
 						getline(cin, msg);
-						helper.add(user, msg); //crashes here
-					}else if(userChoice == 2){
+						helper.add(user, msg); 
+					}else if(userChoice == 2){//displays the users newsfeed
 						cout << endl;
 						user->displayNewsFeed();
-					}else if(userChoice == 3){
+					}else if(userChoice == 3){//views their profile
 						int pChoice;
 						do{
+							//menu for the users profile
 							cout << endl << "What would you like to do?  Please enter a valid choice." << endl;
 							cout << "1. View My Tweets" << endl;
 							cout << "2. Delete a Tweet" << endl;
@@ -170,10 +177,12 @@ int main(){
 							cin >> pChoice;
 							cin.clear();
 							cin.ignore(numeric_limits <streamsize> ::max(), '\n');
+							//views their tweets
 							if(pChoice == 1){
 								cout << endl;
 								user->displayMyTweets();
-							}else if(pChoice == 2){
+							}else if(pChoice == 2){//deletes a tweet
+								//displays all their tweets
 								Queue<MyTweet> myTweetStream;
 								user->toQueueMyTweet(myTweetStream);
 								int i = 1;
@@ -183,6 +192,7 @@ int main(){
 										cout << i << ". " << myTweetStream.pop() << endl;
 										i++;
 									}
+									//user selects a number to delete
 									cout << "Please select the Tweet you would like to delete by entering its number." << endl;
 									cin >> option;
 									cin.clear();
@@ -194,187 +204,91 @@ int main(){
 									}else{
 										cout << "I'm sorry, that's an invalid input!" << endl;
 									}
-								}else{
+								}else{//when the user has no tweets
 									cout << "There are currently no tweets to delete." << endl;
 								}
-							}else if(pChoice == 3){
+							}else if(pChoice == 3){//outputs the users followers
 								cout << endl << "Number of Followers: " << user->getFollowers() << endl;
 								user->displayFollowers();
-							}else if(pChoice == 4){
+							}else if(pChoice == 4){//out puts who the user follows
 								cout << endl << "Number of People I Follow: " << user->getFollowing() << endl;
 								user->displayFollowing();
-							}else if(pChoice == 5){
+							}else if(pChoice == 5){//unfollows a user
 								string temp;
 								cout << endl << "Please enter the username of the person you would like to Unfollow." << endl;
 								getline(cin, temp);
+								//checks to see if the user is following the person first
 								if(user->amFollowing(temp)){
 									helper.unFollow(user, temp);
 									cout << "You have now unfollowed " << temp << "!" << endl;
-								}else{
+								}else{//when a non vaild person is unfollowed
 									cout << temp << " is not valid choice/you are not following " << temp << "!" << endl;
 								}
-							}else if(pChoice != 6){
+							}else if(pChoice != 6){//for invalid inputs
 								cout << "I'm sorry, that's an invalid input!" << endl;
 							}
 						}while(pChoice != 6);
-					}else if(userChoice == 4){
+					}else if(userChoice == 4){//display all the users for TWITTER
 						cout << endl;
 						helper.displayUsers();
-					}else if(userChoice == 5){
+					}else if(userChoice == 5){//following a user
 						string temp;
 						cout << endl << "Please enter the username of the person you would like to follow." << endl;
 						getline(cin, temp);
-						if(!helper.checkKey(temp)){
-							helper.follow(user, temp);  //crashes here
+						//checks if it is a valid user to follow
+						if(!helper.checkKey(temp) && !user->amFollowing(temp)){
+							helper.follow(user, temp);
 							cout << "You are now following " << temp << "!" << endl;
 						}else{
-							cout << temp << " is not a valid user!" << endl;
+							cout << temp << " is not a valid user or already following!" << endl;
 						}
-					}else if(userChoice == 6){
-						cout << "Goodbye!" << user->getUsername() << endl;
+					}else if(userChoice == 6){//exit the user logout 
+						cout << "Goodbye! " << user->getUsername() << endl;
 						user = NULL;
-					}else{
+					}else{//for invalid inputs
 						cout << "I'm sorry, that's an invalid input!" << endl;
 					}
 				}while(userChoice != 6);
-			}else{
+			}else{//when user == NULL
 				cout << "Invalid Username and/or Password!" << endl;
 			}
-		}else if(choice == 2){
+		}else if(choice == 2){//for creating a new user
 			string username, pass, test;
+			//checking if good inputs
 			bool isGood = false;
 			do{
 				cout << endl << "Enter your desired username. Or type 'exit' to exit this process." << endl;
 				cout << "Your username cannot be user" << endl;
 				getline(cin, username);
 				test = username;
+				//makes everything lowercase
 				for (int i = 0; i < test.length(); i++)
 				{
 					test[i] = tolower(test[i]);
 				}
 				isGood = helper.checkKey(username);
+				//checks the validity of the user name
 				if ((!isGood || test == "user") && test != "exit"){
 					cout << "Invalid User name" << endl;
 				}
-			}while((test != "exit") && (!isGood || test == "user"));
+			}while((test != "exit") && (!isGood || test == "user"));//keeps going while the not exit or invalid user name
 			if(test != "exit"){
 				cout << "Please enter your desired password." << endl;
 				getline(cin, pass);
-				//can put a make sure for password here
+				//creates the new user
 				User* user = new User(username, pass);
+				//adds user to the server
 				helper.addUser(user);
 				cout << "Your account has successfully been created!" << endl << endl;
 			}
 		}else if(choice == 3){
+			//shows bst style keys
 			helper.showIndentedKey();
-		}else if(choice == 4){
+		}else if(choice == 4){//exit
 			cout << "Goodbye!" << endl << endl;
 		}else{
 			cout << "I'm sorry, that's an invalid input!" << endl << endl;
 		}
-	}while(choice != 4);
-	return 0; //crashes if a user was created.  User destructor must be broken
+	}while(choice != 4);//exit
+	return 0;
 }
-
-// void inputfromfile()
-// {
-// 	Server input;
-	
-// 	string filename;
-// 	Queue<string> KeysHash;
-// 	filename = "Keys.txt"; 
-// 	ifstream infile;
-// 	infile.open(filename);
-
-// 	//Reads keys of the hashtable from input file and puts them in a queue
-// 	if (infile)
-// 	{
-// 		while (!infile.eof())
-// 		{
-// 			string key;
-// 			getline(infile, key);
-// 			KeysHash.add(key);
-// 		}
-// 	}
-// 	else
-// 		cout << "File that holds keys of the hash table couldn't be open...\n";
-// 	infile.close();
-
-	
-// 	while (!KeysHash.isEmpty())
-// 	{
-// 		User* user = new User();
-// 		string username,password,follower,follwng;
-// 		int numFollower,numFollowing;
-// 	filename = KeysHash.get() + ".txt";
-// 	infile.open(filename);
-
-// 	if (infile)
-// 	{
-// 		KeysHash.pop();
-// 		//Username
-// 		getline(infile, username);
-// 		user->setUsername(username);
-// 		//password
-// 		getline(infile, password);
-// 		user->setPassword(password);
-// 		//number of followers
-// 		infile >> numFollower;
-// 		user->setFollowers(numFollower);
-// 		//number following
-// 		infile >> numFollowing;
-// 		user->setFollowing(numFollowing);
-		
-// 		//Followers
-// 		Queue<string> followers;
-// 		cin.clear();
-// 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-// 		for (int i = 0; i < numFollower; i++)
-// 		{
-// 			getline(infile, follower);
-// 			followers.add(follower);
-// 			user->addFollower(follower);
-// 		}
-
-// 		//Following
-// 		Queue<string> following;
-// 		for (int i = 0; i < numFollowing; i++)
-// 		{
-// 			getline(infile, follwng);
-// 			following.add(follwng);
-// 			user->addFollowing(follwng);
-// 		}
-
-// 		//myTweets
-// 		while (!infile.eof())
-// 		{
-// 			Tweet* temp = new Tweet();
-// 			string post;
-// 			time_t timeTemp;
-// 			getline(infile, username);
-// 			temp->setUser(username);
-// 			infile >> timeTemp;
-// 			temp->setpostim(timeTemp);
-// 			cin.clear();
-// 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-// 			getline(infile, post);
-// 			temp->setTweets(post);
-// 			user->addTweet(temp); 
-
-// 			input.addUser(user); //Adds user to the hash table using the server
-// 			delete temp;
-// 		}
-
-// 		delete user;
-// 		infile.close();
-// 	}
-
-// 	else
-// 	{
-// 		cout << "File of user " << KeysHash.get() << " could not be opened";
-// 		KeysHash.pop();
-// 	}
-// 	}
-
-// }
-

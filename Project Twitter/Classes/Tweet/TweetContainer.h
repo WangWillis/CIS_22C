@@ -5,31 +5,36 @@
 
 class UserTweet;
 class MyTweet;
-
+//used to hold a tweet
 class UserTweet{
 	protected:
+		//holds the tweet
 		Tweet* post;
 	public:
 		UserTweet();
 		UserTweet(Tweet*);
-		~UserTweet();
+		//gets the tweet
 		Tweet* getTweet() const;
+		//resets the tweet
 		void setPost(Tweet*);
+		//overloaded operators for templatized data structures
 		bool operator==(const UserTweet&) const;
 		bool operator!=(const UserTweet&) const;
 		friend bool operator<(const UserTweet& lhs, const UserTweet& rhs){
 			return lhs.getTweet() < rhs.getTweet();
 		}
 		friend ostream &operator << (ostream& strm, const UserTweet& obj){
+			//prints out the tweet
 			strm << *obj.getTweet();
 			return strm;
 		}
 };
-//whenever a new MyTweet update all followers
+//used to return the tweet memory
 class MyTweet : public UserTweet{
 	public:
 		MyTweet();
 		MyTweet(Tweet*);
+		//returns the tweet memory
 		void clearTweet();
 };
 

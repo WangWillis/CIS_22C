@@ -10,24 +10,24 @@ template <class T>
 class BTNode{
 	private:
 		//dont want to have a node with random data
-		BTNode();
-		T data;
-		BTNode* left;
-		BTNode* right;
-		int height;
-		void del(T const &);
-		void del(T* const &);
+		BTNode(); // Default constructor
+		T data;//Templitized data for any type that wants to be added into the tree.
+		BTNode* left; //Left child
+		BTNode* right;//Right child
+		int height;// the height of the tree
+		void del(T const &);// deletion
+		void del(T* const &); // deletion of a pointer
 	public:
-		BTNode(const T);
-		~BTNode();
-		T getData() const;
-		BTNode<T>* getLeft();
-		BTNode<T>* getRight();
-        int getHeight() const;
-        void setHeight(const int);
-        void setData(const T);
-		void setLeft(BTNode*);
-		void setRight(BTNode*);
+		BTNode(const T);// default constructor
+		~BTNode();//Deconstructor
+		T getData() const;//Returns the data
+		BTNode<T>* getLeft(); //Returns the left child
+		BTNode<T>* getRight(); //Returns the right child
+        int getHeight() const; //Returns the height
+        void setHeight(const int); //Sets the height
+        void setData(const T); //sets the data
+		void setLeft(BTNode*); // sets the left child
+		void setRight(BTNode*); // sets the right child 
 };
 
 template <class T>

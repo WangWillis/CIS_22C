@@ -1,11 +1,13 @@
 #include "Tweet.h"
 
 Tweet::Tweet(string user, const string msg){
+	//sets the username and body
 	userId = user;
 	text = msg;
+	//sets the post time
 	time(&postTime);
 }
-
+//setters and getters
 void Tweet::setUser(string us){
 	userId = us;
 }
