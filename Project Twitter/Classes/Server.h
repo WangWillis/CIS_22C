@@ -33,6 +33,9 @@ class Server{
 		void displayUsers();
 		//display all the users plus their level in the bst
 		void showIndentedKey();
+		//gets the efficiency of inserting a string
+		int getKeyEff(std::string);
+		void writeKey();
 };
 
 #endif

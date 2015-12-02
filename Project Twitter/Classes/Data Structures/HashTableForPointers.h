@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "ContainerForPointers.h"
 #include "BinaryTree/BST.h"
 
@@ -42,10 +43,14 @@ class HashTable{
 		T getData(std::string);
 		//checks if the key is used
 		bool freeKey(std::string);
+		//to get the effeciency of a key
+		int efficiency(std::string);
+		void writeKeys();
 };
 
 template <class T>
 HashTable<T>::HashTable(){
+	writeKeys();
 	//default size 2 times expected ele and prime
 	tableSize = 53;
 	table = new Container<T> [tableSize];
@@ -170,6 +175,40 @@ void HashTable<T>::showIndent(){
 template <class T>
 void HashTable<T>::displayKeys(){
 	keys.toString();
+}
+
+template <class T>
+int HashTable<T>::efficiency(std::string key){
+	if(!freeKey(key)){
+		int i = 0;
+		unsigned int index = 0;
+		for(int j = 0; j < key.size(); j++){
+			index += key[j];		
+		}
+		index = index % tableSize;
+		while(!table[index].isEmpty() && table[index].getKey() != key){
+			i++;
+			index += i*i;
+			index = index % tableSize;
+		}
+		return i;
+	}else{
+		return -1;
+	}
+}
+
+template <class T>
+void HashTable<T>::writeKeys(){
+	ofstream outFile;
+    outFile.open("Keys.txt", std::fstream::trunc);
+    //print out the keys
+    Queue<string> printKey;
+    keys.toQueue(printKey);
+    while(!printKey.isEmpty())
+    {
+        outFile << printKey.pop() << endl;
+    }
+    outFile.close();
 }
 
 #endif

@@ -74,7 +74,9 @@ int main(){
 		cout << "1. Login" << endl;
 		cout << "2. Register" << endl;
 		cout << "3. Show Users in BST" << endl;
-		cout << "4. Exit" << endl;
+		cout << "4. Show Efficiency of a key" << endl;
+		cout << "5. Write Keys to file" << endl;
+		cout << "6. Exit" << endl;
 		cin >> choice;
 		cin.clear();
 		cin.ignore(numeric_limits <streamsize> ::max(), '\n');
@@ -233,11 +235,25 @@ int main(){
 		}else if(choice == 3){
 			//shows bst style keys
 			helper.showIndentedKey();
-		}else if(choice == 4){//exit
+		}else if(choice == 4){
+			string temp;
+			cout << "Enter the key you would like to check" << endl;
+			getline(cin, temp);
+			int eff = helper.getKeyEff(temp);
+			if(eff != -1){
+				cout << "The number of collitions were " << eff << endl;
+			}else{
+				cout << "Invalid key" << endl;
+			}
+		}else if(choice == 5){
+			helper.writeKey();
+			cout << "These keys were written to the file Keys.txt" << endl;
+			helper.displayUsers();
+		}else if(choice == 6){//exit
 			cout << "Goodbye!" << endl << endl;
 		}else{
 			cout << "I'm sorry, that's an invalid input!" << endl << endl;
 		}
-	}while(choice != 4);//exit
+	}while(choice != 6);//exit
 	return 0;
 }

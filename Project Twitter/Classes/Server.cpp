@@ -89,3 +89,11 @@ void Server::displayUsers(){
 void Server::showIndentedKey(){
 	overLord.showIndent();
 }
+//gets the efficenecy of inserting a string
+int Server::getKeyEff(std::string key){
+	return overLord.efficiency(key);
+}
+
+void Server::writeKey(){
+	overLord.writeKeys();
+}
