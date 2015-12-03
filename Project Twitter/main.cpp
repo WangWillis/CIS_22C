@@ -14,7 +14,7 @@ int main(){
 	string filename;
 	Queue<string> userQueue;
 	Queue<string> passQueue;
-	filename = "user.txt";
+	filename = "Users/user.txt";
 	ifstream infile;
 	infile.open(filename.c_str());
 
@@ -41,7 +41,7 @@ int main(){
 		string userName = userQueue.pop();
 		int numFollower;
 		
-		filename = userName + ".txt";
+		filename = "Users/" + userName + ".txt";
 		infile.open(filename.c_str());
 
 		if (infile)
@@ -253,7 +253,7 @@ int main(){
 						cin.clear();
 						cin.ignore(numeric_limits <streamsize> ::max(), '\n');
 						if(sure == 1){
-							string fileNam = user->getUsername() + ".txt";
+							string fileNam = "Users/" + user->getUsername() + ".txt";
 							helper.removeUser(user);
 							user = NULL;
 							remove(fileNam.c_str());

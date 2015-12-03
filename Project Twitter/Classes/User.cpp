@@ -11,13 +11,13 @@ User::User(string username, string psswrd)
 //destructor
 User::~User(){
 	ofstream outFile;
-    outFile.open("user.txt", std::fstream::app);
+    outFile.open("Users/user.txt", std::fstream::app);
     //Username
     outFile << userName << endl;
     //password
     outFile << password << endl;
     outFile.close();
-    string file = userName + ".txt";
+    string file = "Users/" + userName + ".txt";
     outFile.open(file.c_str(), std::fstream::trunc);
     //number following
     outFile << numFollower << endl;
