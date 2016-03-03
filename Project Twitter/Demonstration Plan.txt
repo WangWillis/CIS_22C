@@ -1,0 +1,32 @@
+Demonstration Plan
+First, show the efficiency of the hash table by typing in 4 into the "Option #:" prompt to see how many collision there are. 
+Then, type 2 in the "Option #:" prompt to create a user whose username would be "22" and password "22" and then again 2 to create a user with a user name "d" and a password "d" in order to show a collision in the Hash Table.
+Then, type 4 into the option prompt to show the number of collisions changing by 1. 
+Type 3 into the option prompt to show the users in the BST. 
+Now its to login by typing 1 into the option prompt
+For the username type Leah
+For the password type trustno1
+Type 5 into the option prompt to delete the account 
+Type 1 to confirm
+Now we have deleted the head node show in when we typed 3 in the beginning menu
+Type 3 in order to see that it was deleted
+Type 5 into the option prompt to write the keys in the Hash Table to a file named Keys.txt
+Login by typing 1 into the option prompt
+For the username type "Randy"
+For the password type "manzana11"
+Type 1 to add a tweet
+Type "Hello world" in the tweet msg prompt
+Type 2 to show the newsfeed
+Type 4 to follow a user
+When prompt who to follow, type "Willis"
+Type 3 to view the my profile
+Type 1 to view all my tweets 
+Type 2 to delete a tweet
+Type 1 when prompted "Tweet #:"
+Type 3 to view my followers 
+Type 4 to View who I am following 
+Type 5 to unfollow
+When prompted to who you should unfollow type "Willis"
+Type 6 to go back to the previous menu
+Type 6 to logout 
+Type 6 to exit the program
